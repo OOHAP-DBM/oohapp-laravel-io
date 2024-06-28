@@ -737,6 +737,19 @@
     height: 300px;
   }
 }
+.bravo_wrap .bravo_detail_space .bravo_content .g-gallery .fotorama {
+  max-height: 750px;
+
+}
+
+@media (max-width: 1199px) {
+  .bravo_wrap .bravo_detail_space .bravo_content .g-gallery .fotorama { 
+    max-height: 450px;
+  }
+}
+
+
+
 .bravo_wrap .bravo_detail_space .bravo_content .g-gallery {
   margin: 10px 0;
   position: relative;

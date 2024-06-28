@@ -44,7 +44,7 @@
                     <div class="form-group form-date-field form-date-search clearfix " data-format="{{get_moment_date_format()}}">
                         <div class="date-wrapper clearfix" @click="openStartDate">
                             <div class="check-in-wrapper">
-                                <label>{{__("Select Dates")}}</label>
+                                <label>{{__("Select Duration")}}</label>
                                 <div class="render check-in-render" v-html="start_date_html"></div>
                                 @if(!empty($row->min_day_before_booking))
                                     <div class="render check-in-render">

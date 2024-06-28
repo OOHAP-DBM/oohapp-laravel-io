@@ -939,10 +939,6 @@ jQuery(function ($) {
     var onSubmitContact = false;
     //Contact box
     $('.bravo-contact-block-form').submit(function (e) {
-
-
-     
-       // alert( $tesstdata);
         e.preventDefault();
         if (onSubmitContact) return;
         $(this).addClass('loading');
@@ -954,7 +950,7 @@ jQuery(function ($) {
             data: $(this).serialize(),
             dataType: 'json',
             success: function (json) {
-                console.log(data);
+                console.log(json);
                 onSubmitContact = false;
                 me.removeClass('loading');
                 if (json.message) {
@@ -964,9 +960,6 @@ jQuery(function ($) {
                     me.find('input').val('');
                     me.find('textarea').val('');
                 }
-                /*if(typeof BravoReCaptcha != "undefined"){
-                    BravoReCaptcha.reset('contact');
-                }*/
             },
             error: function (e) {
                 console.log(e);
@@ -974,17 +967,14 @@ jQuery(function ($) {
                 me.removeClass('loading');
                 if(parseErrorMessage(e)){
                     me.find('.form-mess').html('<span class="text-danger">' + parseErrorMessage(e) + '</span>');
-                }else
-                if (e.responseText) {
+                } else if (e.responseText) {
                     me.find('.form-mess').html('<span class="text-danger">' + e.responseText + '</span>');
                 }
-                /*if(typeof BravoReCaptcha != "undefined"){
-                    BravoReCaptcha.reset('contact');
-                }*/
             }
         });
         return false;
     });
+    
 
     $('.btn-submit-enquiry').click(function (e) {
 

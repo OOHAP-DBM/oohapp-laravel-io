@@ -20,7 +20,8 @@ class Review extends BaseModel
         'rate_number',
         'author_ip',
         'status',
-        'vendor_id'
+        'vendor_id',
+        'author_id',
     ];
 
     /**
@@ -53,7 +54,7 @@ class Review extends BaseModel
                 return __("Terrible");
                 break;
             default:
-                return __("Not rated");
+                return __("Not rated yet");
                 break;
         }
     }

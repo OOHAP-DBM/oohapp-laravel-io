@@ -47,7 +47,8 @@
                     'required',
                     'string',
                     'min:6',
-                    'max:255'
+                    'max:255',
+                    'regex:/^\S*$/u'
                 ],
                 'phone'       => ['required','unique:users'],
                 'term'       => ['required'],

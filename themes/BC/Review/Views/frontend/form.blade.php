@@ -48,6 +48,7 @@
             @if($review_list)
                 @foreach($review_list as $item)
                     @php $userInfo = $item->author; $picture = $item->getReviewMetaPicture(); @endphp
+                   
                     <div class="review-item">
                         <div class="review-item-head">
                             <div class="media">

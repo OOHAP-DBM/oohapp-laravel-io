@@ -660,7 +660,7 @@ class Hotel extends Bookable
     {
         $list_score = [
             'score_total'  => 0,
-            'score_text'   => __("Not rated"),
+            'score_text'   => __("Not rated yet"),
             'total_review' => 0,
             'rate_score'   => [],
         ];
@@ -708,7 +708,7 @@ class Hotel extends Bookable
                 'total_review' => !empty($dataReview->total_review) ? $dataReview->total_review : 0,
             ];
         });
-        $list_score['review_text'] = $list_score['score_total'] ? Review::getDisplayTextScoreByLever(round($list_score['score_total'])) : __("Not rated");
+        $list_score['review_text'] = $list_score['score_total'] ? Review::getDisplayTextScoreByLever(round($list_score['score_total'])) : __("Not rated yet");
         return $list_score;
     }
 

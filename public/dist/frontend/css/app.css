@@ -2656,6 +2656,8 @@ Pricing Section
     max-width: 100%;
   }
 }
+
+
 .bravo_wrap .page-template-content .bravo-featured-item.style3 .featured-item .image .img-fluid {
   max-height: 250px;
 }
@@ -2665,6 +2667,7 @@ Pricing Section
     max-height: 150px;
   }
 }
+
 .bravo_wrap .page-template-content .bravo-featured-item.style2 {
   border-bottom: 0px;
 }
@@ -2693,6 +2696,7 @@ Pricing Section
   margin-bottom: 25px;
   text-align: center;
 }
+
 .bravo_wrap .page-template-content .bravo-featured-item.style3 .featured-item .content {
   text-align: center;
   margin-left: 0px;

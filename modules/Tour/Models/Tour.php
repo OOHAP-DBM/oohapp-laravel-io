@@ -754,7 +754,7 @@ class Tour extends Bookable
     {
         $list_score = [
             'score_total'  => 0,
-            'score_text'   => __("Not Rated"),
+            'score_text'   => __("Not Rated Yet"),
             'total_review' => 0,
             'rate_score'   => [],
         ];

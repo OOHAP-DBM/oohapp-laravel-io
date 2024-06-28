@@ -456,7 +456,7 @@ li::marker {
                                 <i class="fa fa-angle-down"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-user text-left" style="border-radius: 20px;
-    margin-top: 0px;" >
+    margin-top: 0px;    padding-left: 6%;" >
                                 @if(empty( setting_item('wallet_module_disable') ))
                                     <li class="credit_amount">
                                         <a href="{{route('user.wallet')}}"><i class="fa fa-money"></i> {{__("Credit: :amount",['amount'=>auth()->user()->balance])}}</a>

@@ -1,5 +1,6 @@
 <li class="d-flex flex-column border-0 mb-0">
     <div class="section-coupon-form">
+    @csrf
         @if(in_array($booking->status , ['draft']))
             <div class="input-group group-form mb-3">
                 <input type="text" class="form-control" name="coupon_code" placeholder="{{ __("Coupon code") }}">

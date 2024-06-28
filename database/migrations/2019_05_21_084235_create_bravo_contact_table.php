@@ -18,6 +18,7 @@ class CreateBravoContactTable extends Migration
             $table->string('name', 255)->nullable();
             $table->string('email', 255)->nullable();
             $table->text('message')->nullable();
+            $table->string('telephone',15)->nullable();
             $table->string('status', 50)->nullable();
             $table->integer('create_user')->nullable();
             $table->integer('update_user')->nullable();

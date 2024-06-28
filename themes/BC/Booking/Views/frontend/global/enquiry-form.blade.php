@@ -5,7 +5,7 @@ $user = auth()->user();
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content enquiry_form_modal_form">
             <div class="modal-header">
-                <h5 class="modal-title">{{__("Enquiry")}}</h5>
+                <h5 class="modal-title">{{__("Enquiry Form")}}</h5>
                 <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
                 <!--    <span aria-hidden="true">&times;</span>-->
                 </button>
@@ -17,14 +17,14 @@ $user = auth()->user();
                     
                     <label for="enquiry_name">{{ __('Name *') }}</label>
                     <!--<input type="text" class="form-control" value="{{$user->display_name ?? ''}}" name="enquiry_name" placeholder="{{ __("Name *") }}">-->
-                    <input type="text" class="form-control" value="" name="enquiry_name" placeholder="{{ __('Name *') }}" maxlength="20">
+                    <input type="text" class="form-control" value="" name="enquiry_name" placeholder="{{ __('Your Name *') }}" maxlength="20">
 
                 </div>
                 <div class="form-group">
                     
                     <label for="enquiry_email">{{ __('Email *') }}</label>
                     <!--<input type="text" class="form-control" value="{{$user->email ?? ''}}" name="enquiry_email" placeholder="{{ __("Email *") }}">-->
-                    <input id="email" type="email" class="form-control" value="" name="enquiry_email" placeholder="{{ __('Email *') }}">
+                    <input id="email" type="email" class="form-control" value="" name="enquiry_email" placeholder="{{ __('Your Email *') }}">
 
                 </div>
                 <div class="form-group" v-if="!enquiry_is_submit">
@@ -32,7 +32,7 @@ $user = auth()->user();
                     <!--<input type="text" class="form-control" value="{{$user->phone ?? ''}}" name="enquiry_phone" placeholder="{{ __("Phone") }}">-->
                     <!-- <input type="text" class="form-control" value="" name="enquiry_phone"
                         placeholder="{{ __('Phone') }}"> -->
-                         <input type="text" class="form-control" value="" name="enquiry_phone" placeholder="{{ __('Phone') }}" oninput="this.value = this.value.replace(/[^0-9+]/g, '').slice(0, 15);">
+                         <input type="text" class="form-control" value="" name="enquiry_phone" placeholder="{{ __('Your Phone Number *') }}" oninput="this.value = this.value.replace(/[^0-9+]/g, '').slice(0, 15);">
                         </div>
                 
                 <label for="enquiry_note">{{ __('Note') }}</label>

@@ -66,12 +66,12 @@
                     @endif
                 @endif
                 @if($meta = $booking->getMeta('adults'))
-                    <!--<li>-->
-                    <!--    <div class="label">{{__('Adults:')}}</div>-->
-                    <!--    <div class="val">-->
-                    <!--        {{$meta}}-->
-                    <!--    </div>-->
-                    <!--</li>-->
+                    <!-- <li>
+                        <div class="label">{{__('Adults:')}}</div>
+                        <div class="val">
+                            {{$meta}}
+                        </div>
+                    </li> -->
                 @endif
                 @if($meta = $booking->getMeta('children'))
                     <li>
