@@ -192,7 +192,7 @@ class SpaceController extends AdminController
     }
 
     public function store( Request $request, $id ){
-
+       // dd($request->all());
         if($id>0){
             $this->checkPermission('space_update');
             $row = $this->space::find($id);
@@ -239,6 +239,23 @@ class SpaceController extends AdminController
             'min_day_before_booking',
             'min_day_stays',
             'surrounding',
+            //New fields Hoarding 15/11/2024
+            'hoarding_type',
+            'width',
+            'height',
+            'size_preview',
+            'ooh_daily_traffic',
+            'angle_of_visibility',
+            'illumination',
+            'digital_metrics',
+            'approved_nagar_nigam',
+            'valid_till',
+            'grace_period_included',
+            'zip_code',
+            'grace_period_included',
+            'grace_period_duration',
+            'booking_duration',
+            'category_id'
 
         ];
         if($this->hasPermission('space_manage_others')){
