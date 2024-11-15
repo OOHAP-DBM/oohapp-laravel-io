@@ -41,7 +41,25 @@ class Space extends Bookable
         'content',
         
         'status',
-        'faqs'
+        'faqs',
+
+        //New fields Hoarding 15/11/2024
+        'hoarding_type',
+        'width',
+        'height',
+        'size_preview',
+        'ooh_daily_traffic',
+        'angle_of_visibility',
+        'illumination',
+        'digital_metrics',
+        'approved_nagar_nigam',
+        'valid_till',
+        'grace_period_included',
+        'zip_code',
+        'grace_period_included',
+        'grace_period_duration',
+        'booking_duration',
+
     ];
     protected $slugField     = 'slug';
     protected $slugFromField = 'title';
