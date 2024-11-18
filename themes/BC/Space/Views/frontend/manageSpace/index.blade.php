@@ -1,9 +1,9 @@
 @extends('layouts.user')
 @section('content')
     <h2 class="title-bar">
-        {{!empty($recovery) ?__('Recovery Spaces') : __("Manage Spaces")}}
+        {{!empty($recovery) ?__('Recovery Spaces') : __("Manage Hoardings")}}
         @if(Auth::user()->hasPermission('space_create')&& empty($recovery))
-            <a href="{{ route("space.vendor.create") }}" class="btn-change-password">{{__("Add Space")}}</a>
+            <a href="{{ route("space.vendor.create") }}" class="btn-change-password">{{__("Add Hoarding")}}</a>
         @endif
     </h2>
     @include('admin.message')
@@ -28,6 +28,8 @@
             </div>
         </div>
     @else
-        {{__("No Space")}}
+   <b>You haven't added any hoardings yet!</b>
+    <p>Start showcasing your advertising spaces to potential customers by adding your first hoarding.</p>
+    <p>Click the <strong>'Add Hoarding'</strong> button above to get started and list your hoarding details.</p>
     @endif
 @endsection

@@ -1,1 +1,0 @@
-<?php /**PATH G:\xampp\htdocs\oohapp-laravel-io\modules/Layout/parts/topbar.blade.php ENDPATH**/ ?>

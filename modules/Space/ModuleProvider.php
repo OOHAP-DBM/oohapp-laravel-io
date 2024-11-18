@@ -43,18 +43,18 @@ class ModuleProvider extends ModuleServiceProvider
             'space'=>[
                 "position"=>41,
                 'url'        => route('space.admin.index'),
-                'title'      => __('Space'),
+                'title'      => __('Hoardings'),
                 'icon'       => 'ion ion-md-home',
                 'permission' => 'space_view',
                 'children'   => [
                     'add'=>[
                         'url'        => route('space.admin.index'),
-                        'title'      => __('All Spaces'),
+                        'title'      => __('All Hoarding'),
                         'permission' => 'space_view',
                     ],
                     'create'=>[
                         'url'        => route('space.admin.create'),
-                        'title'      => __('Add new Space'),
+                        'title'      => __('Add new Hoarding'),
                         'permission' => 'space_create',
                     ],
                     'attribute'=>[
@@ -105,18 +105,18 @@ class ModuleProvider extends ModuleServiceProvider
         if (Space::isEnable()) {
             $res['space'] = [
                 'url'        => route('space.vendor.index'),
-                'title'      => __("Manage Space"),
+                'title'      => __("Manage Hoardings"),
                 'icon'       => Space::getServiceIconFeatured(),
                 'position'   => 50,
                 'permission' => 'space_view',
                 'children'   => [
                     [
                         'url'   => route('space.vendor.index'),
-                        'title' => __("All Spaces"),
+                        'title' => __("All Hoarding"),
                     ],
                     [
                         'url'        => route('space.vendor.create'),
-                        'title'      => __("Add Space"),
+                        'title'      => __("Add Hoarding"),
                         'permission' => 'space_create',
                     ],
                     [
