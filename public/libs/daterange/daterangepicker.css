@@ -322,6 +322,7 @@
   color: #fff;
 }
 
+
 /*  Larger Screen Styling */
 @media (min-width: 564px) {
   .daterangepicker {
