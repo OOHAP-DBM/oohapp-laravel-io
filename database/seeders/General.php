@@ -914,27 +914,27 @@ class General extends Seeder
                 ),
             ),
             array(
-                'name'       => 'Space',
+                'name'       => 'Hoarding',
                 'url'        => $locale.'/space',
                 'item_model' => 'custom',
                 'model_name' => 'Custom',
                 'children'   => array(
                     array(
-                        'name'       => 'Space List',
+                        'name'       => 'Hoarding List',
                         'url'        => $locale.'/space',
                         'item_model' => 'custom',
                         'model_name' => 'Custom',
                         'children'   => array(),
                     ),
                     array(
-                        'name'       => 'Space Map',
+                        'name'       => 'Hoarding Map',
                         'url'        => $locale.'/space?_layout=map',
                         'item_model' => 'custom',
                         'model_name' => 'Custom',
                         'children'   => array(),
                     ),
                     array(
-                        'name'       => 'Space Detail',
+                        'name'       => 'Hoarding Detail',
                         'url'        => $locale.'/space/stay-greenwich-village',
                         'item_model' => 'custom',
                         'model_name' => 'Custom',

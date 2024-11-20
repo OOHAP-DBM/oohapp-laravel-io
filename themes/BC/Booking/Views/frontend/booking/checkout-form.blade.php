@@ -138,7 +138,7 @@
     
     
     <div class="form-actions " id="includerazorpay" style="display:none;">
-        <button class="btn btn-danger " id="buttonRazorpay" >razorpay
+        <button class="btn btn-danger " id="buttonRazorpay" >Submit
             <i class="fa fa-spin fa-spinner" v-show="onSubmit"></i>
         </button>
     </div>

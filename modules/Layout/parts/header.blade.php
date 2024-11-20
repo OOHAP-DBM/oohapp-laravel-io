@@ -195,6 +195,7 @@ and (max-device-width : 1241px)
     z-index: 999 !Important;
     left: -49px ;
     top: -8px !important;
+    margin-right: 30px !important;
 }
         
         .login {
@@ -453,10 +454,10 @@ li::marker {
                                            @include('Layout::parts.notification') 
                     <li class="dropdown" >
                             <a href="#" data-toggle="dropdown" class="userdropdowned" style="" class="login">{{__("Hi, :name",['name'=>Auth::user()->getDisplayName()])}}
-                                <i class="fa fa-angle-down"></i>
+                                <i class="fa fa-angle-down" style="margin-left: 20px;"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-user text-left" style="border-radius: 20px;
-    margin-top: 0px;" >
+    margin-top: 5px; padding:10px;font-size: medium;">
                                 @if(empty( setting_item('wallet_module_disable') ))
                                     <li class="credit_amount">
                                         <a href="{{route('user.wallet')}}"><i class="fa fa-money"></i> {{__("Credit: :amount",['amount'=>auth()->user()->balance])}}</a>

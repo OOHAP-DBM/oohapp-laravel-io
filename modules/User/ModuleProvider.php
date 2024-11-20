@@ -44,7 +44,7 @@ class ModuleProvider extends ModuleServiceProvider
         $noti = $noti_verify;
 
         $options = [
-            "position"=>100,
+            "position"=>2,
             'url'        => route('user.admin.index'),
             'title'      => __('Users :count',['count'=>$noti ? sprintf('<span class="badge badge-warning">%d</span>',$noti) : '']),
             'icon'       => 'icon ion-ios-contacts',
@@ -68,7 +68,7 @@ class ModuleProvider extends ModuleServiceProvider
                 ],
                 'userUpgradeRequest'=>[
                     'url'        => route('user.admin.upgrade'),
-                    'title'      => __('Upgrade Request :count',['count'=>$noti_upgrade ? sprintf('<span class="badge badge-warning">%d</span>',$noti_upgrade) : '']),
+                    'title'      => __('Vendor Requests :count',['count'=>$noti_upgrade ? sprintf('<span class="badge badge-warning">%d</span>',$noti_upgrade) : '']),
                     'permission' => 'user_view',
                 ],
             ]
