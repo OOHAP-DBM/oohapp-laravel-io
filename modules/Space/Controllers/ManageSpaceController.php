@@ -16,6 +16,7 @@ use Modules\Booking\Models\Booking;
 use Modules\Space\Models\SpaceTerm;
 use Modules\Space\Models\SpaceTranslation;
 use Modules\User\Models\Plan;
+use Modules\Space\Models\SpaceCategory;
 
 class ManageSpaceController extends FrontendController
 {
@@ -57,6 +58,7 @@ class ManageSpaceController extends FrontendController
         $rows = $this->spaceClass::where("author_id", $user_id)->orderBy('id', 'desc');
         $data = [
             'rows' => $rows->paginate(5),
+            'categories' => SpaceCategory::get(),
             'breadcrumbs'        => [
                 [
                     'name' => __('Manage Spaces'),
@@ -79,6 +81,7 @@ class ManageSpaceController extends FrontendController
         $rows = $this->spaceClass::onlyTrashed()->where("author_id", $user_id)->orderBy('id', 'desc');
         $data = [
             'rows' => $rows->paginate(5),
+            'categories' => SpaceCategory::get(),
             'recovery'           => 1,
             'breadcrumbs'        => [
                 [
@@ -114,6 +117,7 @@ class ManageSpaceController extends FrontendController
         $row = new $this->spaceClass();
         $data = [
             'row'           => $row,
+            'categories' => SpaceCategory::get(),
             'translation' => new $this->spaceTranslationClass(),
             'space_location' => $this->locationClass::where("status","publish")->get()->toTree(),
             'location_category' => $this->locationCategoryClass::where('status', 'publish')->get(),
@@ -240,6 +244,7 @@ class ManageSpaceController extends FrontendController
         $data = [
             'translation'    => $translation,
             'row'           => $row,
+            'categories' => SpaceCategory::get(),
             'space_location' => $this->locationClass::where("status","publish")->get()->toTree(),
             'location_category' => $this->locationCategoryClass::where('status', 'publish')->get(),
             'attributes'    => $this->attributesClass::where('service', 'space')->get(),

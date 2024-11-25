@@ -48,7 +48,7 @@ class Space extends Bookable
         'width',
         'height',
         'size_preview',
-        'ooh_daily_traffic',
+        // 'ooh_daily_traffic',
         'angle_of_visibility',
         'illumination',
         'digital_metrics',

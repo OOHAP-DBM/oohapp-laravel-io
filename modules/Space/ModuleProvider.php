@@ -52,6 +52,11 @@ class ModuleProvider extends ModuleServiceProvider
                         'title'      => __('All Hoarding'),
                         'permission' => 'space_view',
                     ],
+                    'space_categoty'=>[
+                        'url'        => route('space.admin.category.index'),
+                        'title'      => __("Categories"),
+                        'permission' => 'space_create',
+                    ],
                     'create'=>[
                         'url'        => route('space.admin.create'),
                         'title'      => __('Add new Hoarding'),
