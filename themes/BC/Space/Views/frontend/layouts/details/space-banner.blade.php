@@ -18,15 +18,13 @@
 
 @if($row->banner_image_id)
 
-
-
-    
-    {{--       <div class="bravo_banner" style="">
+     <div class="bravo_banner" style="background-image: url('{{$row->getBannerImageUrlAttribute('full')}}')">
     
         <div class="container">
             <div class="bravo_gallery">
                 <div class="btn-group">
                     @if($row->video)
+
                         <a href="#" class="btn btn-transparent has-icon bravo-video-popup" data-toggle="modal" data-src="{{ handleVideoUrl($row->video) }}" data-target="#myModal">
                             <i class="input-icon field-icon fa">
                                 <svg height="18px" width="18px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
@@ -56,7 +54,7 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                                 <div class="embed-responsive embed-responsive-16by9">
-                                    <iframe class="embed-responsive-item bravo_embed_video" src="" allowscriptaccess="always" allow="autoplay"></iframe>
+                                    <iframe class="embed-responsive-item bravo_embed_video"src="http://127.0.0.1:8000/uploads/0000/170/2024/11/21/j7.PNG" class="image-responsive">" allowscriptaccess="always" allow="autoplay"></iframe>
                                 </div>
                             </div>
                         </div>
@@ -65,7 +63,7 @@
             </div>
         </div>
     </div>
-          --}}
+
 @endif
 
 
