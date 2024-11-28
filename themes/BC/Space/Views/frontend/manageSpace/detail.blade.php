@@ -1,5 +1,13 @@
 @extends('layouts.user')
 @section('content')
+
+<style>
+div#nav-tour-content.new-tab-pannel,div#nav-tour-pricing, div#nav-attribute, div#nav-ical,div#nav-tour-location {
+    width: 100%;
+    margin: 0;
+    left: 0 !important;
+}
+</style>
     <h2 class="title-bar no-border-bottom">
         {{$row->id ? __('Edit: ').$row->title : __('Add new space')}}
     </h2>
@@ -17,11 +25,11 @@
                     <a data-toggle="tab" href="#nav-tour-pricing" aria-selected="false">{{__("3. Pricing")}}</a>
                     @if(is_default_lang())
                         <a data-toggle="tab" href="#nav-attribute" aria-selected="false">{{__("4. Attributes")}}</a>
-                        <a data-toggle="tab" href="#nav-ical" aria-selected="false">{{__("5. Ical")}}</a>
+                        <!-- <a data-toggle="tab" href="#nav-ical" aria-selected="false">{{__("5. Ical")}}</a> -->
                     @endif
                 </div>
                 <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="nav-tour-content">
+                    <div class="tab-pane new-tab-pannel fade show active" id="nav-tour-content">
                         @include('Space::admin/space/content')
                         @if(is_default_lang())
                             <div class="form-group">

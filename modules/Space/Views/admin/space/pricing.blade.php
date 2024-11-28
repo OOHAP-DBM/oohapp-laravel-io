@@ -29,12 +29,13 @@
                 </div>
             </div>
         </div> -->
+        <?php $row->booking_duration = json_decode($row->booking_duration, true); ?>
         <label class="control-label"><strong>{{ __('Booking Duration Availability') }}</strong><span class="text-danger">*</span></label>
 <div class="row">
     <div class="col-lg-4">
         <div class="form-group">
             <div>
-                <input type="checkbox" name="booking_duration[]" id="booking_duration" value="1" checked onchange="toggleMonthlyDuration()">
+                <input type="checkbox" name="booking_duration[]" id="booking_duration" value="1" {{ is_array($row->booking_duration) && in_array("1", $row->booking_duration) ? 'checked' : '' }} checked onchange="toggleMonthlyDuration()">
                 <span> Monthly Available</span>
             </div>
         </div>
@@ -43,7 +44,7 @@
     <div class="col-lg-4">
         <div class="form-group">
             <div>
-                <input type="checkbox" name="booking_duration[]" id="booking_duration_weekly" value="2" {{ $row->booking_duration == 2 ? 'checked' : '' }} onchange="toggleWeeklyDuration()">
+                <input type="checkbox" name="booking_duration[]" id="booking_duration_weekly" value="2"  {{ is_array($row->booking_duration) && in_array("2", $row->booking_duration) ? 'checked' : '' }} onchange="toggleWeeklyDuration()">
                 <span> Weekly Available</span>
             </div>
         </div>
@@ -52,7 +53,7 @@
     <div class="col-lg-4">
         <div class="form-group">
             <div>
-                <input type="checkbox" name="booking_duration[]" id="booking_durations_daily" value="3" {{ $row->booking_duration == 3 ? 'checked' : '' }}onchange="toggleDailyDuration()">
+                <input type="checkbox" name="booking_duration[]" id="booking_durations_daily" value="3"  {{ is_array($row->booking_duration) && in_array("3", $row->booking_duration) ? 'checked' : '' }} onchange="toggleDailyDuration()">
                 <span> Daily Available</span>
             </div>
             <div id="booking-duration-error" style="display: none; color: red;">

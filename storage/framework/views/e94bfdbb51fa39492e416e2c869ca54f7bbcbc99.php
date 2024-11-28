@@ -9,17 +9,97 @@
 </div>
 <?php endif; ?>
 
+<!-- this code is for getting the discount price according to the monthly, daily and weekly -->
+<?php
+$daily_discount_price = null; 
+$monthly_discount_price = null;
+$weekly_discount_price = null;
+$daily_price = null;
+$daily_sale_price = $row->sale_price;
+$weekly_price = null;
+$weekly_sale_price = $row->weekly_sale_price;
+$monthly_price = null;
+$monthly_sale_price =$row->monthly_sale_price;
+
+// Calculate Daily Discount
+if (
+    !empty($row->price) && $row->price > 0 &&
+    !empty($row->sale_price) && $row->sale_price > 0 &&
+    $row->price > $row->sale_price
+) {
+    $daily_discount_price = 100 - ceil(($row->sale_price / $row->price) * 100);
+}
+
+// Calculate Monthly Discount
+if (
+    !empty($row->monthly_price) && $row->monthly_price > 0 &&
+    !empty($row->monthly_sale_price) && $row->monthly_sale_price > 0 &&
+    $row->monthly_price > $row->monthly_sale_price
+) {
+    $monthly_discount_price = 100 - ceil(($row->monthly_sale_price / $row->monthly_price) * 100);
+}
+
+// Calculate Weekly Discount
+if (
+    !empty($row->weekly_price) && $row->weekly_price > 0 &&
+    !empty($row->weekly_sale_price) && $row->weekly_sale_price > 0 &&
+    $row->weekly_price > $row->weekly_sale_price
+) {
+    $weekly_discount_price = 100 - ceil(($row->weekly_sale_price / $row->weekly_price) * 100);
+}
+
+// Store discounts in an array
+$discounts = [
+    'day' => $daily_discount_price,
+    'week' => $weekly_discount_price,
+    'month' => $monthly_discount_price,
+];
+
+
+
+if (!empty($row->price) and $row->price > 0 and !empty($row->sale_price) and $row->sale_price > 0 and $row->price > $row->sale_price) {
+    $daily_price = $row->price;
+   
+}
+if (!empty($row->weekly_price) and $row->weekly_price > 0 and !empty( $row->weekly_sale_price) and $row->weekly_sale_price > 0 and $row->weekly_price >  $row->weekly_sale_price) {
+    $weekly_price = $row->weekly_price;
+}
+if (!empty($row->monthly_price) and $row->monthly_price > 0 and !empty( $row->monthly_sale_price) and $row->monthly_sale_price > 0 and $row->monthly_price >  $row->monthly_sale_price) {
+    $monthly_price =$row->monthly_price;
+}
+
+// //selles price 
+// if (!empty($row->price) and $row->price > 0 and !empty($row->sale_price) and $row->sale_price > 0 and $row->price > $row->sale_price) {
+//     $daily_price = $row->price;
+
+// }
+// if (!empty($row->weekly_price) and $row->weekly_price > 0 and !empty($row->weekly_sale_price) and $row->weekly_sale_price > 0 and $row->weekly_price > $row->weekly_sale_price) {
+//     $weekly_price = $row->weekly_price;
+   
+
+// }  if (!empty($row->monthly_price) and $row->monthly_price > 0 and !empty($row->monthly_sale_price) and $row->monthly_sale_price > 0 and $row->monthly_price > $row->monthly_sale_price) {
+//     $monthly_price =$row->monthly_price;
+// }
+
+
+?>
 
 
 
 <div class="bravo_single_book_wrap">
     <div class="bravo_single_book">
         <div id="bravo_space_book_app" v-cloak>
-            <?php if($row->discount_percent): ?>
-            <div class="tour-sale-box">
-                <span class="sale_class box_sale sale_small"><?php echo e($row->discount_percent); ?></span>
+            <!-- Display Discounts -->
+            <div id="discountBox">
+                <?php foreach ($discounts as $duration => $discount): ?>
+                <?php if ($discount): ?>
+                <div class="tour-sale-box discount-box" data-duration="<?= $duration ?>" style="display: none;">
+                    <span class="sale_class box_sale sale_small"><?= $discount ?>% </span>
+                </div>
+                <?php endif; ?>
+                <?php endforeach; ?>
             </div>
-            <?php endif; ?>
+
             <div class="form-head">
                 <div class="price">
                     <span class="label">
@@ -27,8 +107,10 @@
 
                     </span>
                     <span class="value">
-                        <span class="onsale"><?php echo e($row->display_sale_price); ?></span>
-                        <span class="text-lg"><?php echo e($row->display_price); ?></span>
+                    <span id="priceDisplay" class="onsale">₹<?php echo e($daily_price ?? $weekly_price ?? $monthly_price); ?></span>
+                    <span id="salePriceDisplay" class="text-lg">₹<?php echo e($daily_sale_price ?? $weekly_sale_price ?? $monthly_sale_price); ?></span>
+                        <!-- <span class="onsale"><?php echo e($row->display_sale_price); ?></span>
+                        <span class="text-lg"><?php echo e($row->display_price); ?></span> -->
                     </span>
                 </div>
             </div>
@@ -56,21 +138,28 @@
                 </button>
             </div> -->
 
-
+            <?php $row->booking_duration = json_decode($row->booking_duration); ?>
             <div class="nav-enquiry">
+                <?php if(is_array($row->booking_duration) && in_array("1", $row->booking_duration)): ?>
                 <button type="button" class="btn btn-outline-success" id="monthlyButton"
                     onclick="setBookingDuration('month')">
                     Monthly
                 </button>
+                <?php endif; ?>
+                <?php if(is_array($row->booking_duration) && in_array("2", $row->booking_duration)): ?>
                 <button type="button" class="btn btn-outline-success" id="weeklyButton"
                     onclick="setBookingDuration('week')">
                     Weekly
                 </button>
+                <?php endif; ?>
+                <?php if(is_array($row->booking_duration) && in_array("3", $row->booking_duration)): ?>
                 <button type="button" class="btn btn-outline-success" id="dailyButton"
                     onclick="setBookingDuration('day')">
                     Daily
                 </button>
+                <?php endif; ?>
             </div>
+
             <div class="form-book" :class="{ 'd-none': enquiry_type != 'book' }">
                 <div class="form-content">
                     
@@ -225,19 +314,24 @@
         </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    var discounts = <?= json_encode($discounts) ?>;
+</script>
 <script>
 $(document).ready(function() {
-    // Function to handle button clicks and content update
+    var discounts = window.discounts || {};
+
+
+   
     window.setBookingDuration = function(duration) {
-        // Remove active class from all buttons
+      
         $(".btn").removeClass("active");
 
         // Add active class to the clicked button
         $("#" + duration + "Button").addClass("active");
 
-        // Set the content based on the selected duration
+       
         let content = "";
         if (duration === "month") {
             content = "month";
@@ -247,9 +341,43 @@ $(document).ready(function() {
             content = "day";
         }
 
-        // Update the view mode content and show the div
         $("#viewModeContent").html(content).show();
     };
 });
+</script> -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ <script>
+$(document).ready(function() {
+    // Store prices and sale prices in an object
+    var prices = {
+        day: { price: <?= $daily_price ?>, salePrice: <?= $daily_sale_price ?> },
+        week: { price: <?= $weekly_price ?>, salePrice: <?= $weekly_sale_price ?> },
+        month: { price: <?= $monthly_price ?>, salePrice: <?= $monthly_sale_price ?> }
+    };
+
+    // Function to handle price updates based on selected duration
+    window.setBookingDuration = function(duration) {
+        // Hide all discount boxes
+        $(".discount-box").hide();
+        // Show the discount box for the selected duration
+        $(".discount-box[data-duration='" + duration + "']").show();
+
+        // Update price and sale price according to selected duration
+        $("#priceDisplay").text("₹" + prices[duration].price);
+        $("#salePriceDisplay").text("₹" + prices[duration].salePrice);
+
+        // Update the view mode content
+        $("#viewModeContent").text(duration);
+
+        // Add active class to the clicked button
+        $(".btn").removeClass("active");
+        $("#" + duration + "Button").addClass("active");
+    };
+
+    // Set default duration to 'month' on page load
+    setBookingDuration('month');
+});
+
 </script>
+
 <?php echo $__env->make('Booking::frontend.global.enquiry-form', ['service_type' => 'space'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\oohapp-laravel-io\themes/BC/Space/Views/frontend/layouts/details/space-form-book.blade.php ENDPATH**/ ?>
