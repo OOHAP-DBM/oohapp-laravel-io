@@ -749,23 +749,9 @@ body .daterangepicker .drp-calendar .calendar-table tbody tr td.end-date {
   border-right: solid 2px #5191fa;
 }
 body .daterangepicker .drp-calendar .calendar-table tbody tr td.disabled {
-    background: rgb(209, 207, 207);
+    background: red;
     text-decoration: none;
 }
-
-
-body .daterangepicker .drp-calendar .calendar-table tbody tr td.highlighted-date {
-  background-color: red !important; /* Apply red background */
-  color: white !important; /* Adjust text color for readability */
-  border-radius: 4px; /* Optional: Rounded corners */
-}
-
-
-
-
-
-
-
 body .daterangepicker:before, body .daterangepicker:after {
   content: "";
   position: static;
@@ -924,7 +910,7 @@ body .daterangepicker.respon-single .calendar.left .next {
   display: block;
 }
 body .daterangepicker .drp-calendar .calendar-table tbody tr td {
-   background: #b5f0b5;
+   background: #008000;
     position: relative;
    
 }
@@ -7840,7 +7826,3 @@ ul, ol {
   height: 10vh;
   border: 3px dashed gray;
 }
-
-
-
-
