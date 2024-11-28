@@ -742,6 +742,7 @@ body .daterangepicker .drp-calendar .calendar-table tbody tr td.start-date, body
   border-top: none;
   border-bottom: none;
 }
+
 body .daterangepicker .drp-calendar .calendar-table tbody tr td.start-date {
   border-left: solid 2px #5191fa;
 }
@@ -749,9 +750,23 @@ body .daterangepicker .drp-calendar .calendar-table tbody tr td.end-date {
   border-right: solid 2px #5191fa;
 }
 body .daterangepicker .drp-calendar .calendar-table tbody tr td.disabled {
-    background: red;
+    background: rgb(209, 207, 207);
     text-decoration: none;
 }
+
+
+body .daterangepicker .drp-calendar .calendar-table tbody tr td.highlighted-date {
+  background-color: red !important; /* Apply red background */
+  color: white !important; /* Adjust text color for readability */
+  border-radius: 4px; /* Optional: Rounded corners */
+}
+
+
+
+
+
+
+
 body .daterangepicker:before, body .daterangepicker:after {
   content: "";
   position: static;
@@ -910,7 +925,7 @@ body .daterangepicker.respon-single .calendar.left .next {
   display: block;
 }
 body .daterangepicker .drp-calendar .calendar-table tbody tr td {
-   background: #008000;
+   background: #b5f0b5;
     position: relative;
    
 }
@@ -7055,7 +7070,6 @@ ul, ol {
 }
 .bravo_wrap .bravo_topbar .content .topbar-right .dropdown-notifications .dropdown-menu {
   left: 0 !important;
-margin-right: 20px;
 }
 .bravo_wrap .bravo_topbar .content .topbar-right .dropdown-menu {
   right: 0;
@@ -7827,3 +7841,20 @@ margin-right: 20px;
   height: 10vh;
   border: 3px dashed gray;
 }
+
+.nav-enquiry .btn-outline-success {
+        font-size: 12px; 
+        padding: 8px 12px; 
+        margin: 5px; 
+        border-radius: 4px; 
+        transition: all 0.3s ease; 
+    }
+.nav-enquiry .btn-outline-success:hover {
+        background-color: green; 
+        color: white; 
+        border-color: green;
+    }
+    .highlighted-date {
+      background-color: red !important; /* Make the background red */
+      color: white !important; /* Make text color white for contrast */
+  }

@@ -18,6 +18,7 @@ use Modules\Location\Models\LocationCategory;
 use Modules\Space\Models\Space;
 use Modules\Space\Models\SpaceTerm;
 use Modules\Space\Models\SpaceTranslation;
+use Modules\Space\Models\SpaceCategory;
 
 class SpaceController extends AdminController
 {
@@ -75,6 +76,7 @@ class SpaceController extends AdminController
         }
         $data = [
             'rows'               => $query->with(['author'])->paginate(20),
+            'categories' => SpaceCategory::get(),
             'space_manage_others' => $this->hasPermission('space_manage_others'),
             'breadcrumbs'        => [
                 [
@@ -110,6 +112,7 @@ class SpaceController extends AdminController
         }
         $data = [
             'rows'               => $query->with(['author'])->paginate(20),
+            'categories' => SpaceCategory::get(),
             'space_manage_others' => $this->hasPermission('space_manage_others'),
             'recovery'           => 1,
             'breadcrumbs'        => [
@@ -136,6 +139,8 @@ class SpaceController extends AdminController
         ]);
         $data = [
             'row'            => $row,
+            'categories' => SpaceCategory::get(),
+          
             'attributes'     => $this->attributes::where('service', 'space')->get(),
             'space_location' => $this->location::where('status', 'publish')->get()->toTree(),
             'location_category' => $this->locationCategoryClass::where('status', 'publish')->get(),
@@ -171,6 +176,8 @@ class SpaceController extends AdminController
         $data = [
             'row'            => $row,
             'translation'    => $translation,
+            'categories' => SpaceCategory::get(),
+            'selectedCategoryId' => $row->category_id ?? null,
             "selected_terms" => $row->terms->pluck('term_id'),
             'attributes'     => $this->attributes::where('service', 'space')->get(),
             'space_location'  => $this->location::where('status', 'publish')->get()->toTree(),
@@ -192,7 +199,7 @@ class SpaceController extends AdminController
     }
 
     public function store( Request $request, $id ){
-       // dd($request->all());
+        // dd($request->all());
         if($id>0){
             $this->checkPermission('space_update');
             $row = $this->space::find($id);
@@ -231,6 +238,10 @@ class SpaceController extends AdminController
             'map_zoom',
             'price',
             'sale_price',
+            'monthly_price',
+            'monthly_sale_price',
+            'weekly_price',
+            'weekly_sale_price',
             'max_guests',
             'enable_extra_price',
             'extra_price',
@@ -244,17 +255,17 @@ class SpaceController extends AdminController
             'width',
             'height',
             'size_preview',
-            'ooh_daily_traffic',
-            'angle_of_visibility',
-            'illumination',
-            'digital_metrics',
-            'approved_nagar_nigam',
+            // 'ooh_daily_traffic',
+            // 'angle_of_visibility',
+            // 'illumination',
+            // 'digital_metrics',
+            // 'approved_nagar_nigam',
             'valid_till',
             'grace_period_included',
             'zip_code',
             'grace_period_included',
             'grace_period_duration',
-            'booking_duration',
+            // 'booking_duration',
             'category_id'
 
         ];
@@ -269,6 +280,10 @@ class SpaceController extends AdminController
 	    $row->ical_import_url  = $request->ical_import_url;
         $row->enable_service_fee = $request->input('enable_service_fee');
         $row->service_fee = $request->input('service_fee');
+
+        if ($request->has('booking_duration')) {
+            $row->booking_duration = json_encode($request->input('booking_duration')); // Store  booking duration in JSON 
+        }
 
         $res = $row->saveOriginOrTranslation($request->input('lang'),true);
 

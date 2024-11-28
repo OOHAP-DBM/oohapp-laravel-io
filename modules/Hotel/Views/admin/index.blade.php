@@ -5,7 +5,7 @@
             <h1 class="title-bar">{{!empty($recovery) ? __('Recovery') : __("All Hotels")}}</h1>
             <div class="title-actions">
                 @if(empty($recovery))
-                <a href="{{route('hotel.admin.create')}}" class="btn btn-primary">{{__("Add new hoarding")}}</a>
+                <a href="{{route('hotel.admin.create')}}" class="btn btn-primary">{{__("Add New Hoarding")}}</a>
                 @endif
             </div>
         </div>

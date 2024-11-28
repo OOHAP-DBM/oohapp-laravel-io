@@ -2,7 +2,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="d-flex justify-content-between mb20">
-            <h1 class="title-bar">{{__("Space Attributes")}}</h1>
+            <h1 class="title-bar">{{__("Hoarding Attributes")}}</h1>
         </div>
         @include('admin.message')
         <div class="row">

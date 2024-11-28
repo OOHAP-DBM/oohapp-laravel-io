@@ -24,4 +24,32 @@
             <input type="checkbox" name="hide_in_filter_search" @if($row->hide_in_filter_search) checked @endif value="1"> {{__("Enable hide")}}
         </label>
     </div>
+    <div class="form-group">
+    <label>{{ __('Types of Attribute') }}</label>
+    <br>
+    <label>
+        <input type="radio" name="types_of_attribute" value="0" 
+               {{ $row->types_of_attribute == '0' ? 'checked' : '' }} 
+               onchange="toggleInputType(this)"> {{ __('Single selection') }}
+    </label>
+    
+    <label>
+    <div class="attribute-type"style="margin-left: 35px;">
+        <input type="radio" name="types_of_attribute" value="1" 
+               {{ $row->types_of_attribute == '1' ? 'checked' : '' }} 
+               onchange="toggleInputType(this)"> {{ __('Multi selection') }}
+               </div>
+    </label>
+
+</div>
+
+<div class="form-group">
+    <label>{{ __('Make the following field mandatory') }}</label>
+    <br>
+    <input type="hidden" name="is_mandatory" value="0">
+    <label>
+        <input type="checkbox" id="makeMandatoryCheckbox" name="is_mandatory" value="1" 
+               {{ $row->is_mandatory ? 'checked' : '' }}> {{ __('Enable mandatory') }}
+    </label>
+</div>
 @endif

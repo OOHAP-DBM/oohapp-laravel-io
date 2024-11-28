@@ -1,4 +1,4 @@
-<div class="panel">
+<!-- <div class="panel">
     <div class="panel-title"><strong>{{__('Ical')}}</strong></div>
     <div class="panel-body">
         <div class="form-group">
@@ -12,4 +12,4 @@
         </div>
             @endif
     </div>
-</div>
+</div> -->

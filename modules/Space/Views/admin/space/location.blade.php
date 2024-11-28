@@ -3,6 +3,8 @@
     <div class="panel-body">
         @if(is_default_lang())
             <div class="form-group">
+              <div class="row">
+                <div class="col-md-6">
                 <label class="control-label">{{__("Location")}}</label>
                 @if(!empty($is_smart_search))
                     <div class="form-group-smart-search">
@@ -51,8 +53,16 @@
                         </select>
                     </div>
                 @endif
-            </div>
+                </div>
+        <!-- </div> -->
         @endif
+         <!-- </div> -->
+        
+           <div class="col-md-6">  <label class="control-label">{{__("Zip Code")}}</label>
+             <input type="number" name="zip_code" id="zip_code" class="form-control" placeholder="{{__("zip_code")}}" value="{{$row->zip_code}}">
+        </div>
+        </div>
+                        </div>             
         <div class="form-group">
             <label class="control-label">{{__("Real address")}}</label>
             <input type="text" name="address" id="customPlaceAddress" class="form-control" placeholder="{{__("Real address")}}" value="{{$translation->address}}">

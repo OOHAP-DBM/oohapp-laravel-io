@@ -82,7 +82,9 @@ class AttributeController extends AdminController
     {
         $this->checkPermission('space_manage_attributes');
         $this->validate($request, [
-            'name' => 'required'
+            'name' => 'required',
+            'types_of_attribute' => 'required|in:0,1', 
+            'is_mandatory' => 'nullable|boolean',
         ]);
         $id = $request->input('id');
         if ($id) {
