@@ -1,13 +1,3 @@
-<?php if($row->map_lat && $row->map_lng): ?>
-<div class="g-location" style="width: 164%;
-    margin-left: -15%;
-    margin-top: -20px;">
-    
-    <div class="location-map">
-        <div id="map_content"></div>
-    </div>
-</div>
-<?php endif; ?>
 
 
 <div class="g-header">
@@ -109,11 +99,9 @@
     </div>
 </div>
 <?php if($row->getGallery()): ?>
-
     <div class="g-gallery">
         <div class="fotorama" data-width="100%" data-thumbwidth="135" data-thumbheight="135" data-thumbmargin="15" data-nav="thumbs" data-allowfullscreen="true">
             <?php $__currentLoopData = $row->getGallery(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-          
                 <a href="<?php echo e($item['large']); ?>" data-thumb="<?php echo e($item['thumb']); ?>" data-alt="<?php echo e(__("Gallery")); ?>"></a>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
@@ -180,5 +168,13 @@
 </div>
 <?php endif; ?>
 <?php if ($__env->exists("Hotel::frontend.layouts.details.hotel-surrounding")) echo $__env->make("Hotel::frontend.layouts.details.hotel-surrounding", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php if($row->map_lat && $row->map_lng): ?>
+<div class="g-location">
+    <h3><?php echo e(__("Location")); ?></h3>
+    <div class="location-map">
+        <div id="map_content"></div>
+    </div>
+</div>
+<?php endif; ?>
 
 <?php /**PATH C:\xampp\htdocs\oohapp-laravel-io\themes/BC/Space/Views/frontend/layouts/details/space-detail.blade.php ENDPATH**/ ?>

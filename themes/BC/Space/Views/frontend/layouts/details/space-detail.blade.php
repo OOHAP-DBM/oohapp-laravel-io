@@ -1,4 +1,4 @@
-@if($row->map_lat && $row->map_lng)
+{{--@if($row->map_lat && $row->map_lng)
 <div class="g-location" style="width: 164%;
     margin-left: -15%;
     margin-top: -20px;">
@@ -7,8 +7,7 @@
         <div id="map_content"></div>
     </div>
 </div>
-@endif
-
+@endif --}}
 
 <div class="g-header">
     <div class="left">
@@ -104,11 +103,9 @@
     </div>
 </div>
 @if($row->getGallery())
-
     <div class="g-gallery">
         <div class="fotorama" data-width="100%" data-thumbwidth="135" data-thumbheight="135" data-thumbmargin="15" data-nav="thumbs" data-allowfullscreen="true">
             @foreach($row->getGallery() as $key=>$item)
-          
                 <a href="{{$item['large']}}" data-thumb="{{$item['thumb']}}" data-alt="{{ __("Gallery") }}"></a>
             @endforeach
         </div>
@@ -174,4 +171,12 @@
 </div>
 @endif
 @includeIf("Hotel::frontend.layouts.details.hotel-surrounding")
+@if($row->map_lat && $row->map_lng)
+<div class="g-location">
+    <h3>{{__("Location")}}</h3>
+    <div class="location-map">
+        <div id="map_content"></div>
+    </div>
+</div>
+@endif
 

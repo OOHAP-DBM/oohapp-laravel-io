@@ -1,13 +1,4 @@
-@if ($row->map_lat && $row->map_lng)
-<div class="g-location" style="width: 164%;
-    margin-left: -15%;
-    margin-top: -20px;">
 
-    <div class="location-map">
-        <div id="map_content"></div>
-    </div>
-</div>
-@endif
 
 <!-- this code is for getting the discount price according to the monthly, daily and weekly -->
 <?php

@@ -7,13 +7,13 @@
     margin-left: 0px;
     margin-right: 0px;
 }
-.owner-info {
+/* .owner-info {
     margin-top: 181%;
     background: #FFF;
     border-radius: 3px;
     padding: 15px;
     border: 1px solid #D7DCE3;
-}
+} */
 </style>
 
 <?php if($row->banner_image_id): ?>
@@ -42,7 +42,7 @@
                                         </path>
                                     </g>
                                 </svg>
-                            </i><?php echo e(__("Space Video")); ?>
+                            </i><?php echo e(__("Hoarding Video")); ?>
 
                         </a>
                     <?php endif; ?>
@@ -55,7 +55,7 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                                 <div class="embed-responsive embed-responsive-16by9">
-                                    <iframe class="embed-responsive-item bravo_embed_video"src="http://127.0.0.1:8000/uploads/0000/170/2024/11/21/j7.PNG" class="image-responsive">" allowscriptaccess="always" allow="autoplay"></iframe>
+                                    <iframe class="embed-responsive-item bravo_embed_video"src="" class="image-responsive">" allowscriptaccess="always" allow="autoplay"></iframe>
                                 </div>
                             </div>
                         </div>
