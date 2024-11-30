@@ -83,166 +83,323 @@ class AvailabilityController extends FrontendController{
         return view($this->indexView,compact('rows','breadcrumbs','current_month','page_title','request'));
     }
 
-    public function loadDates(Request $request)
-    {
-        $rules = [
-            'id'=>'required',
-            'start'=>'required',
-            'end'=>'required',
-        ];
-        $validator = \Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return $this->sendError($validator->errors());
-        }
-        $space = $this->spaceClass::find($request->query('id'));
-        if(empty($space)){
-            return $this->sendError(__('Space not found'));
-        }
-        $is_single = $request->query('for_single');
-        $query = $this->spaceDateClass::query();
-        $query->where('target_id',$request->query('id'));
-        $query->where('start_date','>=',date('Y-m-d H:i:s',strtotime($request->query('start'))));
-        $query->where('end_date','<=',date('Y-m-d H:i:s',strtotime($request->query('end'))));
-        $rows =  $query->take(100)->get();
-        $allDates = [];
-        $period = periodDate($request->input('start'),$request->input('end'));
-        foreach ($period as $dt){
-            $i = $dt->getTimestamp();
-            $date = [
-                'id'=>rand(0,999),
-                'active'=>0,
-                'price'=>(!empty($space->sale_price) and $space->sale_price > 0 and $space->sale_price < $space->price) ? $space->sale_price : $space->price,
-                'is_instant'=>$space->is_instant,
-                'is_default'=>true,
-                'textColor'=>'#2791fe',
-                'half'=>false,
-            ];
-            if(!$is_single){
-	            $date['price_html'] = format_money_main($date['price']);
-            }else{
-	            $date['price_html'] = format_money($date['price']);
-            }
-            $date['title'] = $date['event']  = $date['price_html'];
-            $date['start'] = $date['end'] = date('Y-m-d',$i);
-            if($space->default_state){
-                $date['active'] = 1;
-            }else{
-                $date['title'] = $date['event'] = __('Blocked');
-                $date['backgroundColor'] = 'orange';
-                $date['borderColor'] = '#fe2727';
-                $date['classNames'] = ['blocked-event'];
-                $date['textColor'] = '#fe2727';
-            }
-            $allDates[date('Y-m-d',$i)] = $date;
-        }
-        if(!empty($rows))
-        {
-            foreach ($rows as $row)
-            {
-                $row->start = date('Y-m-d',strtotime($row->start_date));
-                $row->end = date('Y-m-d',strtotime($row->start_date));
-                $row->textColor = '#2791fe';
-                $price = $row->price;
-                if(empty($price)){
-                    $price = (!empty($space->sale_price) and $space->sale_price > 0 and $space->sale_price < $space->price) ? $space->sale_price : $space->price;
-                }
-	            if(!$is_single){
-		            $row->title = $row->event = format_money_main($price);
-	            }else{
-		            $row->title = $row->event = format_money($price);
+    // public function loadDates(Request $request)
+    // {
+    //     $rules = [
+    //         'id'=>'required',
+    //         'start'=>'required',
+    //         'end'=>'required',
+    //     ];
+    //     $validator = \Validator::make($request->all(), $rules);
+    //     if ($validator->fails()) {
+    //         return $this->sendError($validator->errors());
+    //     }
+    //     $space = $this->spaceClass::find($request->query('id'));
+    //     if(empty($space)){
+    //         return $this->sendError(__('Space not found'));
+    //     }
+    //     $is_single = $request->query('for_single');
+    //     $query = $this->spaceDateClass::query();
+    //     $query->where('target_id',$request->query('id'));
+    //     $query->where('start_date','>=',date('Y-m-d H:i:s',strtotime($request->query('start'))));
+    //     $query->where('end_date','<=',date('Y-m-d H:i:s',strtotime($request->query('end'))));
+    //     $rows =  $query->take(100)->get();
+    //     $allDates = [];
+    //     $period = periodDate($request->input('start'),$request->input('end'));
+    //     foreach ($period as $dt){
+    //         $i = $dt->getTimestamp();
+    //         $date = [
+    //             'id'=>rand(0,999),
+    //             'active'=>0,
+    //             'price'=>(!empty($space->sale_price) and $space->sale_price > 0 and $space->sale_price < $space->price) ? $space->sale_price : $space->price,
+    //             'is_instant'=>$space->is_instant,
+    //             'is_default'=>true,
+    //             'textColor'=>'#2791fe',
+    //             'half'=>false,
+    //         ];
+    //         if(!$is_single){
+	//             $date['price_html'] = format_money_main($date['price']);
+    //         }else{
+	//             $date['price_html'] = format_money($date['price']);
+    //         }
+    //         $date['title'] = $date['event']  = $date['price_html'];
+    //         $date['start'] = $date['end'] = date('Y-m-d',$i);
+    //         if($space->default_state){
+    //             $date['active'] = 1;
+    //         }else{
+    //             $date['title'] = $date['event'] = __('Blocked');
+    //             $date['backgroundColor'] = 'orange';
+    //             $date['borderColor'] = '#fe2727';
+    //             $date['classNames'] = ['blocked-event'];
+    //             $date['textColor'] = '#fe2727';
+    //         }
+    //         $allDates[date('Y-m-d',$i)] = $date;
+    //     }
+    //     if(!empty($rows))
+    //     {
+    //         foreach ($rows as $row)
+    //         {
+    //             $row->start = date('Y-m-d',strtotime($row->start_date));
+    //             $row->end = date('Y-m-d',strtotime($row->start_date));
+    //             $row->textColor = '#2791fe';
+    //             $price = $row->price;
+    //             if(empty($price)){
+    //                 $price = (!empty($space->sale_price) and $space->sale_price > 0 and $space->sale_price < $space->price) ? $space->sale_price : $space->price;
+    //             }
+	//             if(!$is_single){
+	// 	            $row->title = $row->event = format_money_main($price);
+	//             }else{
+	// 	            $row->title = $row->event = format_money($price);
 
-	            }
-                $row->price = $price;
-                if(!$row->active)
-                {
-                    $row->title = $row->event = __('Blocked');
-                    $row->backgroundColor = '#fe2727';
-                    $row->classNames = ['blocked-event'];
-                    $row->textColor = '#fe2727';
-                    $row->active = 0;
-                }else{
-                    $row->classNames = ['active-event'];
-                    $row->active = 1;
-                    if($row->is_instant){
-                        $row->title = '<i class="fa fa-bolt"></i> '.$row->title;
-                    }
-                }
-                $allDates[date('Y-m-d',strtotime($row->start_date))] = $row->toArray();
-            }
-        }
-        $bookings = $this->bookingClass::getBookingInRanges($space->id,$space->type,$request->query('start'),$request->query('end'));
-        if(!empty($bookings))
-        {
-            foreach ($bookings as $booking){
-                $period = periodDate($booking->start_date,$booking->end_date);
-                foreach ($period as $dt){
-                    $i = $dt->getTimestamp();
-                    if(isset($allDates[date('Y-m-d',$i)])){
-                        if($allDates[date('Y-m-d', $i)]['active'] == 0){
-                            continue;
-                        }
-                        $allDates[date('Y-m-d', $i)]['active'] = 0;
-                        if($space->getBookingType() == 'by_night'){
-                            if($booking->start_date == date('Y-m-d 00:00:00',$i)){
-                                if(empty( $allDates[date('Y-m-d',$i)]['half'] )){
-                                    $allDates[date('Y-m-d',$i)]['half'] = true;
-                                    $allDates[date('Y-m-d',$i)]['active'] = 1;
-                                    $allDates[date('Y-m-d',$i)]['classNames'] = ['is-half-end'];
-                                }else{
-                                    $allDates[date('Y-m-d',$i)]['half'] = false;
-                                    $allDates[date('Y-m-d',$i)]['active'] = 0;
-                                }
-                            }
-                            if($booking->end_date == date('Y-m-d 00:00:00',$i)){
-                                if(empty( $allDates[date('Y-m-d',$i)]['half'] )){
-                                    $allDates[date('Y-m-d',$i)]['half'] = true;
-                                    $allDates[date('Y-m-d',$i)]['active'] = 1;
-                                    $allDates[date('Y-m-d',$i)]['classNames'] = ['is-half-start'];
-                                }else{
-                                    $allDates[date('Y-m-d',$i)]['half'] = false;
-                                    $allDates[date('Y-m-d',$i)]['active'] = 0;
-                                }
-                            }
-                        }
-                        if($allDates[date('Y-m-d',$i)]['active'] == 0){
-                            $allDates[date('Y-m-d',$i)]['event'] = __('Full Book');
-                            $allDates[date('Y-m-d',$i)]['title'] = __('Full Book');
-                            $allDates[date('Y-m-d',$i)]['classNames'] = ['full-book-event'];
-                        }
-                    }
-                }
-            }
-        }
-	    if(!empty($space->ical_import_url)){
-		    $startDate = $request->query('start');
-		    $endDate = $request->query('end');
-		    $timezone = setting_item('site_timezone',config('app.timezone'));
-		    try {
-			    $icalevents   =  new Ical($space->ical_import_url,[
-				    'defaultTimeZone'=>$timezone
-			    ]);
-			    $eventRange  = $icalevents->eventsFromRange($startDate,$endDate);
-			    if(!empty($eventRange)){
-				    foreach ($eventRange as $item=>$value){
-					    if(!empty($eventStart = $value->dtstart_array[2]) and !empty($eventEnd = $value->dtend_array[2])){
-						    for($i = $eventStart; $i <= $eventEnd; $i+= DAY_IN_SECONDS){
-							    if(isset($allDates[date('Y-m-d',$i)])){
-								    $allDates[date('Y-m-d',$i)]['active'] = 0;
-								    $allDates[date('Y-m-d',$i)]['event'] = __('Full Book');
-								    $allDates[date('Y-m-d',$i)]['title'] = __('Full Book');
-								    $allDates[date('Y-m-d',$i)]['classNames'] = ['full-book-event'];
-							    }
-						    }
-					    }
-				    }
-			    }
-		    }catch (\Exception $exception){
-			    return $this->sendError($exception->getMessage());
-		    }
-	    }
-        $data = array_values($allDates);
-        return response()->json($data);
+	//             }
+    //             $row->price = $price;
+    //             if(!$row->active)
+    //             {
+    //                 $row->title = $row->event = __('Blocked');
+    //                 $row->backgroundColor = '#fe2727';
+    //                 $row->classNames = ['blocked-event'];
+    //                 $row->textColor = '#fe2727';
+    //                 $row->active = 0;
+    //             }else{
+    //                 $row->classNames = ['active-event'];
+    //                 $row->active = 1;
+    //                 if($row->is_instant){
+    //                     $row->title = '<i class="fa fa-bolt"></i> '.$row->title;
+    //                 }
+    //             }
+    //             $allDates[date('Y-m-d',strtotime($row->start_date))] = $row->toArray();
+    //         }
+    //     }
+    //     $bookings = $this->bookingClass::getBookingInRanges($space->id,$space->type,$request->query('start'),$request->query('end'));
+    //     if(!empty($bookings))
+    //     {
+    //         foreach ($bookings as $booking){
+    //             $period = periodDate($booking->start_date,$booking->end_date);
+    //             foreach ($period as $dt){
+    //                 $i = $dt->getTimestamp();
+    //                 if(isset($allDates[date('Y-m-d',$i)])){
+    //                     if($allDates[date('Y-m-d', $i)]['active'] == 0){
+    //                         continue;
+    //                     }
+    //                     $allDates[date('Y-m-d', $i)]['active'] = 0;
+    //                     if($space->getBookingType() == 'by_night'){
+    //                         if($booking->start_date == date('Y-m-d 00:00:00',$i)){
+    //                             if(empty( $allDates[date('Y-m-d',$i)]['half'] )){
+    //                                 $allDates[date('Y-m-d',$i)]['half'] = true;
+    //                                 $allDates[date('Y-m-d',$i)]['active'] = 1;
+    //                                 $allDates[date('Y-m-d',$i)]['classNames'] = ['is-half-end'];
+    //                             }else{
+    //                                 $allDates[date('Y-m-d',$i)]['half'] = false;
+    //                                 $allDates[date('Y-m-d',$i)]['active'] = 0;
+    //                             }
+    //                         }
+    //                         if($booking->end_date == date('Y-m-d 00:00:00',$i)){
+    //                             if(empty( $allDates[date('Y-m-d',$i)]['half'] )){
+    //                                 $allDates[date('Y-m-d',$i)]['half'] = true;
+    //                                 $allDates[date('Y-m-d',$i)]['active'] = 1;
+    //                                 $allDates[date('Y-m-d',$i)]['classNames'] = ['is-half-start'];
+    //                             }else{
+    //                                 $allDates[date('Y-m-d',$i)]['half'] = false;
+    //                                 $allDates[date('Y-m-d',$i)]['active'] = 0;
+    //                             }
+    //                         }
+    //                     }
+    //                     if($allDates[date('Y-m-d',$i)]['active'] == 0){
+    //                         $allDates[date('Y-m-d',$i)]['event'] = __('Full Book');
+    //                         $allDates[date('Y-m-d',$i)]['title'] = __('Full Book');
+    //                         $allDates[date('Y-m-d',$i)]['classNames'] = ['full-book-event'];
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+	//     if(!empty($space->ical_import_url)){
+	// 	    $startDate = $request->query('start');
+	// 	    $endDate = $request->query('end');
+	// 	    $timezone = setting_item('site_timezone',config('app.timezone'));
+	// 	    try {
+	// 		    $icalevents   =  new Ical($space->ical_import_url,[
+	// 			    'defaultTimeZone'=>$timezone
+	// 		    ]);
+	// 		    $eventRange  = $icalevents->eventsFromRange($startDate,$endDate);
+	// 		    if(!empty($eventRange)){
+	// 			    foreach ($eventRange as $item=>$value){
+	// 				    if(!empty($eventStart = $value->dtstart_array[2]) and !empty($eventEnd = $value->dtend_array[2])){
+	// 					    for($i = $eventStart; $i <= $eventEnd; $i+= DAY_IN_SECONDS){
+	// 						    if(isset($allDates[date('Y-m-d',$i)])){
+	// 							    $allDates[date('Y-m-d',$i)]['active'] = 0;
+	// 							    $allDates[date('Y-m-d',$i)]['event'] = __('Full Book');
+	// 							    $allDates[date('Y-m-d',$i)]['title'] = __('Full Book');
+	// 							    $allDates[date('Y-m-d',$i)]['classNames'] = ['full-book-event'];
+	// 						    }
+	// 					    }
+	// 				    }
+	// 			    }
+	// 		    }
+	// 	    }catch (\Exception $exception){
+	// 		    return $this->sendError($exception->getMessage());
+	// 	    }
+	//     }
+    //     $data = array_values($allDates);
+    //     return response()->json($data);
+    // }
+
+    // public function loadDates(Request $request)
+    // {
+    //     $rules = [
+    //         'id' => 'required',
+    //         'start' => 'required',
+    //         'end' => 'required',
+    //     ];
+    //     $validator = \Validator::make($request->all(), $rules);
+    //     if ($validator->fails()) {
+    //         return $this->sendError($validator->errors());
+    //     }
+    
+    //     $space = $this->spaceClass::find($request->query('id'));
+    //     if (empty($space)) {
+    //         return $this->sendError(__('Space not found'));
+    //     }
+    
+    //     $is_single = $request->query('for_single');
+    //     $use_space_dates = $request->query('use_space_dates', false); // Decide which logic to use based on request
+    
+    //     if ($use_space_dates) {
+    //         // Logic 1: Use spaceDateClass query
+    //         $query = $this->spaceDateClass::query();
+    //         $query->where('target_id', $request->query('id'));
+    //         $query->where('start_date', '>=', date('Y-m-d H:i:s', strtotime($request->query('start'))));
+    //         $query->where('end_date', '<=', date('Y-m-d H:i:s', strtotime($request->query('end'))));
+    //     } else {
+    //         // Logic 2: Use bookingClass query
+    //         $query = $this->bookingClass::query();
+    //         $query->where('object_id', $request->query('id'));
+    //         $query->whereBetween('start_date', [
+    //             date('Y-m-d H:i:s', strtotime($request->query('start'))),
+    //             date('Y-m-d H:i:s', strtotime($request->query('end')))
+    //         ]);
+    //     }
+    
+    //     $rows = $query->get();
+    //     $allDates = [];
+    //     $period = periodDate($request->input('start'), $request->input('end'));
+    
+    //     // Initialize all dates as default
+    //     foreach ($period as $dt) {
+    //         $i = $dt->getTimestamp();
+    //         $date = [
+    //             'id' => rand(0, 999),
+    //             'active' => 1,
+    //             'price' => (!empty($space->sale_price) && $space->sale_price > 0 && $space->sale_price < $space->price) ? $space->sale_price : $space->price,
+    //             'is_instant' => $space->is_instant,
+    //             'textColor' => '#2791fe',
+    //             'backgroundColor' => '#ffffff',
+    //             'classNames' => ['available-event'],
+    //             'start' => date('Y-m-d', $i),
+    //             'end' => date('Y-m-d', $i),
+    //         ];
+    
+    //         $date['price_html'] = !$is_single ? format_money_main($date['price']) : format_money($date['price']);
+    //         $date['title'] = $date['event'] = $date['price_html'];
+    //         $allDates[date('Y-m-d', $i)] = $date;
+    //     }
+    
+    //     // Process rows (booked or blocked dates)
+    //     foreach ($rows as $row) {
+    //         $bookedPeriod = periodDate($row->start_date, $row->end_date);
+    //         foreach ($bookedPeriod as $dt) {
+    //             $i = $dt->getTimestamp();
+    //             $key = date('Y-m-d', $i);
+    //             if (isset($allDates[$key])) {
+    //                 $allDates[$key]['active'] = 0;
+    //                 $allDates[$key]['backgroundColor'] = '#fe2727';
+    //                 $allDates[$key]['textColor'] = '#ffffff';
+    //                 $allDates[$key]['classNames'] = ['full-book-event'];
+    //                 $allDates[$key]['title'] = __('Booked');
+    //                 $allDates[$key]['event'] = __('Booked');
+    //             }
+    //         }
+    //     }
+    
+    //     $data = array_values($allDates);
+    //     return response()->json($data);
+    // }
+
+
+
+    public function loadDates(Request $request)
+{
+    $rules = [
+        'id' => 'required',
+        'start' => 'required',
+        'end' => 'required',
+    ];
+    $validator = \Validator::make($request->all(), $rules);
+    if ($validator->fails()) {
+        return $this->sendError($validator->errors());
     }
+
+    $space = $this->spaceClass::find($request->query('id'));
+    if (empty($space)) {
+        return $this->sendError(__('Space not found'));
+    }
+
+    $is_single = $request->query('for_single');
+    $query = $this->bookingClass::query();
+    $query->where('object_id', $request->query('id'));
+    $query->whereBetween('start_date', [
+        date('Y-m-d H:i:s', strtotime($request->query('start'))),
+        date('Y-m-d H:i:s', strtotime($request->query('end')))
+    ]);
+    $rows = $query->get();
+
+    $allDates = [];
+    $period = periodDate($request->input('start'), $request->input('end'));
+
+    // Initialize all dates as default
+    foreach ($period as $dt) {
+        $i = $dt->getTimestamp();
+        $date = [
+            'id' => rand(0, 999),
+            'active' => $space->default_state ? 1 : 0, // Set active based on default_state
+            'price' => (!empty($space->sale_price) && $space->sale_price > 0 && $space->sale_price < $space->price) ? $space->sale_price : $space->price,
+            'is_instant' => $space->is_instant,
+            'textColor' => $space->default_state ? '#2791fe' : '#fe2727', // Text color based on state
+            'backgroundColor' => $space->default_state ? '#ffffff' : 'orange', // Background color for inactive state
+            'classNames' => $space->default_state ? ['available-event'] : ['blocked-event'], // Class based on state
+            'start' => date('Y-m-d', $i),
+            'end' => date('Y-m-d', $i),
+        ];
+
+        $date['price_html'] = !$is_single ? format_money_main($date['price']) : format_money($date['price']);
+        $date['title'] = $date['event'] = $space->default_state ? $date['price_html'] : __('Blocked');
+        $allDates[date('Y-m-d', $i)] = $date;
+    }
+
+    // Process booked dates
+    foreach ($rows as $row) {
+        $bookedPeriod = periodDate($row->start_date, $row->end_date);
+        foreach ($bookedPeriod as $dt) {
+            $i = $dt->getTimestamp();
+            $key = date('Y-m-d', $i);
+            if (isset($allDates[$key])) {
+                $allDates[$key]['active'] = 0; // Disable interaction for booked dates
+                $allDates[$key]['backgroundColor'] = '#fe2727'; // Set red background color
+                $allDates[$key]['textColor'] = '#ffffff'; // White text for better contrast
+                $allDates[$key]['classNames'] = ['full-book-event']; // Use the .full-book-event class
+                $allDates[$key]['title'] = __('Booked'); // Display as "Booked"
+                $allDates[$key]['event'] = __('Booked'); // Event label
+            }
+        }
+    }
+
+    $data = array_values($allDates);
+    return response()->json($data);
+}
+
+    
+    
+
 
     public function store(Request $request){
 
