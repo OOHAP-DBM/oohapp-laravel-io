@@ -39,7 +39,7 @@
         $grouped_attributes[$type][] = $attribute;
     }
 @endphp
-<h3> Hoarding Attributes </h3>
+<h3 style="font-size: 1.5rem;"> Hoarding Attributes </h3>
 @if(!empty($terms_ids) and !empty($attributes))
     {{-- Display attributes with types_of_attribute = 0 in grid view --}}
     @if(!empty($grouped_attributes[0]))
@@ -102,7 +102,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr); 
     gap: 20px; 
-}
+} 
 
 
 </style>
