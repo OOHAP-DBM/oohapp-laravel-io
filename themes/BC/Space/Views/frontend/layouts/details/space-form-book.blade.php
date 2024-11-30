@@ -1,17 +1,17 @@
 @if ($row->map_lat && $row->map_lng)
-<div class="g-location" style="width: 164%;
+    <div class="g-location" style="width: 164%;
     margin-left: -15%;
     margin-top: -20px;">
 
-    <div class="location-map">
-        <div id="map_content"></div>
+        <div class="location-map">
+            <div id="map_content"></div>
+        </div>
     </div>
-</div>
 @endif
 
 <!-- this code is for getting the discount price according to the monthly, daily and weekly -->
 <?php
-$daily_discount_price = null; 
+$daily_discount_price = null;
 $monthly_discount_price = null;
 $weekly_discount_price = null;
 $daily_price = null;
@@ -19,32 +19,20 @@ $daily_sale_price = $row->sale_price;
 $weekly_price = null;
 $weekly_sale_price = $row->weekly_sale_price;
 $monthly_price = null;
-$monthly_sale_price =$row->monthly_sale_price;
+$monthly_sale_price = $row->monthly_sale_price;
 
 // Calculate Daily Discount
-if (
-    !empty($row->price) && $row->price > 0 &&
-    !empty($row->sale_price) && $row->sale_price > 0 &&
-    $row->price > $row->sale_price
-) {
+if (!empty($row->price) && $row->price > 0 && !empty($row->sale_price) && $row->sale_price > 0 && $row->price > $row->sale_price) {
     $daily_discount_price = 100 - ceil(($row->sale_price / $row->price) * 100);
 }
 
 // Calculate Monthly Discount
-if (
-    !empty($row->monthly_price) && $row->monthly_price > 0 &&
-    !empty($row->monthly_sale_price) && $row->monthly_sale_price > 0 &&
-    $row->monthly_price > $row->monthly_sale_price
-) {
+if (!empty($row->monthly_price) && $row->monthly_price > 0 && !empty($row->monthly_sale_price) && $row->monthly_sale_price > 0 && $row->monthly_price > $row->monthly_sale_price) {
     $monthly_discount_price = 100 - ceil(($row->monthly_sale_price / $row->monthly_price) * 100);
 }
 
 // Calculate Weekly Discount
-if (
-    !empty($row->weekly_price) && $row->weekly_price > 0 &&
-    !empty($row->weekly_sale_price) && $row->weekly_sale_price > 0 &&
-    $row->weekly_price > $row->weekly_sale_price
-) {
+if (!empty($row->weekly_price) && $row->weekly_price > 0 && !empty($row->weekly_sale_price) && $row->weekly_sale_price > 0 && $row->weekly_price > $row->weekly_sale_price) {
     $weekly_discount_price = 100 - ceil(($row->weekly_sale_price / $row->weekly_price) * 100);
 }
 
@@ -55,32 +43,27 @@ $discounts = [
     'month' => $monthly_discount_price,
 ];
 
-
-
 if (!empty($row->price) and $row->price > 0 and !empty($row->sale_price) and $row->sale_price > 0 and $row->price > $row->sale_price) {
     $daily_price = $row->price;
-   
 }
-if (!empty($row->weekly_price) and $row->weekly_price > 0 and !empty( $row->weekly_sale_price) and $row->weekly_sale_price > 0 and $row->weekly_price >  $row->weekly_sale_price) {
+if (!empty($row->weekly_price) and $row->weekly_price > 0 and !empty($row->weekly_sale_price) and $row->weekly_sale_price > 0 and $row->weekly_price > $row->weekly_sale_price) {
     $weekly_price = $row->weekly_price;
 }
-if (!empty($row->monthly_price) and $row->monthly_price > 0 and !empty( $row->monthly_sale_price) and $row->monthly_sale_price > 0 and $row->monthly_price >  $row->monthly_sale_price) {
-    $monthly_price =$row->monthly_price;
+if (!empty($row->monthly_price) and $row->monthly_price > 0 and !empty($row->monthly_sale_price) and $row->monthly_sale_price > 0 and $row->monthly_price > $row->monthly_sale_price) {
+    $monthly_price = $row->monthly_price;
 }
 
-// //selles price 
+// //selles price
 // if (!empty($row->price) and $row->price > 0 and !empty($row->sale_price) and $row->sale_price > 0 and $row->price > $row->sale_price) {
 //     $daily_price = $row->price;
 
 // }
 // if (!empty($row->weekly_price) and $row->weekly_price > 0 and !empty($row->weekly_sale_price) and $row->weekly_sale_price > 0 and $row->weekly_price > $row->weekly_sale_price) {
 //     $weekly_price = $row->weekly_price;
-   
 
 // }  if (!empty($row->monthly_price) and $row->monthly_price > 0 and !empty($row->monthly_sale_price) and $row->monthly_sale_price > 0 and $row->monthly_price > $row->monthly_sale_price) {
 //     $monthly_price =$row->monthly_price;
 // }
-
 
 ?>
 
@@ -106,8 +89,10 @@ if (!empty($row->monthly_price) and $row->monthly_price > 0 and !empty( $row->mo
                         {{ __('from') }}
                     </span>
                     <span class="value">
-                    <span id="priceDisplay" class="onsale">₹{{ $daily_price ?? $weekly_price ?? $monthly_price }}</span>
-                    <span id="salePriceDisplay" class="text-lg">₹{{ $daily_sale_price ?? $weekly_sale_price ?? $monthly_sale_price }}</span>
+                        <span id="priceDisplay"
+                            class="onsale">₹{{ $daily_price ?? ($weekly_price ?? $monthly_price) }}</span>
+                        <span id="salePriceDisplay"
+                            class="text-lg">₹{{ $daily_sale_price ?? ($weekly_sale_price ?? $monthly_sale_price) }}</span>
                         <!-- <span class="onsale">{{ $row->display_sale_price }}</span>
                         <span class="text-lg">{{ $row->display_price }}</span> -->
                     </span>
@@ -136,23 +121,23 @@ if (!empty($row->monthly_price) and $row->monthly_price > 0 and !empty( $row->mo
 
             <?php $row->booking_duration = json_decode($row->booking_duration); ?>
             <div class="nav-enquiry">
-                @if(is_array($row->booking_duration) && in_array("1", $row->booking_duration))
-                <button type="button" class="btn btn-outline-success" id="monthlyButton"
-                    onclick="setBookingDuration('month')">
-                    Monthly
-                </button>
+                @if (is_array($row->booking_duration) && in_array('1', $row->booking_duration))
+                    <button type="button" class="btn btn-outline-success" id="monthlyButton"
+                        onclick="setBookingDuration('month')">
+                        Monthly
+                    </button>
                 @endif
-                @if(is_array($row->booking_duration) && in_array("2", $row->booking_duration))
-                <button type="button" class="btn btn-outline-success" id="weeklyButton"
-                    onclick="setBookingDuration('week')">
-                    Weekly
-                </button>
+                @if (is_array($row->booking_duration) && in_array('2', $row->booking_duration))
+                    <button type="button" class="btn btn-outline-success" id="weeklyButton"
+                        onclick="setBookingDuration('week')">
+                        Weekly
+                    </button>
                 @endif
-                @if(is_array($row->booking_duration) && in_array("3", $row->booking_duration))
-                <button type="button" class="btn btn-outline-success" id="dailyButton"
-                    onclick="setBookingDuration('day')">
-                    Daily
-                </button>
+                @if (is_array($row->booking_duration) && in_array('3', $row->booking_duration))
+                    <button type="button" class="btn btn-outline-success" id="dailyButton"
+                        onclick="setBookingDuration('day')">
+                        Daily
+                    </button>
                 @endif
             </div>
 
@@ -171,35 +156,36 @@ if (!empty($row->monthly_price) and $row->monthly_price > 0 and !empty( $row->mo
                                     </span></label>
                                 <div class="render check-in-render" v-html="start_date_html"></div>
                                 @if (!empty($row->min_day_before_booking))
-                                <div class="render check-in-render">
-                                    <small>
-                                        @if ($row->min_day_before_booking > 1)
-                                        -
-                                        {{ __('Book :number days in advance', ['number' => $row->min_day_before_booking]) }}
-                                        @else
-                                        -
-                                        {{ __('Book :number day in advance', ['number' => $row->min_day_before_booking]) }}
-                                        @endif
-                                    </small>
-                                </div>
+                                    <div class="render check-in-render">
+                                        <small>
+                                            @if ($row->min_day_before_booking > 1)
+                                                -
+                                                {{ __('Book :number days in advance', ['number' => $row->min_day_before_booking]) }}
+                                            @else
+                                                -
+                                                {{ __('Book :number day in advance', ['number' => $row->min_day_before_booking]) }}
+                                            @endif
+                                        </small>
+                                    </div>
                                 @endif
                                 @if (!empty($row->min_day_stays))
-                                <div class="render check-in-render">
-                                    <small>
-                                        @if ($row->min_day_stays > 1)
-                                        -
-                                        {{ __('Stay at least :number days', ['number' => $row->min_day_stays]) }}
-                                        @else
-                                        -
-                                        {{ __('Stay at least :number day', ['number' => $row->min_day_stays]) }}
-                                        @endif
-                                    </small>
-                                </div>
+                                    <div class="render check-in-render">
+                                        <small>
+                                            @if ($row->min_day_stays > 1)
+                                                -
+                                                {{ __('Stay at least :number days', ['number' => $row->min_day_stays]) }}
+                                            @else
+                                                -
+                                                {{ __('Stay at least :number day', ['number' => $row->min_day_stays]) }}
+                                            @endif
+                                        </small>
+                                    </div>
                                 @endif
                             </div>
                             <i class="fa fa-angle-down arrow"></i>
                         </div>
-                        <input type="text" class="start_date" ref="start_date" style="height: 1px; visibility: hidden">
+                        <input type="text" class="start_date" ref="start_date"
+                            style="height: 1px; visibility: hidden">
                     </div>
                     <div class="">
                         <div class="form-group form-guest-search">
@@ -212,7 +198,8 @@ if (!empty($row->monthly_price) and $row->monthly_price > 0 and !empty( $row->mo
                                     <div class="input-number-group">
                                         <i class="icon ion-ios-remove-circle-outline"
                                             @click="minusPersonType('adults')"></i>
-                                        <span class="input"><input type="number" v-model="adults" min="1" /></span>
+                                        <span class="input"><input type="number" v-model="adults"
+                                                min="1" /></span>
                                         <i class="icon ion-ios-add-circle-outline" @click="addPersonType('adults')"></i>
                                     </div>
                                 </div>
@@ -228,7 +215,8 @@ if (!empty($row->monthly_price) and $row->monthly_price > 0 and !empty( $row->mo
                                     <div class="input-number-group">
                                         <i class="icon ion-ios-remove-circle-outline"
                                             @click="minusPersonType('children')"></i>
-                                        <span class="input"><input type="number" v-model="children" min="0" /></span>
+                                        <span class="input"><input type="number" v-model="children"
+                                                min="0" /></span>
                                         <i class="icon ion-ios-add-circle-outline"
                                             @click="addPersonType('children')"></i>
                                     </div>
@@ -241,7 +229,8 @@ if (!empty($row->monthly_price) and $row->monthly_price > 0 and !empty( $row->mo
                         <div class="form-group " v-for="(type,index) in extra_price">
                             <div class="extra-price-wrap d-flex justify-content-between">
                                 <div class="flex-grow-1">
-                                    <label><input type="checkbox" true-value="1" false-value="0" v-model="type.enable">
+                                    <label><input type="checkbox" true-value="1" false-value="0"
+                                            v-model="type.enable">
                                         @{{ type.name }}</label>
                                     <div class="render" v-if="type.price_type">(@{{ type.price_type }})</div>
                                 </div>
@@ -251,7 +240,8 @@ if (!empty($row->monthly_price) and $row->monthly_price > 0 and !empty( $row->mo
                         </div>
                     </div>
                     <div class="form-section-group form-group-padding" v-if="buyer_fees.length">
-                        <div class="extra-price-wrap d-flex justify-content-between" v-for="(type,index) in buyer_fees">
+                        <div class="extra-price-wrap d-flex justify-content-between"
+                            v-for="(type,index) in buyer_fees">
                             <div class="flex-grow-1">
                                 <label>@{{ type.type_name }}
                                     <i class="icofont-info-circle" v-if="type.desc" data-toggle="tooltip"
@@ -310,65 +300,73 @@ if (!empty($row->monthly_price) and $row->monthly_price > 0 and !empty( $row->mo
     var discounts = <?= json_encode($discounts) ?>;
 </script>
 <script>
-$(document).ready(function() {
-    var discounts = window.discounts || {};
+    $(document).ready(function() {
+        var discounts = window.discounts || {};
 
 
-   
-    window.setBookingDuration = function(duration) {
-      
-        $(".btn").removeClass("active");
 
-        // Add active class to the clicked button
-        $("#" + duration + "Button").addClass("active");
+        window.setBookingDuration = function(duration) {
 
-       
-        let content = "";
-        if (duration === "month") {
-            content = "month";
-        } else if (duration === "week") {
-            content = "week";
-        } else if (duration === "day") {
-            content = "day";
-        }
+            $(".btn").removeClass("active");
 
-        $("#viewModeContent").html(content).show();
-    };
-});
+            // Add active class to the clicked button
+            $("#" + duration + "Button").addClass("active");
+
+
+            let content = "";
+            if (duration === "month") {
+                content = "month";
+            } else if (duration === "week") {
+                content = "week";
+            } else if (duration === "day") {
+                content = "day";
+            }
+
+            $("#viewModeContent").html(content).show();
+        };
+    });
 </script> -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
- <script>
-$(document).ready(function() {
-    // Store prices and sale prices in an object
-    var prices = {
-        day: { price: <?= $daily_price ?>, salePrice: <?= $daily_sale_price ?> },
-        week: { price: <?= $weekly_price ?>, salePrice: <?= $weekly_sale_price ?> },
-        month: { price: <?= $monthly_price ?>, salePrice: <?= $monthly_sale_price ?> }
-    };
+<script>
+    $(document).ready(function() {
+        // Store prices and sale prices in an object
+        var prices = {
+            day: {
+                price: <?= $daily_price ?>,
+                salePrice: <?= $daily_sale_price ?>
+            },
+            week: {
+                price: <?= $weekly_price ?>,
+                salePrice: <?= $weekly_sale_price ?>
+            },
+            month: {
+                price: <?= $monthly_price ?>,
+                salePrice: <?= $monthly_sale_price ?>
+            }
+        };
 
-    // Function to handle price updates based on selected duration
-    window.setBookingDuration = function(duration) {
-        // Hide all discount boxes
-        $(".discount-box").hide();
-        // Show the discount box for the selected duration
-        $(".discount-box[data-duration='" + duration + "']").show();
+        // Function to handle price updates based on selected duration
+        window.setBookingDuration = function(duration) {
+            // Hide all discount boxes
+            $(".discount-box").hide();
+            // Show the discount box for the selected duration
+            $(".discount-box[data-duration='" + duration + "']").show();
 
-        // Update price and sale price according to selected duration
-        $("#priceDisplay").text("₹" + prices[duration].price);
-        $("#salePriceDisplay").text("₹" + prices[duration].salePrice);
+            // Update price and sale price according to selected duration
+            $("#priceDisplay").text("₹" + prices[duration].price);
+            $("#salePriceDisplay").text("₹" + prices[duration].salePrice);
 
-        // Update the view mode content
-        $("#viewModeContent").text(duration);
+            // Update the view mode content
+            $("#viewModeContent").text(duration);
 
-        // Add active class to the clicked button
-        $(".btn").removeClass("active");
-        $("#" + duration + "Button").addClass("active");
-    };
+            // Add active class to the clicked button
+            $(".btn").removeClass("active");
+            $("#" + duration + "Button").addClass("active");
+        };
 
-    // Set default duration to 'month' on page load
-    setBookingDuration('month');
-});
-
+        // Set default duration to 'month' on page load
+        setBookingDuration('month');
+    });
 </script>
 
 @include('Booking::frontend.global.enquiry-form', ['service_type' => 'space'])
