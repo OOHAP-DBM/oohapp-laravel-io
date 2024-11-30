@@ -56,31 +56,89 @@
                 </div>
             </div>
         @endif
-        @if($row->bathroom)
+       {{-- @if($row->hoarding_type)
             <div class="col-xs-6 col-lg-3 col-md-6">
                 <div class="item">
                     <div class="icon">
-                        <i class="icofont-bathtub"></i>
+                    <i class="icofont-flag"></i>
+                   
                     </div>
                     <div class="info">
-                        <h4 class="name">{{__("No. Bathroom")}}</h4>
+                        <h4 class="name">{{__("Hoarding Type")}}</h4>
                         <p class="value">
-                            {{$row->bathroom}}
+                        @if($row->hoarding_type == 1)
+                             {{ __('OOH') }}
+                        @elseif($row->hoarding_type == 2)
+                             {{ __('DOOH') }}
+                        @endif
+                        </p>
+                    </div>
+                </div>
+            </div>
+        @endif --}}
+        @if($row->hoarding_type)
+            <div class="col-xs-6 col-lg-3 col-md-6">
+                <div class="item">
+                    <div class="icon"style="margin-right: 0px !important;">
+                    @if($row->hoarding_type == 1)
+                    <i class="">@include('Space::frontend.layouts.details.svg.ooh')</i>
+@else
+<i class="">
+<i class="">@include('Space::frontend.layouts.details.svg.dooh')</i></i>
+                    @endif
+                    <!-- <i class="icofont-barricade"></i> -->
+                    </div>
+                    <div class="info">
+                        <h4 class="name">{{__("Hoarding Type")}}</h4>
+                        <p class="value">
+                        @if($row->hoarding_type == 1)
+                             {{ __('OOH') }}
+                        @elseif($row->hoarding_type == 2)
+                             {{ __('DOOH') }}
+                        @endif
                         </p>
                     </div>
                 </div>
             </div>
         @endif
-            @if($row->square)
+        @if($row->category_id)
             <div class="col-xs-6 col-lg-3 col-md-6">
                 <div class="item">
-                    <div class="icon">
-                        <i class="icofont-ruler-compass-alt"></i>
+                <div class="icon" style=" margin-right: 0px !important;">
+                             <i class="">@include('Space::frontend.layouts.details.svg.category')</i>
                     </div>
                     <div class="info">
-                        <h4 class="name">{{__("Square")}}</h4>
+                    <h4 class="name">
+                    {{__("Category")}}
+                    </h4>
                         <p class="value">
-                            {!! size_unit_format($row->square) !!}
+                        @php
+                        $category = Modules\Space\Models\SpaceCategory::find($row->category_id);
+                    @endphp
+                   
+                    @if($category)
+                        {{ str_repeat('—', $category->depth) }} 
+                        {{ $category->name }} 
+                    @else
+                        {{ __('Unknown Category') }}
+                    @endif
+                        </p>
+                    </div>
+                </div>
+            </div>
+        @endif
+            @if($row->size_preview)
+            <div class="col-xs-6 col-lg-3 col-md-6">
+                <div class="item">
+                    <div class="icon" style="margin-right: 5px !important;">
+                        <i class="">@include('Space::frontend.layouts.details.svg.size')</i>
+                    </div>
+                    <div class="info">
+                        <h4 class="name">{{__("Size (sq.ft)")}}</h4>
+                        <p class="value">
+                    <?php $y= $row->width * $row->height?>
+                        {{($y) }}
+                        ({{($row->width) }}x{{($row->height) }})
                         </p>
                     </div>
                 </div>
@@ -90,7 +148,9 @@
                 @php $location =  $row->location->translate() @endphp
             <div class="col-xs-6 col-lg-3 col-md-6">
                 <div class="item">
-                    
+                    <div class="icon"   style="margin-right: 0px !important;">
+                         <i class="">@include('Space::frontend.layouts.details.svg.location')</i>
+                    </div>
                     <div class="info">
                         <h4 class="name">{{__("Location")}}</h4>
                         <p class="value">
@@ -153,6 +213,15 @@
     </div>
 @endif
 @include('Space::frontend.layouts.details.space-attributes')
+@includeIf("Hotel::frontend.layouts.details.hotel-surrounding")
+@if($row->map_lat && $row->map_lng)
+<div class="g-location">
+    <h3>{{__("Location")}}</h3>
+    <div class="location-map">
+        <div id="map_content"></div>
+    </div>
+</div>
+@endif
 @if($translation->faqs)
 <div class="g-faq">
     <h3> {{__("FAQs")}} </h3>
@@ -168,15 +237,6 @@
             </div>
         </div>
     @endforeach
-</div>
-@endif
-@includeIf("Hotel::frontend.layouts.details.hotel-surrounding")
-@if($row->map_lat && $row->map_lng)
-<div class="g-location">
-    <h3>{{__("Location")}}</h3>
-    <div class="location-map">
-        <div id="map_content"></div>
-    </div>
 </div>
 @endif
 
