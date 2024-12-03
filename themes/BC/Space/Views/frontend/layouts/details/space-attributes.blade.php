@@ -58,7 +58,12 @@
                                         @php $image_url = get_file_url($term->image_id, 'full'); @endphp
                                         <img src="{{$image_url}}" class="img-responsive" alt="{{$translate_term->name}}">
                                     @else
-                                        <i class="{{ $term->icon ?? "icofont-check-circled icon-default" }}"></i>
+                                        <!-- <i class="{{ $term->icon ?? "icofont-check-circled icon-default" }}"></i> -->
+                                        <svg width="13" height="13" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5" fill="white"/>
+                                            <rect x="0.5" y="0.5" width="43" height="43" rx="21.5" stroke="#009A5C"/>
+                                            <circle cx="21.5" cy="22" r="13.5" fill="#009A5C"/>
+                                        </svg>
                                     @endif
                                     {{$translate_term->name}}
                                 </div>
@@ -87,6 +92,7 @@
                                     <img src="{{$image_url}}" class="img-responsive" alt="{{$translate_term->name}}">
                                 @else
                                     <i class="{{ $term->icon ?? "icofont-check-circled icon-default" }}"></i>
+                          
                                 @endif
                                 {{$translate_term->name}}
                             </div>

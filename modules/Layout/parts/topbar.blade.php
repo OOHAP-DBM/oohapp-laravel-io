@@ -1,5 +1,3 @@
-{{--
-
 <div class="bravo_topbar">
     <div class="container">
         <div class="content">
@@ -11,7 +9,7 @@
             </div>
             <div class="topbar-right">
                 <ul class="topbar-items">
-                    <!--@include('Core::frontend.currency-switcher')-->
+                    @include('Core::frontend.currency-switcher')
                     @include('Language::frontend.switcher')
                 @if(!Auth::check())
                         <li class="login-item">
@@ -56,6 +54,13 @@
                                     <li class="menu-hr"><a href="{{route('user.plan')}}"><i class="fa fa-list-alt"></i> {{__("My plan")}}</a></li>
                                 @endif
 
+                                     {{-- @if(isPro())
+                                        <li class="menu-hr">
+                                            <a href="{{route('support.index')}}">
+                                                <i class="fa fa-list-alt"></i> {{__("Support Center")}}</a>
+                                        </li>
+                                    @endif --}}
+
                                 @if(is_admin())
                                     <li class="menu-hr"><a href="{{route('admin.index')}}"><i class="icon ion-ios-ribbon"></i> {{__("Admin Dashboard")}}</a></li>
                                 @endif
@@ -73,4 +78,3 @@
         </div>
     </div>
 </div>
---}}
