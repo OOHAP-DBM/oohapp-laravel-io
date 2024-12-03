@@ -109,22 +109,22 @@ if (!empty($row->monthly_price) and $row->monthly_price > 0 and !empty($row->mon
             </div> -->
 
             <?php $row->booking_duration = json_decode($row->booking_duration); ?>
-            <div class="nav-enquiry">
+            <div class="duration_booking" style="display: flex; border-bottom: solid 1px #d7dce3;">
                 @if (is_array($row->booking_duration) && in_array('1', $row->booking_duration))
                     <button type="button" class="btn btn-outline-success" id="monthlyButton"
-                        onclick="setBookingDuration('month')">
+                        onclick="setBookingDuration('month')" style="padding:10px 19px 10px 19px;">
                         Monthly
                     </button>
                 @endif
                 @if (is_array($row->booking_duration) && in_array('2', $row->booking_duration))
                     <button type="button" class="btn btn-outline-success" id="weeklyButton"
-                        onclick="setBookingDuration('week')">
+                        onclick="setBookingDuration('week')"style="padding:10px 19px 10px 19px;">
                         Weekly
                     </button>
                 @endif
                 @if (is_array($row->booking_duration) && in_array('3', $row->booking_duration))
                     <button type="button" class="btn btn-outline-success" id="dailyButton"
-                        onclick="setBookingDuration('day')">
+                        onclick="setBookingDuration('day')"style="padding: 10px 18px 10px 18px;">
                         Daily
                     </button>
                 @endif
@@ -138,7 +138,7 @@ if (!empty($row->monthly_price) and $row->monthly_price > 0 and !empty($row->mon
                         data-format="{{ get_moment_date_format() }}">
                         <div class="date-wrapper clearfix" @click="openStartDate">
                             <div class="check-in-wrapper">
-                                <label>{{ __('Select dates') }} for a <span class="form-group viewMode"
+                                <label style="font-size: 15px;">{{ __('Select dates') }} for a <span class="form-group viewMode"
                                         id="viewModeContent">
                                         month
                                         <!-- Content will be updated here -->
@@ -221,7 +221,7 @@ if (!empty($row->monthly_price) and $row->monthly_price > 0 and !empty($row->mon
                                     <label><input type="checkbox" true-value="1" false-value="0"
                                             v-model="type.enable">
                                         @{{ type.name }}</label>
-                                    <div class="render" v-if="type.price_type">(@{{ type.price_type }})</div>
+                                    <!-- <div class="render" v-if="type.price_type">(@{{ type.price_type }})</div> -->
                                 </div>
                                 <div class="flex-shrink-0">@{{ type.price_html }}
                                 </div>
@@ -236,7 +236,7 @@ if (!empty($row->monthly_price) and $row->monthly_price > 0 and !empty($row->mon
                                     <i class="icofont-info-circle" v-if="type.desc" data-toggle="tooltip"
                                         data-placement="top" :title="type.type_desc"></i>
                                 </label>
-                                <div class="render" v-if="type.price_type">(@{{ type.price_type }})</div>
+                                <!-- <div class="render" v-if="type.price_type">(@{{ type.price_type }})</div> -->
                             </div>
                             <div class="flex-shrink-0">
                                 <div class="unit" v-if='type.unit == "percent"'>

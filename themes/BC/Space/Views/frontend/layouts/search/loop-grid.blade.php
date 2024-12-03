@@ -36,9 +36,9 @@
                 <span class="text-price">
                     {{ $row->display_price }}
                     @if($row->getBookingType()=="by_day")
-                        <span class="unit">{{__("Min. Spend")}}</span>
+                        <!-- <span class="unit">{{__("Min. Spend")}}</span> -->
                     @else
-                        <span class="unit">{{__("Min. Spend")}}</span>
+                        <!-- <span class="unit">{{__("Min. Spend")}}</span> -->
                     @endif
                 </span>
             </div>
@@ -58,10 +58,17 @@
             <div class="sale_info">{{$row->discount_percent}}</div>
         @endif
     </div>
-    <div class="location">
+    {{-- <div class="location">
         @if(!empty($row->location->name))
             @php $location =  $row->location->translate() @endphp
+            {{dd($row)}}
             {{$location->name ?? ''}}
+        @endif
+    </div> --}}
+    <div class="location">
+        @if(!empty($row->address))
+        <i class="fa fa-map-marker"></i>
+            {{$row->address ?? ''}}
         @endif
     </div>
     @if(setting_item('space_enable_review'))
@@ -82,7 +89,7 @@
         </span>
     </div>
     @endif
-    <div class="amenities">
+   {{--<div class="amenities">
         @if($row->max_guests)
             <span class="amenity total" data-toggle="tooltip"  title="{{ __("No. People") }}">
                 <i class="input-icon field-icon icofont-people  "></i> {{$row->max_guests}}
@@ -103,5 +110,5 @@
                 <i class="input-icon field-icon icofont-ruler-compass-alt"></i> {!! size_unit_format($row->square) !!}
             </span>
         @endif
-    </div>
+    </div> --}}
 </div>

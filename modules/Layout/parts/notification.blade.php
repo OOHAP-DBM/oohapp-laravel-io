@@ -5,8 +5,8 @@
 }
     .is_login .notification-icon{
     position: absolute;
-    top: -15px;
-    left: 25px;
+    /* top: -15px;
+    left: 25px; */
     font-size: 10px;
 }
 </style>
