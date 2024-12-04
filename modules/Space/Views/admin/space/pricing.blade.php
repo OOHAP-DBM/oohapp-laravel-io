@@ -1,7 +1,10 @@
 <?php  $languages = \Modules\Language\Models\Language::getActive();  ?>
 @if(is_default_lang())
 <div class="panel">
-    <div class="panel-title"><strong>{{__("Hoarding Pricing")}}</strong></div>
+    <div class="panel-title"><strong>{{__("Hoarding Pricing")}}</strong>
+    <br>
+    <label class="control-label">Define pricing for different booking durations (monthly, weekly, daily), specify any discounts.</label>
+</div>
     <div class="panel-body">
         @if(is_default_lang())
         <!-- <div class="row">

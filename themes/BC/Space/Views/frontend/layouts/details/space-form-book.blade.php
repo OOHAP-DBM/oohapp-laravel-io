@@ -74,8 +74,11 @@ if (!empty($row->monthly_price) and $row->monthly_price > 0 and !empty($row->mon
 
             <div class="form-head">
                 <div class="price">
-                    <span class="label">
+                    <!-- <span class="label">
                         {{ __('from') }}
+                    </span> -->
+                    <span class="label">
+                        {{ __('') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </span>
                     <span class="value">
                         <span id="priceDisplay"

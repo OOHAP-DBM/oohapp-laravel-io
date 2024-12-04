@@ -1,6 +1,9 @@
 @if(!empty($location_category) and $location_category->count() > 0)
     <div class="panel">
-        <div class="panel-title"><strong>{{__("Surroundings")}}</strong></div>
+        <div class="panel-title"><strong>{{__("Hoarding Surroundings")}}</strong>
+        <br>
+       <label class="control-label">Describe Nearby Landmarks With There Distances</label>
+       </div>
         <div class="panel-body">
             @if(!empty($location_category))
                 @foreach($location_category as $category)
@@ -8,9 +11,9 @@
                         <label class="control-label">{{$category->name}}</label>
                         <div class="g-items-header">
                             <div class="row">
-                                <div class="col-md-3">{{__("Name")}}</div>
-                                <div class="col-md-3">{{__('Content')}}</div>
-                                <div class="col-md-3">{{__('Distance')}}</div>
+                                <div class="col-md-3">{{$category->name}} {{__("Name")}}</div>
+                                <div class="col-md-3">{{$category->name}} {{__('Description')}}</div>
+                                <div class="col-md-3">{{__('Distance From Hoarding')}}</div>
                                 <div class="col-md-2"></div>
                                 <div class="col-md-1"></div>
                             </div>
@@ -58,7 +61,7 @@
                         </div>
                         <div class="text-right">
                             <span class="btn btn-info btn-sm btn-add-item"><i
-                                    class="icon ion-ios-add-circle-outline"></i> {{__('Add item')}}</span>
+                                    class="icon ion-ios-add-circle-outline"></i> {{__('Add')}}</span>
                         </div>
                         <div class="g-more hide">
                             <div class="item" data-number="__number__">
@@ -69,12 +72,12 @@
                                     </div>
                                     <div class="col-md-3">
                                         <textarea __name__="surrounding[{{$category->id}}][__number__][content]"
-                                                  class="form-control" placeholder="" oninput="validateTextarea(this)"></textarea>
+                                                  class="form-control" placeholder="{{__("Enter surrounding is famous for!")}}" oninput="validateTextarea(this)"></textarea>
                                     </div>
                                     <div class="col-md-3">
                                         <input type="number"
                                                __name__="surrounding[{{$category->id}}][__number__][value]"
-                                               class="form-control" placeholder="">
+                                               class="form-control" placeholder="{{__("Enter Distance")}}">
                                     </div>
                                     <div class="col-md-2">
                                         <select __name__="surrounding[{{$category->id}}][__number__][type]"
