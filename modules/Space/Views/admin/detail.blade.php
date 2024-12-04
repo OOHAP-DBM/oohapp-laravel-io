@@ -32,6 +32,69 @@
                         @endif
                         @include('Space::admin.space.location')
                         @include('Hotel::admin.hotel.surrounding')
+
+
+                        <div class="panel">
+                             <div class="panel-title"><strong>{{__("Hoarding FAQs")}}</strong></div>
+                                 <div class="panel-body">
+                                 <div class="form-group-item">
+                                    <!-- <label class="control-label">{{ __('FAQs') }}</label> -->
+                                  <div class="g-items-header">
+                                          <div class="row">
+                                              <div class="col-md-5">{{ __('Title') }}</div>
+                                                <div class="col-md-5">{{ __('Content') }}</div>
+                                                <div class="col-md-1"></div>
+                                             </div>
+                                        </div>
+                                     <div class="g-items">
+                                      @if (!empty($translation->faqs))
+                                       @php
+                                       if (!is_array($translation->faqs)) {
+                                          $translation->faqs = json_decode($translation->faqs);
+                                         }
+                                          @endphp
+                                        @foreach ($translation->faqs as $key => $faq)
+                                   <div class="item" data-number="{{ $key }}">
+                                         <div class="row">
+                                          <div class="col-md-5">
+                                          <input type="text" name="faqs[{{ $key }}][title]" class="form-control"
+                                               value="{{ $faq['title'] }}" placeholder="{{ __('Eg: When and where does the tour end?') }}">
+                                      </div>
+                                        <div class="col-md-6">
+                                              <textarea name="faqs[{{ $key }}][content]" class="form-control"
+                                              placeholder="...">{{ $faq['content'] }}</textarea>
+                                          </div>
+                                      <div class="col-md-1">
+                                           <span class="btn btn-danger btn-sm btn-remove-item"><i class="fa fa-trash"></i></span>
+                                        </div>
+                                   </div>
+                              </div>
+                                       @endforeach
+                                         @endif
+                                        </div>
+                                      <div class="text-right">
+                                           <span class="btn btn-info btn-sm btn-add-item"><i class="icon ion-ios-add-circle-outline"></i>
+                                              {{ __('Add item') }}</span>
+                                           </div>
+                                      <div class="g-more hide">
+                                     <div class="item" data-number="__number__">
+                                       <div class="row">
+                                                        <div class="col-md-5">
+                                             <input type="text" __name__="faqs[__number__][title]" class="form-control"
+                                                 placeholder="{{ __('Eg: Can I bring my pet?') }}">
+                                              </div>
+                                   <div class="col-md-6">
+                                    <textarea __name__="faqs[__number__][content]" class="form-control" placeholder=""></textarea>
+                                   </div>
+                                         <div class="col-md-1">
+                                    <span class="btn btn-danger btn-sm btn-remove-item"><i class="fa fa-trash"></i></span>
+                                  </div>
+                                 </div>
+                                     </div>
+                                 </div>
+                                </div>
+                                 </div>
+                        </div>         
                         @include('Core::admin/seo-meta/seo-meta')
                     </div>
                     <div class="col-md-3">
@@ -53,7 +116,7 @@
                         </div>
                         @if(is_default_lang())
                         <div class="panel">
-                            <div class="panel-title"><strong>{{__("Author Setting")}}</strong></div>
+                            <div class="panel-title"><strong>{{__("Select Vendor")}}</strong></div>
                             <div class="panel-body">
                                 <div class="form-group">
                                     <?php
@@ -81,10 +144,10 @@
                                 <div class="panel-title"><strong>{{__("Availability")}}</strong></div>
                                 <div class="panel-body">
                                     <div class="form-group">
-                                        <label>{{__('Space Featured')}}</label>
+                                        <label>{{__('Space Recommended')}}</label>
                                         <br>
                                         <label>
-                                            <input type="checkbox" name="is_featured" @if($row->is_featured) checked @endif value="1"> {{__("Enable featured")}}
+                                            <input type="checkbox" name="is_featured" @if($row->is_featured) checked @endif value="1"> {{__("Enable Recommended")}}
                                         </label>
                                     </div>
                                     <div class="form-group d-none">
@@ -95,7 +158,7 @@
                                         </label>
                                     </div>
                                     <div class="form-group">
-                                        <label >{{__('Default State')}}</label>
+                                        <label >{{__('Booking Availability')}}</label>
                                         <br>
                                         <select name="default_state" class="custom-select">
                                             <option value="">{{__('-- Please select --')}}</option>
@@ -119,8 +182,27 @@
                     </div>
                 </div>
             </div>
+            <div class="panel botom"style="margin-top:10px;">
+                          
+                          <div class="panel-body">
+                              <!-- @if(is_default_lang())
+                                  <div>
+                                      <label><input @if($row->status=='publish') checked @endif type="radio" name="status" value="publish"> {{__("Publish")}}
+                                      </label></div>
+                                  <div>
+                                      <label><input @if($row->status=='draft') checked @endif type="radio" name="status" value="draft"> {{__("Draft")}}
+                                      </label></div>
+                              @endif -->
+                              <div class="text-right">
+                                  <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> {{__('Save Changes')}}</button>
+                              </div>
+                          </div>
+                      </div>
         </div>
+       
     </form>
+
+    
 @endsection
 
 @push('js')

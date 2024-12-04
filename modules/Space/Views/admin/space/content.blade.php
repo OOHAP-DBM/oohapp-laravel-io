@@ -1,5 +1,15 @@
+<style>
+      /* Style for when a valid value is selected */
+  .form-control:valid {
+    border-color: #008000;
+  }
+
+    </style>
 <div class="panel">
-    <div class="panel-title"><strong>{{ __('Fill Hoarding Info ') }}</strong></div>
+    <div class="panel-title"><strong>{{ __('Fill Hoarding Info ') }}</strong>
+<br> <label class="control-label">Provide essential details about the hoarding for a clear and concise listing.</label>
+
+</div>
     <div class="panel-body">
 
         {{-- Add New Filed 15/11/2024 Start --}}
@@ -8,7 +18,7 @@
                 <div class="form-group">
                     <label>{{ __('Hoarding Title') }}<span class="text-danger">*</span></label>
                     <input type="text" value="{!! clean($translation->title) !!}"
-                        placeholder="{{ __('Name of the space') }}" maxlength="42" name="title" class="form-control"
+                        placeholder="{{ __('Name of the space') }}" maxlength="42" name="title" class="form-control form-input"
                         required>
                 </div>
             </div>
@@ -115,9 +125,9 @@
             </div>
             <div class="col-lg-2">
                 <div class="form-group">
-                    <label class="control-label">{{ __('Size Preview (Sq.ft)') }}</label>
+                    <label class="control-label">{{ __('Size Preview ') }}</label>
                     <input type="text" id="size_preview" name="size_preview" class="form-control"
-                        value="{{ old('size_preview', $row->size_preview) }}" placeholder="{{ __('Size Preview') }}"
+                        value="{{ old('size_preview', $row->size_preview) }}" placeholder="{{ __('(Sq.ft)') }}"
                         readonly>
                 </div>
             </div>
@@ -268,7 +278,7 @@
         {{-- Add New Filed 15/11/2024 End --}}
 
         <div class="form-group">
-            <label class="control-label">{{ __('Hoarding Description') }}</label>
+            <label class="control-label"><strong>{{ __('Hoarding Description') }}</strong></label>
             <div class="">
                 <textarea name="content" class="d-none has-ckeditor" cols="30" rows="10"
                     oninput="validateTextarea(this)">{{ $translation->content }}</textarea>
@@ -307,7 +317,7 @@
 
     @if (is_default_lang())
     <div class="form-group">
-        <label class="control-label">{{ __('Banner Image') }}</label>
+        <label class="control-label">{{ __('Banner Image') }} (1900*500)</label>
         <div class="form-group-image">
             {!! \Modules\Media\Helpers\FileHelper::fieldUpload('banner_image_id', $row->banner_image_id) !!}
         </div>
@@ -324,7 +334,7 @@
             placeholder="{{ __('Youtube link video') }}">
     </div>
     @endif
-    <div class="form-group-item">
+    <!-- <div class="form-group-item">
         <label class="control-label">{{ __('FAQs') }}</label>
         <div class="g-items-header">
             <div class="row">
@@ -379,7 +389,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 </div>
 @if (is_default_lang())

@@ -1,5 +1,9 @@
 <div class="panel">
-    <div class="panel-title"><strong>{{__("Locations")}}</strong></div>
+    <div class="panel-title"><strong>{{__("Hoarding Locations")}}</strong>
+    <br>
+    <label class="control-label">Provide the exact location of the hoarding, including the address, postal code, and map coordinates, so it can be accurately pinpointed.
+    </label>
+</div>
     <div class="panel-body">
         @if(is_default_lang())
             <div class="form-group">
@@ -82,10 +86,10 @@
                             <label>{{__("Map Longitude")}}:</label>
                             <input type="text" name="map_lng" class="form-control" value="{{$row->map_lng}}" onkeydown="return event.key !== 'Enter';">
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label>{{__("Map Zoom")}}:</label>
                             <input type="text" name="map_zoom" class="form-control" value="{{$row->map_zoom ?? "8"}}" onkeydown="return event.key !== 'Enter';">
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
