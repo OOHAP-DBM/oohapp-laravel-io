@@ -1,5 +1,6 @@
 <div class="panel">
-    <div class="panel-title"><strong>{{__("Locations")}}</strong></div>
+    <div class="panel-title"><strong>{{__("Locations")}}</strong> <br>
+    </div>
     <div class="panel-body">
         @if(is_default_lang())
             <div class="form-group">

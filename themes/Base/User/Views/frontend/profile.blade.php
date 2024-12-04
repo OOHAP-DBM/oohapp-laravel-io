@@ -1,10 +1,21 @@
 @extends('layouts.user')
 @section('content')
+@if($message = Session::get('warning'))
+
+<h2 class="title-bar">
+        {{__("Awaiting Approval Confirmation")}}
+    </h2>
+@else
     <h2 class="title-bar">
-        {{__("Settings")}}
+        {{__("Profile Info")}}
         <a href="{{route('user.change_password')}}" class="btn-change-password">{{__("Change Password")}}</a>
     </h2>
+    @endif
+ 
+    @if($message = Session::get('warning'))
+
     @include('admin.message')
+@else
     <form action="{{route('user.profile.update')}}" method="post" class="input-has-icon">
         @csrf
         <div class="row">
@@ -121,6 +132,7 @@
             </div>
         </div>
     </form>
+@endif
     @if(!empty(setting_item('user_enable_permanently_delete')) and !is_admin())
     <hr>
     <div class="row">
