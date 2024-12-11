@@ -18,7 +18,7 @@
                 <div class="form-group">
                     <label>{{ __('Hoarding Title') }}<span class="text-danger">*</span></label>
                     <input type="text" value="{!! clean($translation->title) !!}"
-                        placeholder="{{ __('Name of the space') }}" maxlength="42" name="title" class="form-control form-input"
+                        placeholder="{{ __('Name of the hoarding') }}" maxlength="42" name="title" class="form-control form-input"
                         required>
                 </div>
             </div>

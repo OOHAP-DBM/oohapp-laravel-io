@@ -86,6 +86,7 @@ div#nav-tour-content.new-tab-pannel,div#nav-tour-pricing, div#nav-attribute, div
     <script>
         jQuery(function ($) {
             new BravoMapEngine('map_content', {
+                disableScripts: true,
                 fitBounds: true,
                 center: [{{$row->map_lat ?? setting_item('map_lat_default',51.505 ) }}, {{$row->map_lng ?? setting_item('map_lng_default',-0.09 ) }}],
                 zoom:{{$row->map_zoom ?? "8"}},
@@ -102,6 +103,7 @@ div#nav-tour-content.new-tab-pannel,div#nav-tour-pricing, div#nav-attribute, div
                         });
                         $("input[name=map_lat]").attr("value", dataLatLng[0]);
                         $("input[name=map_lng]").attr("value", dataLatLng[1]);
+                        getPinCode(dataLatLng[0], dataLatLng[1]);
                     });
                     engineMap.on('zoom_changed', function (zoom) {
                         $("input[name=map_zoom]").attr("value", zoom);
@@ -114,6 +116,7 @@ div#nav-tour-content.new-tab-pannel,div#nav-tour-pricing, div#nav-attribute, div
                             });
                             $("input[name=map_lat]").attr("value", dataLatLng[0]);
                             $("input[name=map_lng]").attr("value", dataLatLng[1]);
+                            getPinCode(dataLatLng[0], dataLatLng[1]);
                         });
                     }
                     engineMap.searchBox($('.bravo_searchbox'),function (dataLatLng) {
@@ -123,9 +126,33 @@ div#nav-tour-content.new-tab-pannel,div#nav-tour-pricing, div#nav-attribute, div
                         });
                         $("input[name=map_lat]").attr("value", dataLatLng[0]);
                         $("input[name=map_lng]").attr("value", dataLatLng[1]);
+                        getPinCode(dataLatLng[0], dataLatLng[1]);
                     });
                 }
             });
+
+            function getPinCode(lat, lng) {
+                var geocoder = new google.maps.Geocoder();
+                var latLng = new google.maps.LatLng(lat, lng);
+                
+                geocoder.geocode({ 'location': latLng }, function(results, status) {
+                    if (status === google.maps.GeocoderStatus.OK) {
+                        for (var i = 0; i < results.length; i++) {
+                            for (var j = 0; j < results[i].address_components.length; j++) {
+                                var component = results[i].address_components[j];
+                                if (component.types.indexOf("postal_code") !== -1) {
+                                    var pinCode = component.long_name;
+                                    console.log("Pin Code: " + pinCode); 
+                                    $("input[name=zip_code]").val(pinCode);
+                                    return;
+                                }
+                            }
+                        }
+                    } else {
+                        console.log("Geocode was not successful for the following reason: " + status);
+                    }
+                });
+            }
         })
     </script>
 @endpush

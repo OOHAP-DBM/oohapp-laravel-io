@@ -14,7 +14,7 @@
                 </div>
                 <div class="">
                     @if($row->slug)
-                        <a class="btn btn-primary btn-sm" href="{{$row->getDetailUrl(request()->query('lang'))}}" target="_blank">{{__("View Space")}}</a>
+                        <a class="btn btn-primary btn-sm" href="{{$row->getDetailUrl(request()->query('lang'))}}" target="_blank">{{__("View Hoarding")}}</a>
                     @endif
                 </div>
             </div>
@@ -74,7 +74,7 @@
                                         </div>
                                       <div class="text-right">
                                            <span class="btn btn-info btn-sm btn-add-item"><i class="icon ion-ios-add-circle-outline"></i>
-                                              {{ __('Add item') }}</span>
+                                              {{ __('Add') }}</span>
                                            </div>
                                       <div class="g-more hide">
                                      <div class="item" data-number="__number__">
@@ -185,14 +185,6 @@
             <div class="panel botom"style="margin-top:10px;">
                           
                           <div class="panel-body">
-                              <!-- @if(is_default_lang())
-                                  <div>
-                                      <label><input @if($row->status=='publish') checked @endif type="radio" name="status" value="publish"> {{__("Publish")}}
-                                      </label></div>
-                                  <div>
-                                      <label><input @if($row->status=='draft') checked @endif type="radio" name="status" value="draft"> {{__("Draft")}}
-                                      </label></div>
-                              @endif -->
                               <div class="text-right">
                                   <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> {{__('Save Changes')}}</button>
                               </div>
@@ -227,6 +219,7 @@
                         });
                         $("input[name=map_lat]").attr("value", dataLatLng[0]);
                         $("input[name=map_lng]").attr("value", dataLatLng[1]);
+                        getPinCode(dataLatLng[0], dataLatLng[1]);
                     });
                     engineMap.on('zoom_changed', function (zoom) {
                         $("input[name=map_zoom]").attr("value", zoom);
@@ -239,6 +232,7 @@
                             });
                             $("input[name=map_lat]").attr("value", dataLatLng[0]);
                             $("input[name=map_lng]").attr("value", dataLatLng[1]);
+                            getPinCode(dataLatLng[0], dataLatLng[1]);
                         });
                     }
                     engineMap.searchBox($('.bravo_searchbox'),function (dataLatLng) {
@@ -248,9 +242,34 @@
                         });
                         $("input[name=map_lat]").attr("value", dataLatLng[0]);
                         $("input[name=map_lng]").attr("value", dataLatLng[1]);
+                        getPinCode(dataLatLng[0], dataLatLng[1]);
                     });
                 }
             });
+
+            function getPinCode(lat, lng) {
+                var geocoder = new google.maps.Geocoder();
+                var latLng = new google.maps.LatLng(lat, lng);
+                
+                geocoder.geocode({ 'location': latLng }, function(results, status) {
+                    if (status === google.maps.GeocoderStatus.OK) {
+                        for (var i = 0; i < results.length; i++) {
+                            for (var j = 0; j < results[i].address_components.length; j++) {
+                                var component = results[i].address_components[j];
+                                if (component.types.indexOf("postal_code") !== -1) {
+                                    var pinCode = component.long_name;
+                                    console.log("Pin Code: " + pinCode); 
+                                    $("input[name=zip_code]").val(pinCode);
+                                    return;
+                                }
+                            }
+                        }
+                    } else {
+                        console.log("Geocode was not successful for the following reason: " + status);
+                    }
+                });
+            }
         })
     </script>
 @endpush
+
