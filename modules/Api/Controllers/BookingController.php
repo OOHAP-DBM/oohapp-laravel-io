@@ -65,7 +65,7 @@ class BookingController extends \Modules\Booking\Controllers\BookingController
         }
         return $this->sendSuccess(
             [
-                "data"=>$res
+                "response"=>$res
             ]
         );
     }

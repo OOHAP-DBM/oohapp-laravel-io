@@ -14,7 +14,7 @@
                     @endif
                     <p>
                         {{ __('Before proceeding, please check your email for a verification link.') }}
-                        {{ __('If you did not receive the email') }},
+                        {{ __('If you did not receive the email please click on below button') }}.
                     </p>
                         <form action="{{ route('verification.send') }}" method="post">
                             @csrf

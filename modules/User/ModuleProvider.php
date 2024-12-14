@@ -143,15 +143,15 @@ class ModuleProvider extends ModuleServiceProvider
             ];
         }
 
-        if(setting_item('inbox_enable')) {
-            $count = auth()->user()->unseen_message_count;
-            $res['chat'] = [
-                'position' => 90,
-                'icon' => 'fa fa-comments',
-                'url' => route('user.chat'),
-                'title' => __("Messages :count",['count'=>$count ? sprintf('<span class="badge badge-danger">%d</span>',$count) : '']),
-            ];
-        }
+        // if(setting_item('inbox_enable')) {
+        //     $count = auth()->user()->unseen_message_count;
+        //     $res['chat'] = [
+        //         'position' => 90,
+        //         'icon' => 'fa fa-comments',
+        //         'url' => route('user.chat'),
+        //         'title' => __("Messages :count",['count'=>$count ? sprintf('<span class="badge badge-danger">%d</span>',$count) : '']),
+        //     ];
+        // }
         if(setting_item('user_enable_2fa'))
         {
             $res['chat'] = [

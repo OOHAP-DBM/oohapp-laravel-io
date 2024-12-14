@@ -19,7 +19,7 @@ $vendor = $row->author;
             </h4>
             <p>{{ __("Member Since :time",["time"=> date("M Y",strtotime($vendor->created_at))]) }}</p>
             @if((!Auth::check() or Auth::id() != $row->author_id ) and setting_item('inbox_enable'))
-                <a class="btn bc_start_chat" href="{{route('user.chat',['user_id'=>$row->author_id])}}" ><i class="icon ion-ios-chatboxes"></i> {{__('Message host')}}</a>
+                <!-- <a class="btn bc_start_chat" href="{{route('user.chat',['user_id'=>$row->author_id])}}" ><i class="icon ion-ios-chatboxes"></i> {{__('Message host')}}</a> -->
             @endif
         </div>
     </div>

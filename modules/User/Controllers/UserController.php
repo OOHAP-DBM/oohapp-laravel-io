@@ -170,10 +170,10 @@ class UserController extends FrontendController
 
     public function upgradeVendor(Request $request){
         $user = Auth::user();
-        $vendorRequest = VendorRequest::query()->where("user_id",$user->id)->where("status","pending")->first();
-        if(!empty($vendorRequest)){
-            return redirect()->back()->with('warning', __("You have just done the become vendor request, please wait for the Admin's approved"));
-        }
+        // $vendorRequest = VendorRequest::query()->where("user_id",$user->id)->where("status","pending")->first();
+        // if(!empty($vendorRequest)){
+        //     return redirect()->back()->with('warning', __("You have just done the become vendor request, please wait for the Admin's approved"));
+        // }
         // check vendor auto approved
         $vendorAutoApproved = setting_item('vendor_auto_approved');
          $dataVendor['role_request'] = setting_item('vendor_role');
@@ -187,6 +187,13 @@ class UserController extends FrontendController
             $dataVendor['status'] = 'pending';
         }
         $vendorRequestData = $user->vendorRequest()->save(new VendorRequest($dataVendor));
+
+        $vendorRequest = VendorRequest::query()->where("user_id",$user->id)->where("status","pending")->first();
+        dd($vendorRequest);
+        if(!empty($vendorRequest)){
+            return redirect()->back()->with('warning', __("You have just done the become vendor request, please wait for the Admin's approved"));
+        }
+
         try {
             event(new NewVendorRegistered($user, $vendorRequestData));
         } catch (Exception $exception) {
