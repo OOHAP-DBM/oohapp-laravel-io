@@ -1,10 +1,28 @@
 <?php  $languages = \Modules\Language\Models\Language::getActive();  ?>
 @if(is_default_lang())
+<style>
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  left: 105%;
+}
+</style>
 <div class="panel">
     <div class="panel-title"><strong>{{__("Hoarding Pricing")}}</strong>
-    <br>
-    <label class="control-label">Define pricing for different booking durations (monthly, weekly, daily), specify any discounts.</label>
-</div>
+        <br>
+        <label class="control-label">Define pricing for different booking durations (monthly, weekly, daily), specify
+            any discounts.</label>
+    </div>
     <div class="panel-body">
         @if(is_default_lang())
         <!-- <div class="row">
@@ -32,39 +50,46 @@
                 </div>
             </div>
         </div> -->
-        <?php $row->booking_duration = json_decode($row->booking_duration, true); ?>
-        <label class="control-label"><strong>{{ __('Booking Duration Availability') }}</strong><span class="text-danger">*</span></label>
-<div class="row">
-    <div class="col-lg-4">
-        <div class="form-group">
-            <div>
-                <input type="checkbox" name="booking_duration[]" id="booking_duration" value="1" {{ is_array($row->booking_duration) && in_array("1", $row->booking_duration) ? 'checked' : '' }} checked onchange="toggleMonthlyDuration()">
-                <span> Monthly Available</span>
+        {{--  <?php $row->booking_duration = json_decode($row->booking_duration, true); ?>
+        <label class="control-label"><strong>{{ __('Booking Duration Availability') }}</strong><span
+            class="text-danger">*</span></label>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <div>
+                        <input type="checkbox" name="booking_duration[]" id="booking_duration" value="1"
+                            {{ is_array($row->booking_duration) && in_array("1", $row->booking_duration) ? 'checked' : '' }}
+                            checked onchange="toggleMonthlyDuration()">
+                        <span> Monthly Available</span>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
 
-    <div class="col-lg-4">
-        <div class="form-group">
-            <div>
-                <input type="checkbox" name="booking_duration[]" id="booking_duration_weekly" value="2"  {{ is_array($row->booking_duration) && in_array("2", $row->booking_duration) ? 'checked' : '' }} onchange="toggleWeeklyDuration()">
-                <span> Weekly Available</span>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <div>
+                        <input type="checkbox" name="booking_duration[]" id="booking_duration_weekly" value="2"
+                            {{ is_array($row->booking_duration) && in_array("2", $row->booking_duration) ? 'checked' : '' }}
+                            onchange="toggleWeeklyDuration()">
+                        <span> Weekly Available</span>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
 
-    <div class="col-lg-4">
-        <div class="form-group">
-            <div>
-                <input type="checkbox" name="booking_duration[]" id="booking_durations_daily" value="3"  {{ is_array($row->booking_duration) && in_array("3", $row->booking_duration) ? 'checked' : '' }} onchange="toggleDailyDuration()">
-                <span> Daily Available</span>
-            </div>
-            <div id="booking-duration-error" style="display: none; color: red;">
-                {{ __('Please select at least one option (Monthly or Weekly or Daily)') }}
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <div>
+                        <input type="checkbox" name="booking_duration[]" id="booking_durations_daily" value="3"
+                            {{ is_array($row->booking_duration) && in_array("3", $row->booking_duration) ? 'checked' : '' }}
+                            onchange="toggleDailyDuration()">
+                        <span> Daily Available</span>
+                    </div>
+                    <div id="booking-duration-error" style="display: none; color: red;">
+                        {{ __('Please select at least one option (Monthly or Weekly or Daily)') }}
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
 
         <div class="row">
@@ -84,7 +109,7 @@
                             {{ __("Weekly Price") }}<span class="text-danger">*</span>
                         </label>
                         <input type="number" step="any" min="0" name="weekly_price" class="form-control"
-                            value="{{ $row->weekly_price }}" placeholder="{{ __("Space Price") }}" required>
+                            value="{{ $row->weekly_price }}" placeholder="{{ __("Hoarding Price") }}" required>
                     </div>
 
                 </div>
@@ -103,7 +128,7 @@
                     <div class="montly_sale_price" style="display: none;">
                         <label class="control-label">{{ __("Monthly Sale Price") }}</label>
                         <input type="number" step="any" name="monthly_sale_price" class="form-control"
-                            value="{{ $row->monthly_sale_price }}" placeholder="{{ __("Space Sale Price") }}">
+                            value="{{ $row->monthly_sale_price }}" placeholder="{{ __("Hoarding Sale Price") }}">
                         <span><i>{{ __("If the regular price is less than the discount, it will show the regular price") }}</i></span>
                     </div>
                 </div>
@@ -114,7 +139,7 @@
                     <div class="weekly_sale_price" style="display: none;">
                         <label class="control-label">{{ __("Weekly Sale Price") }}</label>
                         <input type="number" step="any" name="weekly_sale_price" class="form-control"
-                            value="{{ $row->weekly_sale_price }}" placeholder="{{ __("Space Sale Price") }}">
+                            value="{{ $row->weekly_sale_price }}" placeholder="{{ __("Hoarding Sale Price") }}">
                         <span>
                             <i>{{ __("If the regular price is less than the discount, it will show the regular price") }}</i>
                         </span>
@@ -126,7 +151,7 @@
                     <div class="daily_sale_price" style="display: none;">
                         <label class="control-label">{{ __("Daily Sale Price") }}</label>
                         <input type="number" step="any" name="sale_price" class="form-control"
-                            value="{{ $row->sale_price }}" placeholder="{{ __("Space Sale Price") }}">
+                            value="{{ $row->sale_price }}" placeholder="{{ __("Hoarding Sale Price") }}">
                         <span><i>{{ __("If the regular price is less than the discount, it will show the regular price") }}</i></span>
                     </div>
                 </div>
@@ -137,6 +162,63 @@
             <!--        <input type="number" step="any" name="max_guests" class="form-control" value="{{$row->max_guests}}" >-->
             <!--    </div>-->
             <!--</div>-->
+        </div>
+        <hr>--}}
+        <label class="control-label"><strong>{{ __('Booking Duration Availability') }}</strong><span
+                class="text-danger">*</span></label>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <div>
+                        <input type="radio" name="booking_duration" id="booking_duration" value="1"
+                            {{$row->booking_duration == 1 ? 'checked' : ''}} onchange="updateLabels()" required>
+                        <span> Monthly Available</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <div>
+                        <input type="radio" name="booking_duration" id="booking_duration_weekly" value="2"
+                            {{$row->booking_duration == 2 ? 'checked' : ''}} onchange="updateLabels()" required>
+                        <span> Weekly Available</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <div>
+                        <input type="radio" name="booking_duration" id="booking_durations_daily" value="3"
+                            {{$row->booking_duration == 3 ? 'checked' : ''}} onchange="updateLabels()" required>
+                        <span> Daily Available</span>
+                    </div>
+                    <div id="booking-duration-error" style="display: none; color: red;">
+                        {{ __('Please select at least one option (Monthly or Weekly or Daily)') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                <label id="price-label" class="control-label">{{ __("Base Price") }}<span
+                class="text-danger">*</span></label>
+                    <input type="number" step="any" min="0" name="price" id="price" class="form-control"
+                        value="{{$row->price}}" placeholder="{{__("Hoarding Price")}}" required>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                <label id="sale-price-label" class="control-label">{{ __("Offered Price") }}</label>
+            <input type="number" step="any" name="sale_price" id="sale_price" class="form-control" 
+                value="{{$row->sale_price}}" placeholder="{{__("Hoarding Sale Price")}}" required>
+            <small id="sale-price-error" style="color: red; display: none;">Please ensure the offered Price is lower than or equal to the Base Price.<br></small>
+            <span><i>{{ __("Please ensure the offered Price is lower than or equal to the Base Price.") }}</i></span>
+                </div>
+            </div>
         </div>
         <hr>
 
@@ -162,7 +244,7 @@
                 </div>
             </div> -->
 
-            <div class="col-lg-3">
+            <!-- <div class="col-lg-3">
                 <div class="form-group">
                     <label class="control-label">{{ __('Grace period includes in your booking') }}<span
                             class="text-danger">*</span></label>
@@ -183,7 +265,33 @@
 
 
                 </div>
-            </div>
+            </div> -->
+            <div class="col-lg-3">
+             <div class="form-group">
+                        <label class="control-label" 
+                           data-toggle="tooltip" 
+                                 data-placement="top" 
+                                 title="Grace period is extra time vendor require for delivery">
+                                  {{ __('Grace period includes in your booking') }}
+                                 <span class="text-danger">*</span>
+                          </label>
+                      <div>
+                        <label>
+                               <input type="radio" name="grace_period_included" id="grace_period_yes" value="yes" checked
+                              {{ old('grace_period_included', $row->grace_period_included) == 'yes' ? 'checked' : '' }}
+                             onchange="toggleDurationInput()">
+                              {{ __('Yes') }}
+                               </label>
+                             <label style="margin-left: 20px;">
+                                <input type="radio" name="grace_period_included" id="grace_period_no" value="no"
+                                  {{ old('grace_period_included', $row->grace_period_included) == 'no' ? 'checked' : '' }}
+                                   onchange="toggleDurationInput()">
+                                {{ __('No') }}
+                            </label>
+                        </div>
+                       </div>
+                </div>
+
             <div class="col-lg-3">
                 <div class="form-group">
                     <div id="duration_input" style="display: none;">
@@ -195,11 +303,11 @@
                 </div>
             </div>
         </div>
-        <div class="form-group @if(!is_default_lang()) d-none @endif">
+        <!-- <div class="form-group @if(!is_default_lang()) d-none @endif">
             <label><input type="checkbox" name="enable_extra_price" @if(!empty($row->enable_extra_price)) checked @endif
                 value="1"> {{__('Enable extra price')}}
             </label>
-        </div>
+        </div> -->
         <div class="form-group-item @if(!is_default_lang()) d-none @endif" data-condition="enable_extra_price:is(1)">
             <label class="control-label">{{__('Extra Price')}}</label>
             <div class="g-items-header">
@@ -393,13 +501,13 @@
         </div>
         @endif
         @if(is_default_lang() and (!empty(setting_item("space_allow_vendor_can_add_service_fee")) or is_admin()))
-        <hr>
+       <!--  <hr>
         <h3 class="panel-body-title app_get_locale">{{__('Service fee')}}</h3>
         <div class="form-group app_get_locale">
             <label><input type="checkbox" name="enable_service_fee" @if(!empty($row->enable_service_fee)) checked @endif
                 value="1"> {{__('Enable service fee')}}
             </label>
-        </div>
+        </div> -->
         <div class="form-group-item" data-condition="enable_service_fee:is(1)">
             <label class="control-label">{{__('Buyer Fees')}}</label>
             <div class="g-items-header">
@@ -523,7 +631,7 @@
     </div>
 </div>
 @endif
-<script>
+<!-- <script>
 function toggleMonthlyDuration() {
     const bookingDurationCheckbox = document.getElementById('booking_duration');
     const monthlyPriceDiv = document.getElementById('monthly_price');
@@ -563,7 +671,7 @@ function toggleWeeklyDuration() {
 
 
     // Check if both checkboxes are unchecked
-    if (!monthlyCheckbox.checked && !weeklyCheckbox.checked && !dailyCheckbox.checke ) {
+    if (!monthlyCheckbox.checked && !weeklyCheckbox.checked && !dailyCheckbox.checke) {
         // Show error message
         document.getElementById('booking-duration-error').style.display = 'block';
     } else {
@@ -601,4 +709,57 @@ document.addEventListener('DOMContentLoaded', function() {
     toggleWeeklyDuration();
     toggleDailyDuration();
 });
+</script> -->
+
+<script>
+    function updateLabels() {
+        const selectedDuration = document.querySelector('input[name="booking_duration"]:checked');
+        let durationText = "";
+
+        if (selectedDuration) {
+            switch (selectedDuration.value) {
+                case "1":
+                    durationText = "Monthly";
+                    break;
+                case "2":
+                    durationText = "Weekly";
+                    break;
+                case "3":
+                    durationText = "Daily";
+                    break;
+            }
+        }
+
+        document.getElementById('price-label').textContent = `${durationText} Base Price`;
+        document.getElementById('sale-price-label').textContent = `${durationText} Offered Price`;
+    }
+
+    document.addEventListener('DOMContentLoaded', updateLabels);
+</script>
+<script>
+    function validatePrices() {
+        var price = parseFloat(document.getElementById('price').value) || 0; 
+        var salePrice = parseFloat(document.getElementById('sale_price').value) || 0;
+
+        var salePriceInput = document.getElementById('sale_price');
+        var errorMessage = document.getElementById('sale-price-error');
+
+        if (salePrice > price) {
+           
+            errorMessage.style.display = "inline";
+            salePriceInput.style.borderColor = "red";
+            salePriceInput.value = ""; 
+        } else {
+          
+            errorMessage.style.display = "none";
+            salePriceInput.style.borderColor = ""; 
+        }
+    }
+    document.getElementById('sale_price').addEventListener('input', validatePrices);
+</script>
+<script>
+    $(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
 </script>

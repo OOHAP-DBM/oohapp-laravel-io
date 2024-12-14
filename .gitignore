@@ -27,3 +27,5 @@ storage/installed
 public/themes/*/dist
 storage/debugbar
 storage/framework/views/
+ storage/framework/
+ storage/framework/sessions/

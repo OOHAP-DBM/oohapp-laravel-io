@@ -238,10 +238,10 @@ class SpaceController extends AdminController
             'map_zoom',
             'price',
             'sale_price',
-            'monthly_price',
-            'monthly_sale_price',
-            'weekly_price',
-            'weekly_sale_price',
+            // 'monthly_price',
+            // 'monthly_sale_price',
+            // 'weekly_price',
+            // 'weekly_sale_price',
             'max_guests',
             'enable_extra_price',
             'extra_price',
@@ -265,7 +265,7 @@ class SpaceController extends AdminController
             'zip_code',
             'grace_period_included',
             'grace_period_duration',
-            // 'booking_duration',
+             'booking_duration',
             'category_id'
 
         ];
@@ -281,9 +281,9 @@ class SpaceController extends AdminController
         $row->enable_service_fee = $request->input('enable_service_fee');
         $row->service_fee = $request->input('service_fee');
 
-        if ($request->has('booking_duration')) {
-            $row->booking_duration = json_encode($request->input('booking_duration')); // Store  booking duration in JSON 
-        }
+        // if ($request->has('booking_duration')) {
+        //     $row->booking_duration = json_encode($request->input('booking_duration')); // Store  booking duration in JSON 
+        // }
 
         $res = $row->saveOriginOrTranslation($request->input('lang'),true);
 
