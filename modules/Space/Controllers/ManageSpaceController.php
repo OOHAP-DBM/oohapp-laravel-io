@@ -93,7 +93,7 @@ class ManageSpaceController extends FrontendController
                     'class' => 'active'
                 ],
             ],
-            'page_title'         => __("Recovery Spaces"),
+            'page_title'         => __("Recovery Hoarding"),
         ];
         return view('Space::frontend.manageSpace.index', $data);
     }
