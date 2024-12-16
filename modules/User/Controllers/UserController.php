@@ -122,6 +122,9 @@ class UserController extends FrontendController
         $user->bio = clean($request->input('bio'));
         $user->birthday = date("Y-m-d", strtotime($user->birthday));
         $user->user_name = Str::slug( $request->input('user_name') ,"_");
+        $user->business_pan_number = $request->input('business_pan_number');
+        $user->business_gst_number = $request->input('business_gst_number');
+        $user->business_address = $request->input('business_address');
         $user->save();
         return redirect()->back()->with('success', __('Update successfully'));
     }
