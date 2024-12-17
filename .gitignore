@@ -29,3 +29,4 @@ storage/debugbar
 storage/framework/views/
  storage/framework/
  storage/framework/sessions/
+ public/uploads/public

@@ -476,7 +476,7 @@ class Booking extends BaseModel
             }
         }
         $res[] = [
-            'title'  => __("Pending"),
+            'title'  => __("Pending orders"),
             'amount' => format_money_main($total_money->total_price - $total_money->total_earning),
             'desc'   => __("Total pending"),
             'class'  => 'purple',
@@ -496,13 +496,13 @@ class Booking extends BaseModel
             'class'  => 'pink',
             'icon'   => 'icon ion-ios-pricetags'
         ];
-        $res[] = [
-            'title'  => __("Services"),
-            'amount' => $total_service,
-            'desc'   => __("Total bookable services"),
-            'class'  => 'success',
-            'icon'   => 'icon ion-ios-flash'
-        ];
+        // $res[] = [
+        //     'title'  => __("Services"),
+        //     'amount' => $total_service,
+        //     'desc'   => __("Total bookable services"),
+        //     'class'  => 'success',
+        //     'icon'   => 'icon ion-ios-flash'
+        // ];
         return $res;
     }
 
