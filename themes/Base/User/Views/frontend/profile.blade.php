@@ -36,35 +36,41 @@
                     <i class="fa fa-user input-icon"></i>
                 </div>
                 <div class="form-group">
-                    <label>{{__("E-mail")}}</label>
-                    <input type="text" name="email" value="{{old('email',$dataUser->email)}}" placeholder="{{__("E-mail")}}" class="form-control">
+                    <label>{{__("E-mail")}} <span class="text-danger">*</span> </label>
+                    <input type="email" required name="email" value="{{old('email',$dataUser->email)}}" placeholder="{{__("E-mail")}}" class="form-control">
                     <i class="fa fa-envelope input-icon"></i>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>{{__("First name")}}</label>
-                            <input type="text" value="{{old('first_name',$dataUser->first_name)}}" name="first_name" placeholder="{{__("First name")}}" class="form-control">
+                            <label>{{__("First name")}} <span class="text-danger">*</span> </label>
+                            <input type="text" required value="{{old('first_name',$dataUser->first_name)}}" name="first_name" placeholder="{{__("First name")}}" class="form-control">
                             <i class="fa fa-user input-icon"></i>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>{{__("Last name")}}</label>
-                            <input type="text" value="{{old('last_name',$dataUser->last_name)}}" name="last_name" placeholder="{{__("Last name")}}" class="form-control">
+                            <label>{{__("Last name")}} <span class="text-danger">*</span> </label>
+                            <input type="text" required value="{{old('last_name',$dataUser->last_name)}}" name="last_name" placeholder="{{__("Last name")}}" class="form-control">
                             <i class="fa fa-user input-icon"></i>
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>{{__("Phone Number")}}</label>
-                    <input type="text" value="{{old('phone',$dataUser->phone)}}" name="phone" placeholder="{{__("Phone Number")}}" class="form-control">
-                    <i class="fa fa-phone input-icon"></i>
-                </div>
-                <div class="form-group">
-                    <label>{{__("Birthday")}}</label>
-                    <input type="text" value="{{ old('birthday',$dataUser->birthday? display_date($dataUser->birthday) :'') }}" name="birthday" placeholder="{{__("Birthday")}}" class="form-control date-picker">
-                    <i class="fa fa-birthday-cake input-icon"></i>
+                <div class="row">
+                   <div class="col-md-6">
+                         <div class="form-group">
+                           <label>{{__("Phone Number")}} <span class="text-danger">*</span> </label>
+                           <input type="text" required value="{{old('phone',$dataUser->phone)}}" name="phone" placeholder="{{__("Phone Number")}}" class="form-control">
+                          <i class="fa fa-phone input-icon"></i>
+                         </div>
+                    </div>
+                    <div class="col-md-6">
+                         <div class="form-group">
+                             <label>{{__("Birthday")}}</label>
+                            <input type="text" value="{{ old('birthday',$dataUser->birthday? display_date($dataUser->birthday) :'') }}" name="birthday" placeholder="{{__("Birthday")}}" class="form-control date-picker">
+                            <i class="fa fa-birthday-cake input-icon"></i>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>{{__("About Yourself")}}</label>
@@ -99,12 +105,44 @@
                     <input type="text" value="{{old('address2',$dataUser->address2)}}" name="address2" placeholder="{{__("Address2")}}" class="form-control">
                     <i class="fa fa-location-arrow input-icon"></i>
                 </div>
-                <div class="form-group">
-                    <label>{{__("City")}}</label>
-                    <input type="text" value="{{old('city',$dataUser->city)}}" name="city" placeholder="{{__("City")}}" class="form-control">
-                    <i class="fa fa-street-view input-icon"></i>
-                </div>
-                <div class="form-group">
+                <div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>{{__("Pin Code")}}</label>
+            <input type="text" value="{{old('zip_code',$dataUser->zip_code)}}" name="zip_code" placeholder="{{__("Zip Code")}}" class="form-control" id="zip_code">
+            <i class="fa fa-map-pin input-icon"></i>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>{{__("City")}}</label>
+            <input type="text" value="{{old('city',$dataUser->city)}}" name="city" placeholder="{{__("City")}}" class="form-control" id="city">
+            <i class="fa fa-street-view input-icon"></i>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>{{__("State")}}</label>
+            <input type="text" value="{{old('state',$dataUser->state)}}" name="state" placeholder="{{__("State")}}" class="form-control" id="state">
+            <i class="fa fa-map-signs input-icon"></i>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>{{__("Country")}}</label>
+            <select name="country" class="form-control" id="country">
+                <option value="">{{__('-- Select --')}}</option>
+                @foreach(get_country_lists() as $id=>$name)
+                    <option value="{{$id}}" @if((old('country',$dataUser->country ?? '')) == $id) selected @endif>{{$name}}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+</div>
+             {{--   <div class="form-group">
                     <label>{{__("State")}}</label>
                     <input type="text" value="{{old('state',$dataUser->state)}}" name="state" placeholder="{{__("State")}}" class="form-control">
                     <i class="fa fa-map-signs input-icon"></i>
@@ -122,7 +160,7 @@
                     <label>{{__("Zip Code")}}</label>
                     <input type="text" value="{{old('zip_code',$dataUser->zip_code)}}" name="zip_code" placeholder="{{__("Zip Code")}}" class="form-control">
                     <i class="fa fa-map-pin input-icon"></i>
-                </div>
+                </div>--}}
             </div>
         {{--    <div class="col-md-6">
                 <div class="form-title">
@@ -166,34 +204,37 @@
             </div>
             --}}
             <!-- for vendor penal  -->
-            @if($is_vendor_access)
-            <div class="col-md-6"> 
-                <div class="form-title">
-                    <strong>{{__("Business details")}}</strong>
-            </div>
-            <div class="form-group">
-                        <label>{{__("Business name")}}</label>
-                        <input type="text" value="{{old('business_name',$dataUser->business_name)}}" name="business_name" placeholder="{{__("Business name")}}" class="form-control">
-                        <i class="fa fa-user input-icon"></i>
-                    </div>  
+            {{-- @if($is_vendor_access) --}} 
+            <div class="col-md-6">  
+    <div class="form-title">
+        <strong>{{__("Business details")}}</strong>
+    </div>
+    <div class="form-group">
+        <label>{{__("Business name")}}</label>
+        <input type="text" value="{{old('business_name', $dataUser->business_name)}}" name="business_name" placeholder="{{__("Business name")}}" class="form-control" id="business_name">
+        <i class="fa fa-user input-icon"></i>
+    </div>  
 
-                    <div class="form-group">
-                        <label>{{__("PAN Number (Optional)")}} </label>
-                        <input type ="text" value ="{{old('business_pan_number',$dataUser->business_pan_number)}}"name="business_pan_number"placeholder ="{{__("Business PAN Number")}}" class="form-control">
-                        <i class="fa fa-id-card input-icon"></i>
-                    </div>
-                    <div class="form-group">
-                        <label>{{__("GST Number (Optional)")}} </label>
-                        <input type ="text" value ="{{old('business_gst_number',$dataUser->business_gst_number)}}"name="business_gst_number"placeholder ="{{__("Business GST Number")}}" class="form-control">
-                        <i class="fa fa-money input-icon"></i>
-                    </div>
-                    <div class="form-group">
-                        <label>{{__("Business Address (Optional)")}} </label>
-                        <input type ="text" value ="{{old('business_address',$dataUser->business_address)}}"name="business_address"placeholder ="{{__("Business Address")}}" class="form-control">
-                        <i class="fa fa-address-card input-icon"></i>
-                    </div>
+    <div class="form-group">
+        <label>{{__("PAN Number")}}</label>
+        <input type="text" value="{{old('business_pan_number', $dataUser->business_pan_number)}}" name="business_pan_number" placeholder="{{__("Business PAN Number")}}" class="form-control" id="business_pan_number">
+        <i class="fa fa-id-card input-icon"></i>
+    </div>
+
+    <div class="form-group">
+        <label>{{__("GST Number")}}</label>
+        <input type="text" value="{{old('business_gst_number', $dataUser->business_gst_number)}}" name="business_gst_number" placeholder="{{__("Business GST Number")}}" class="form-control" id="business_gst_number">
+        <i class="fa fa-money input-icon"></i>
+    </div>
+
+    <div class="form-group">
+        <label>{{__("Business Address")}}</label>
+        <input type="text" value="{{old('business_address', $dataUser->business_address)}}" name="business_address" placeholder="{{__("Business Address")}}" class="form-control" id="business_address">
+        <i class="fa fa-address-card input-icon"></i>
+    </div>
+</div>
         </div>
-        @endif
+       {{-- @endif --}}
 
             <div class="col-md-12">
                 <hr>
@@ -240,5 +281,90 @@
         </div>
     </div>
     @endif
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwHMc5ARYhtAdmTMJpYxt3E8-olzKNC7U&libraries=places"></script>
 
+<script>
+    // Function to get the location details (country, state, city) based on the zip code
+    function getLocationByZipCode(zipCode) {
+        var geocoder = new google.maps.Geocoder();
+        
+        geocoder.geocode({ 'address': zipCode }, function(results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
+                var city = '', state = '', country = '';
+                
+                for (var i = 0; i < results.length; i++) {
+                    for (var j = 0; j < results[i].address_components.length; j++) {
+                        var component = results[i].address_components[j];
+                        if (component.types.indexOf("locality") !== -1) {
+                            city = component.long_name;
+                        }
+                        if (component.types.indexOf("administrative_area_level_1") !== -1) {
+                            state = component.long_name;
+                        }
+                        if (component.types.indexOf("country") !== -1) {
+                            country = component.long_name;
+                        }
+                    }
+                }
+
+                // Set values in the form fields
+                $('#city').val(city);
+                $('#state').val(state);
+                $('#country').val(getCountryCodeByName(country)); // Function to match country name to code
+
+            } else {
+                console.log("Geocode was not successful for the following reason: " + status);
+                // alert("Could not retrieve location information. Please check the zip code.");
+            }
+        });
+    }
+
+    // Trigger the autofill when the zip code field is typed into (keyup event)
+    $('#zip_code').on('keyup', function() {
+        var zipCode = $(this).val();
+        if (zipCode) {
+            getLocationByZipCode(zipCode);
+        }
+    });
+
+    // Function to convert country name to its corresponding country code
+    function getCountryCodeByName(countryName) {
+        var countryCode = '';
+        $('#country option').each(function() {
+            if ($(this).text() === countryName) {
+                countryCode = $(this).val();
+            }
+        });
+        return countryCode;
+    }
+</script>
+<script>
+    // Function to toggle the required attribute based on Business name
+    function toggleRequiredFields() {
+        var businessName = $('#business_name').val().trim();
+        
+        if (businessName) {
+            // If Business name has a value, make other fields required
+            $('#business_pan_number').attr('required', true);
+            $('#business_gst_number').attr('required', true);
+            $('#business_address').attr('required', true);
+        } else {
+            // If Business name is empty, remove the required attribute
+            $('#business_pan_number').removeAttr('required');
+            $('#business_gst_number').removeAttr('required');
+            $('#business_address').removeAttr('required');
+        }
+    }
+
+    // Trigger the function on input change in Business name field
+    $('#business_name').on('keyup', function() {
+        toggleRequiredFields();
+    });
+
+    // Initial check on page load (in case there is already a value in the Business name field)
+    $(document).ready(function() {
+        toggleRequiredFields();
+    });
+</script>
 @endsection
