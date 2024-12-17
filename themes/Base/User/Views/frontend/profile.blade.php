@@ -24,11 +24,11 @@
                     <strong>{{__("Personal Information")}}</strong>
                 </div>
                 @if($is_vendor_access)
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label>{{__("Business name")}}</label>
                         <input type="text" value="{{old('business_name',$dataUser->business_name)}}" name="business_name" placeholder="{{__("Business name")}}" class="form-control">
                         <i class="fa fa-user input-icon"></i>
-                    </div>
+                    </div> -->
                 @endif
                 <div class="form-group">
                     <label>{{__("User name")}} <span class="text-danger">*</span></label>
@@ -85,8 +85,46 @@
                         <img class="image-demo" src="{{ get_file_url( old('avatar_id',$dataUser->avatar_id) ) ??  $dataUser->getAvatarUrl() ?? ""}}"/>
                     </div>
                 </div>
+                <hr>
+                <div class="form-title">
+                    <strong>{{__("Location Information")}}</strong>
+                </div>
+                <div class="form-group">
+                    <label>{{__("Address Line 1")}}</label>
+                    <input type="text" value="{{old('address',$dataUser->address)}}" name="address" placeholder="{{__("Address")}}" class="form-control">
+                    <i class="fa fa-location-arrow input-icon"></i>
+                </div>
+                <div class="form-group">
+                    <label>{{__("Address Line 2")}}</label>
+                    <input type="text" value="{{old('address2',$dataUser->address2)}}" name="address2" placeholder="{{__("Address2")}}" class="form-control">
+                    <i class="fa fa-location-arrow input-icon"></i>
+                </div>
+                <div class="form-group">
+                    <label>{{__("City")}}</label>
+                    <input type="text" value="{{old('city',$dataUser->city)}}" name="city" placeholder="{{__("City")}}" class="form-control">
+                    <i class="fa fa-street-view input-icon"></i>
+                </div>
+                <div class="form-group">
+                    <label>{{__("State")}}</label>
+                    <input type="text" value="{{old('state',$dataUser->state)}}" name="state" placeholder="{{__("State")}}" class="form-control">
+                    <i class="fa fa-map-signs input-icon"></i>
+                </div>
+                <div class="form-group">
+                    <label>{{__("Country")}}</label>
+                    <select name="country" class="form-control">
+                        <option value="">{{__('-- Select --')}}</option>
+                        @foreach(get_country_lists() as $id=>$name)
+                            <option @if((old('country',$dataUser->country ?? '')) == $id) selected @endif value="{{$id}}">{{$name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>{{__("Zip Code")}}</label>
+                    <input type="text" value="{{old('zip_code',$dataUser->zip_code)}}" name="zip_code" placeholder="{{__("Zip Code")}}" class="form-control">
+                    <i class="fa fa-map-pin input-icon"></i>
+                </div>
             </div>
-            <div class="col-md-6">
+        {{--    <div class="col-md-6">
                 <div class="form-title">
                     <strong>{{__("Location Information")}}</strong>
                 </div>
@@ -126,6 +164,37 @@
                 </div>
 
             </div>
+            --}}
+            <!-- for vendor penal  -->
+            @if($is_vendor_access)
+            <div class="col-md-6"> 
+                <div class="form-title">
+                    <strong>{{__("Business details")}}</strong>
+            </div>
+            <div class="form-group">
+                        <label>{{__("Business name")}}</label>
+                        <input type="text" value="{{old('business_name',$dataUser->business_name)}}" name="business_name" placeholder="{{__("Business name")}}" class="form-control">
+                        <i class="fa fa-user input-icon"></i>
+                    </div>  
+
+                    <div class="form-group">
+                        <label>{{__("PAN Number (Optional)")}} </label>
+                        <input type ="text" value ="{{old('business_pan_number',$dataUser->business_pan_number)}}"name="business_pan_number"placeholder ="{{__("Business PAN Number")}}" class="form-control">
+                        <i class="fa fa-id-card input-icon"></i>
+                    </div>
+                    <div class="form-group">
+                        <label>{{__("GST Number (Optional)")}} </label>
+                        <input type ="text" value ="{{old('business_gst_number',$dataUser->business_gst_number)}}"name="business_gst_number"placeholder ="{{__("Business GST Number")}}" class="form-control">
+                        <i class="fa fa-money input-icon"></i>
+                    </div>
+                    <div class="form-group">
+                        <label>{{__("Business Address (Optional)")}} </label>
+                        <input type ="text" value ="{{old('business_address',$dataUser->business_address)}}"name="business_address"placeholder ="{{__("Business Address")}}" class="form-control">
+                        <i class="fa fa-address-card input-icon"></i>
+                    </div>
+        </div>
+        @endif
+
             <div class="col-md-12">
                 <hr>
                 <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> {{__('Save Changes')}}</button>
