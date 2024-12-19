@@ -2,7 +2,10 @@
 @section ('content')
     <div class="container-fluid">
         <div class="d-flex justify-content-between mb20">
-            <h1 class="title-bar">{{__('All Reply')}}</h1>
+            <div class="title-bar">
+                <h1>{{__('All Reply')}}</h1>
+                <span  style="color: #6c757d;">Manage customer enquiries with all previous messages, with replies automatically sent via email.</span>
+            </div>
         </div>
         @include('admin.message')
         <div class="row">
@@ -17,16 +20,16 @@
                                 <div><strong>{{__("Name:")}}</strong> {{$enquiry->name}}</div>
                                 <div><strong>{{__("Email:")}}</strong> {{$enquiry->email}}</div>
                                 <div><strong>{{__("Phone:")}}</strong> {{$enquiry->phone}}</div>
-                                <div><strong>{{__("Content:")}}</strong> {{$enquiry->note}}</div>
+                                <div><strong>{{__("Query:")}}</strong> {{$enquiry->note}}</div>
                             </div>
                             <hr>
                             <div class="form-group">
-                                <label>{{__("Reply Content")}}</label>
+                                <label>{{__("Reply Query")}}</label>
                                 <textarea required name="content" class="form-control" cols="30" rows="10"></textarea>
                             </div>
                     </div>
                     <div class="panel-footer">
-                        <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> {{__('Add New')}}</button>
+                        <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> {{__('Send Reply')}}</button>
                     </div>
                     </form>
                 </div>

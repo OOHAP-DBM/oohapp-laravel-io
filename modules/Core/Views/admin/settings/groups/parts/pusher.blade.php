@@ -22,8 +22,8 @@
             </div>
         </div>
     </div>
-    <hr>
-    <div class="row">
+     <!--  <hr>
+   <div class="row">
         <div class="col-sm-4">
             <h3 class="form-group-title">{{__('Pusher API')}}</h3>
             <p class="form-group-desc">{{__('Change your API for pusher here. It will use for chat plugin and notification')}}</p>
@@ -64,6 +64,6 @@
             </div>
 
         </div>
-    </div>
+    </div> -->
 
 @endif

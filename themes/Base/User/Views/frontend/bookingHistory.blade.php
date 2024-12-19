@@ -1,8 +1,11 @@
 @extends('layouts.user')
 @section('content')
-    <h2 class="title-bar no-border-bottom">
-        {{__("Booking History")}}
+<div class="title-bar no-border-bottom"> 
+    <h2>
+        {{__("Self Booking")}}
     </h2>
+    <span>View and manage all bookings you have made for yourself. </span>
+</div>
     @include('admin.message')
     <div class="booking-history-manager">
         <div class="tabbable">
@@ -48,7 +51,7 @@
                     </div>
                 </div>
             @else
-                {{__("No Booking History")}}
+            {{ __("No booking till today (".\Carbon\Carbon::now()->format('jS M Y').")") }}
             @endif
         </div>
         <div class="modal" tabindex="-1" id="modal_booking_detail">

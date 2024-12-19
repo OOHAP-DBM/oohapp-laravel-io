@@ -29,7 +29,7 @@ class ModuleProvider extends ModuleServiceProvider
             'payout'=>[
                 "position"=>70,
                 'url'        => route('vendor.admin.payout.index'),
-                'title'      => __("Payouts :count",['count'=>$count ? sprintf('<span class="badge badge-warning">%d</span>',$count) : '']),
+                'title'      => __("Payouts-<em> coming soon</em>:count",['count'=>$count ? sprintf('<span class="badge badge-warning">%d</span>',$count) : '']),
                 'icon'       => 'icon ion-md-card',
                 'permission' => 'user_create',
             ]
@@ -67,7 +67,7 @@ class ModuleProvider extends ModuleServiceProvider
         {
             $res['payout']= [
                 'url'        => route('vendor.payout.index'),
-                'title'      => __("Payouts"),
+                'title'      => __("Payouts - <em>coming soon</em>"),
                 'icon'       => 'icon ion-md-card',
                 'position'   => 90,
                 'permission' => 'dashboard_vendor_access',
