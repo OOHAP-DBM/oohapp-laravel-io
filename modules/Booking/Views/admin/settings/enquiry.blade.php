@@ -5,7 +5,7 @@
             <p class="form-group-desc">{{__('Change your enquiry options')}}</p>
         </div>
         <div class="col-sm-8">
-            <div class="panel">
+            <!-- <div class="panel">
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-6">
@@ -28,8 +28,8 @@
                     </div>
 
                 </div>
-            </div>
-            <div class="panel">
+            </div> -->
+            <!-- <div class="panel">
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-6">
@@ -51,7 +51,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="panel">
                 <div class="panel-body">
                     <div class="row">
@@ -75,7 +75,7 @@
                     </div>
                 </div>
             </div>
-            <div class="panel">
+            <!-- <div class="panel">
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-6">
@@ -120,7 +120,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> 
             <div class="panel">
                 <div class="panel-body">
                     <div class="row">
@@ -143,9 +143,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
         </div>
-    </div>
+    </div>  
     <hr>
     <div class="row">
         <div class="col-sm-4">

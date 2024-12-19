@@ -49,12 +49,12 @@ class ModuleProvider extends \Modules\ModuleServiceProvider
                         'icon'       => 'icon ion ion-md-mail',
                         'permission' => 'contact_manage',
                     ],
-                    'buy_credit_report'=>[
-                        'parent'=>'report',
-                        'url'=>route('user.admin.wallet.report'),
-                        'title'=>__("Credit Purchase Report :count",['count'=>$pending_purchase ? sprintf('<span class="badge badge-warning">%d</span>',$pending_purchase) : '']),
-                        'icon'=>'fa fa-money'
-                    ]
+                    // 'buy_credit_report'=>[
+                    //     'parent'=>'report',
+                    //     'url'=>route('user.admin.wallet.report'),
+                    //     'title'=>__("Credit Purchase Report :count",['count'=>$pending_purchase ? sprintf('<span class="badge badge-warning">%d</span>',$pending_purchase) : '']),
+                    //     'icon'=>'fa fa-money'
+                    // ]
                 ]
             ],
         ];

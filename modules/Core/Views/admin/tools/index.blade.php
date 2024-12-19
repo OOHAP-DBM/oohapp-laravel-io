@@ -81,7 +81,7 @@
                             @endif
                             @if($user->hasPermission('plugin_manage'))
                                 @php $hasAvailableTools = true; @endphp
-                                <div class="col-md-4">
+                                <!-- <div class="col-md-4">
                                     <div class="area-setting-item">
                                         <a class="setting-item-link" href="{{route('core.admin.plugins.index')}}">
                                         <span class="setting-item-media">
@@ -93,7 +93,7 @@
                                         </span>
                                         </a>
                                     </div>
-                                </div>
+                                </div> -->
                             @endif
                                 <div class="col-md-4">
                                     <div class="area-setting-item">

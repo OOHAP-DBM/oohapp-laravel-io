@@ -1,0 +1,13 @@
+9999999999s:893:"<h2 style="text-align: center;"><strong>Dear OOHApp Admin,</strong></h2>
+<p style="text-align: center;">You have received a new enquiry for one of your system-managed hoardings. Please find the details of the enquiry below:</p>
+<hr />
+<p style="text-align: center;"><strong>Enquiry Details</strong></p>
+<p style="text-align: center;"><strong>Customer Name</strong>: [name]</p>
+<p style="text-align: center;"><strong>Contact Email</strong>: [email]</p>
+<p style="text-align: center;"><strong>Contact Number</strong>: [phone]</p>
+<p style="text-align: center;"><strong>Hoarding Location</strong>: [service_name]</p>
+<p style="text-align: center;"><strong>Enquery Message</strong>: [note]</p>
+<hr />
+<p style="text-align: center;">Please review the enquiry and respond to the customer promptly to discuss further details.&nbsp;</p>
+<hr />
+<div style="text-align: center;">&nbsp;</div>";

@@ -51,7 +51,8 @@
                             <th width="60px"><input type="checkbox" class="check-all"></th>
                             <th>{{__('Name')}}</th>
                             <th>{{__('Email')}}</th>
-                            <th>{{__('Credit')}}</th>
+                            <!-- <th>{{__('Credit')}}</th> -->
+                             <th></th>
                             <th>{{__('Phone')}}</th>
                             <th>{{__('Role')}}</th>
                             <th class="date">{{ __('Date')}}</th>
@@ -87,7 +88,7 @@
                                                 <a class="dropdown-item"  href="#" ><i class="fa fa-check"></i> {{__('Email verified')}}</a>
                                             @endif
                                             <a class="dropdown-item" href="{{route('user.admin.password',['id'=>$row->id])}}"><i class="fa fa-lock"></i> {{__('Change Password')}}</a>
-                                            <a href="{{route('user.admin.wallet.addCredit',['id'=>$row->id])}}" class="dropdown-item"><i class="fa fa-plus"></i> {{__("Add Credit")}}</a>
+                                            <!-- <a href="{{route('user.admin.wallet.addCredit',['id'=>$row->id])}}" class="dropdown-item"><i class="fa fa-plus"></i> {{__("Add Credit")}}</a> -->
                                         </div>
                                     </div>
                                 </td>

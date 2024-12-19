@@ -7,7 +7,7 @@
     </h2>
 @else
     <h2 class="title-bar">
-        {{__("Profile Info")}}
+        {{__("Profile Information")}}
         <a href="{{route('user.change_password')}}" class="btn-change-password">{{__("Change Password")}}</a>
     </h2>
     @endif
@@ -215,17 +215,32 @@
         <i class="fa fa-user input-icon"></i>
     </div>  
 
-    <div class="form-group">
+    <div class="form-group"id="panContainer"style=" margin-bottom: 1rem;">
         <label>{{__("PAN Number")}}</label>
-        <input type="text" value="{{old('business_pan_number', $dataUser->business_pan_number)}}" name="business_pan_number" placeholder="{{__("Business PAN Number")}}" class="form-control" id="business_pan_number">
+        <input type="text" value="{{old('business_pan_number', $dataUser->business_pan_number)}}" name="business_pan_number" id="business_pan_number" placeholder="{{__("Business PAN Number")}}" class="form-control" id="business_pan_number">
         <i class="fa fa-id-card input-icon"></i>
+       
     </div>
+    <span id="panError" style="color: red; display: none; margin-top:10px;">Invalid PAN format. Example: ABCDE1234F</span>
+    <!-- <div class="form-group">
+    <label>{{__("PAN Number")}}</label>
+    <input 
+        type="text" 
+        value="{{old('business_pan_number', $dataUser->business_pan_number)}}" 
+        name="business_pan_number" 
+        placeholder="{{__("Business PAN Number")}}" 
+        class="form-control" 
+        id="business_pan_number">
+    <i class="fa fa-id-card input-icon"></i>
+    <small id="panError" style="color: red; display: none;">Invalid PAN format. Example: ABCDE1234F</small>
+</div> -->
 
-    <div class="form-group">
+    <div class="form-group"id="gstContainer" style=" margin-bottom: 1rem;">
         <label>{{__("GST Number")}}</label>
-        <input type="text" value="{{old('business_gst_number', $dataUser->business_gst_number)}}" name="business_gst_number" placeholder="{{__("Business GST Number")}}" class="form-control" id="business_gst_number">
+        <input type="text" value="{{old('business_gst_number', $dataUser->business_gst_number)}}" name="business_gst_number" id="business_gst_number" placeholder="{{__("Business GST Number")}}" class="form-control" id="business_gst_number">
         <i class="fa fa-money input-icon"></i>
     </div>
+    <span id="gstError" style="color: red; display: none; margin-top:10px;">Invalid GST format. Example: 22ABCDE1234F1Z5</span>
 
     <div class="form-group">
         <label>{{__("Business Address")}}</label>
@@ -365,6 +380,74 @@
     // Initial check on page load (in case there is already a value in the Business name field)
     $(document).ready(function() {
         toggleRequiredFields();
+    });
+</script>
+<script>
+        // Function to validate PAN on blur (when user finishes typing)
+        function validatePAN() {
+        var pan = $('#business_pan_number').val().trim(); // Get the input value
+        var panPattern = /^[A-Z]{5}[0-9]{4}[A-Z]$/; // Regex for PAN format
+
+        if (pan === "") {
+            // Clear error if field is empty
+            $('#panError').hide();
+            $('#panContainer').css('margin-bottom', '1rem');
+            $('#business_pan_number').removeClass('is-invalid').removeClass('is-valid');
+        } else if (panPattern.test(pan)) {
+            // Valid PAN
+            $('#panError').hide();
+            $('#panContainer').css('margin-bottom', '1rem');
+            $('#business_pan_number').removeClass('is-invalid').addClass('is-valid');
+        } else {
+            // Invalid PAN
+            $('#panError').show();
+            $('#panContainer').css('margin-bottom', '0rem');
+            $('#business_pan_number').removeClass('is-valid').addClass('is-invalid');
+        }
+    }
+
+    // Validate PAN when the user finishes typing and leaves the field
+    $('#business_pan_number').on('blur', function () {
+        validatePAN();
+    });
+
+    // Initial check on page load in case the field is pre-filled
+    $(document).ready(function () {
+        validatePAN();
+    });
+</script>
+<script>
+    // Function to validate GST number
+    function validateGST() {
+        var gst = $('#business_gst_number').val().trim(); // Get input value
+        var gstPattern = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[A-Z0-9]{3}$/; // Regex for GST format
+
+        if (gst === "") {
+            // Clear error if field is empty
+            $('#gstError').hide();
+            $('#gstContainer').css('margin-bottom', '1rem');
+            $('#business_gst_number').removeClass('is-invalid').removeClass('is-valid');
+        } else if (gstPattern.test(gst)) {
+            // Valid GST number
+            $('#gstError').hide();
+            $('#gstContainer').css('margin-bottom', '1rem');
+            $('#business_gst_number').removeClass('is-invalid').addClass('is-valid');
+        } else {
+            // Invalid GST number
+            $('#gstError').show();
+            $('#gstContainer').css('margin-bottom', '0rem');
+            $('#business_gst_number').removeClass('is-valid').addClass('is-invalid');
+        }
+    }
+
+    // Validate GST when the user finishes typing and leaves the field
+    $('#business_gst_number').on('blur', function () {
+        validateGST();
+    });
+
+    // Initial check on page load in case the field is pre-filled
+    $(document).ready(function () {
+        validateGST();
     });
 </script>
 @endsection

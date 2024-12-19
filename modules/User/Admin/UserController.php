@@ -172,7 +172,7 @@ class UserController extends AdminController
         $rules = [
             'first_name'              => 'required|max:255',
             'last_name'              => 'required|max:255',
-            'business_name'              => 'required|max:255',
+            // 'business_name'              => 'required|max:255',
             'status'              => 'required|max:50',
             'role_id'              => 'required|max:11',
             'email'              =>[
@@ -182,6 +182,10 @@ class UserController extends AdminController
                 $id > 0 ? Rule::unique('users')->ignore($row->id) : Rule::unique('users')
             ],
         ];
+        if ($request->input('role_id') == '2') { 
+            $rules['business_name'] = 'required|max:255';
+            $rules['user_name'] = 'required|max:255';
+        }
 
         $request->validate($rules,[
             'business_name.required'=>__("Display name is a required field")
