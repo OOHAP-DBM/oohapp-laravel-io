@@ -127,6 +127,7 @@
 	{!! App\Helpers\MapEngine::scripts() !!}
 @endif
 <script src="{{ asset('libs/pusher.min.js') }}"></script>
+<script src="{{asset('libs/datepicker/jquery-ui.min.js')}}"></script>
 <script src="{{ asset('js/home.js?_ver='.config('app.asset_version')) }}"></script>
 
 @if(!empty($is_user_page))
