@@ -646,6 +646,7 @@ class BookingController extends \App\Http\Controllers\Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function setPaidAmount(Request $request){
+     
         $rules =  [
             'remain'   => 'required|integer',
             'id' => 'required'

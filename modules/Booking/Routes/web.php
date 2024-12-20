@@ -14,10 +14,11 @@ Route::group(['prefix'=>config('booking.booking_route_prefix')],function(){
 	Route::get('/export-ical/{type}/{id}','BookingController@exportIcal')->name('booking.admin.export-ical');
     //inquiry
     Route::post('/addEnquiry','BookingController@addEnquiry');
-    Route::post('/setPaidAmount','BookingController@setPaidAmount')->name('booking.setPaidAmount')->middleware(['auth','dashboard']);
-
+    
+    Route::post('/setPaidAmount','BookingController@setPaidAmount')->name('booking.setPaidAmount')->middleware(['auth']);
     Route::get('/modal/{booking}','BookingController@modal')->name('booking.modal');
 });
+// Route::post('/setPaidAmount','BookingController@setPaidAmount')->name('booking.setPaidAmount')->middleware(['auth','dashboard']);
 
 
 Route::group(['prefix'=>'gateway'],function(){
