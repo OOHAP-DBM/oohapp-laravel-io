@@ -8,7 +8,8 @@
             <div id="bravo-checkout-page" >
                 <div class="row">
                     <div class="col-md-8">
-                        <h3 class="form-title">{{__('Booking Submission')}}</h3>
+                        <h3 class="form-title">{{__('Booking Submission')}} <br> <span style="font-size: 14px; font-weight:400;">{{__('Provide your contact details to complete the booking process')}}</span></h3>
+                        
                          <div class="booking-form">
                              @include ($service->checkout_form_file ?? 'Booking::frontend/booking/checkout-form')
                              @if(!empty($token = request()->input('token')))
