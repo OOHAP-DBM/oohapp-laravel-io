@@ -10,7 +10,7 @@ $service = $row->service;
             <div class="col-md-3">
                 @if($service->is_featured == "1")
                     <div class="featured">
-                        {{__("Featured")}}
+                        {{__("Recommended")}}
                     </div>
                 @endif
                 <div class="thumb-image">
