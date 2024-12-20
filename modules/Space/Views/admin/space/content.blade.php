@@ -14,15 +14,15 @@
 
         {{-- Add New Filed 15/11/2024 Start --}}
         <div class="row">
-            <div class="col-lg-6">
+            <!-- <div class="col-lg-6">
                 <div class="form-group">
                     <label>{{ __('Hoarding Title') }}<span class="text-danger">*</span></label>
                     <input type="text" value="{!! clean($translation->title) !!}"
                         placeholder="{{ __('Name of the hoarding') }}" maxlength="42" name="title" class="form-control form-input"
                         required>
                 </div>
-            </div>
-            <div class="col-lg-3">
+            </div> -->
+            <div class="col-lg-6">
                 <div class="form-group">
                     <label class="control-label">{{ __('Hoarding Type') }}<span class="text-danger">*</span></label>
                     <div>
@@ -35,7 +35,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-6">
                 @if (is_default_lang())
                 <div class="form-group">
                     <label class="control-label">{{ __('Hoarding Category') }} <span class="text-danger">*</span></label>
