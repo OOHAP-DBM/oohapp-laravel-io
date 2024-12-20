@@ -8,6 +8,6 @@
         <textarea name="content" class="d-none has-ckeditor" cols="30" rows="10" >{{$row->content}}</textarea>
     </div>
     <div class="" id="textarea">
-        <textarea name="content" class="" cols="30" rows="10" style="width: 100%;">{!! strip_tags($row->content) !!}</textarea>
+        <textarea name="content_text" class="" cols="30" rows="10" style="width: 100%;">{!! strip_tags($row->content) !!}</textarea>
     </div>
 </div>

@@ -120,8 +120,6 @@
 
         const ckEditor = document.getElementById('ckeditor');
         const textArea = document.getElementById('textarea');
-        const ckEditorTextArea = ckEditor.querySelector('textarea');
-        const plainTextArea = textArea.querySelector('textarea');
 
         const announcementTypeSelect = document.getElementById('announcement_type');
         const titleSection = document.getElementById('title-section');
@@ -180,23 +178,6 @@
                 document.getElementById('textarea').style.display = 'none'; // Hide Textarea
             }
         }
-
-         // Sync content before form submission
-        const form = document.querySelector('form'); // Select your form element
-        form.addEventListener('submit', function (event) {
-            event.preventDefault(); // Prevent the default form submission
-
-            if (ckEditorDiv.style.display === 'block') {
-                // CKEditor is visible; copy its value to the plain textarea
-                plainTextArea.value = ckEditorTextArea.value;
-            }else if(textArea.style.display === 'block') {
-                // Textarea is visible; copy its value to the CKEditor textarea
-                ckEditorTextArea.value = plainTextArea.value;
-            }
-
-            // Now programmatically submit the form
-            form.submit();
-        });
 
         // Initialize the visibility based on the current selection
         toggleSections();

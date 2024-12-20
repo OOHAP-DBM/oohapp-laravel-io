@@ -138,6 +138,10 @@ class AnnouncementController extends AdminController
             $row->only_for_user = null; // Clear only_for_user if user_type is role
         }
 
+        if ($row->via == 'sms') {
+            $row->content = $request->get('content_text');
+        }
+
         // Conditional logic for `via`
         if ($row->via != 'email') {
             $row->title = null; // Clear title if email is not selected
