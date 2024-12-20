@@ -10,8 +10,8 @@
                     <div class="d-flex align-items-center">
                         <img src="{{url('images/ico_success.svg')}}" alt="Payment Success">
                         <div class="notice-success">
-                            <p class="line1"><span> Thank you, {{$booking->first_name}},</span>
-                                {{__('Your booking has been successfully submitted')}}
+                            <p class="line1"><span> Thank you, {{$booking->first_name}}!</span>
+                                {{__('Your booking has been successfully submitted.')}}
                             </p>
                             <p class="line2">{{__('We’ve sent the booking details to')}}   <a href="mailto:{{$booking->email}}">
         <span>{{$booking->email}}</span>
@@ -29,7 +29,7 @@
                             What’s next?
                             </p>
                             <p class="line2"style ="font-size: 14px;">Your request has been routed to the vendor. They will review your booking and contact you directly via phone or email to confirm the details or queries. Please ensure your contact information is active and accessible to avoid delays.
-                                We appreciate your trust in our platform and look forward to serving you!
+                              <br>  We appreciate your trust in our platform and look forward to serving you!
                             </p>
                         </div>
                     </div>
