@@ -23,7 +23,6 @@
                             @case ('attr')
                                 @include('Space::frontend.layouts.search.fields.attr')
                             @break
-                          
                         @endswitch
                     </div>
                 @endforeach

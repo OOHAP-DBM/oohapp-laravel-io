@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\Vendor\Controllers;
 
 use App\Helpers\ReCaptchaEngine;
@@ -55,6 +56,19 @@ class VendorController extends FrontendController
                 'string'
             ],
             'term'       => ['required'],
+            'business_pan_number' => [
+                'required',
+                'string',
+            ],
+            'business_gst_number' => [
+                'required',
+                'string',
+            ],
+            'business_address' => [
+                'required',
+                'string',
+                'max:500'
+            ],
         ];
         $messages = [
             'email.required'      => __('Email is required field'),
@@ -64,6 +78,9 @@ class VendorController extends FrontendController
             'last_name.required'  => __('The last name is required field'),
             'business_name.required'  => __('The business name is required field'),
             'term.required'       => __('The terms and conditions field is required'),
+            'business_pan_number.required' => __('The business PAN number is required'),
+            'business_gst_number.required' => __('The business GST number is required'),
+            'business_address.required'    => __('The business address is required'),
         ];
         if (ReCaptchaEngine::isEnable() and setting_item("user_enable_register_recaptcha")) {
             $messages['g-recaptcha-response.required'] = __('Please verify the captcha');
@@ -89,12 +106,15 @@ class VendorController extends FrontendController
             $user = new \App\User();
 
             $user = $user->fill([
-                'first_name'=>$request->input('first_name'),
-                'last_name'=>$request->input('last_name'),
-                'email'=>$request->input('email'),
-                'password'=>Hash::make($request->input('password')),
-                'business_name'=>$request->input('business_name'),
-                'phone'=>$request->input('phone'),
+                'first_name' => $request->input('first_name'),
+                'last_name' => $request->input('last_name'),
+                'email' => $request->input('email'),
+                'password' => Hash::make($request->input('password')),
+                'business_name' => $request->input('business_name'),
+                'phone' => $request->input('phone'),
+                'business_pan_number' => $request->input('business_pan_number'),
+                'business_gst_number' => $request->input('business_gst_number'),
+                'business_address' => $request->input('business_address'),
             ]);
             $user->status = 'publish';
 

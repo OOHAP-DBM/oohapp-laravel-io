@@ -1,65 +1,83 @@
 @push('css')
-    <link href="{{ asset('module/vendor/css/vendor-register.css?_ver='.config('app.asset_version')) }}" rel="stylesheet">
+<link href="{{ asset('module/vendor/css/vendor-register.css?_ver='.config('app.asset_version')) }}" rel="stylesheet">
 @endpush
 <div class="container">
     <div class="bravo-vendor-form-register py-5 @if(!empty($layout)) {{ $layout }} @endif">
         <div class="row">
-            <div class="col-12 col-lg-5">
+            <form class="form bravo-form-register-vendor col-12" method="post" action="{{route('vendor.register')}}">
                 <h1>{{$title}}</h1>
                 <p class="sub-heading">{{$desc}}</p>
-                <form class="form bravo-form-register-vendor" method="post" action="{{route('vendor.register')}}">
-                    @csrf
+                <div class="row">
+                    <div class="col-12 col-lg-6">
+                        @csrf
 
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="first_name" autocomplete="off" placeholder="{{__("First Name")}}">
-                        <span class="invalid-feedback error error-first_name"></span>
-                    </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="first_name" autocomplete="off" placeholder="{{__("First Name")}}">
+                            <span class="invalid-feedback error error-first_name"></span>
+                        </div>
 
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="last_name" autocomplete="off" placeholder="{{__("Last Name")}}">
-                        <span class="invalid-feedback error error-last_name"></span>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="last_name" autocomplete="off" placeholder="{{__("Last Name")}}">
+                            <span class="invalid-feedback error error-last_name"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="phone" autocomplete="off" placeholder="{{__("Phone")}}">
+                            <span class="invalid-feedback error error-phone"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" name="email" autocomplete="off" placeholder="{{__("Email")}}">
+                            <span class="invalid-feedback error error-email"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="password" autocomplete="off" placeholder="{{__("Password")}}">
+                            <span class="invalid-feedback error error-password"></span>
+                        </div>
+                        <div class="message-error"></div>
                     </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="business_name" autocomplete="off" placeholder="{{__("Business Name")}}">
-                        <span class="invalid-feedback error error-business_name"></span>
+                    <div class="col-12 col-lg-6">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="business_name" autocomplete="off" placeholder="{{__("Business Name")}}">
+                            <span class="invalid-feedback error error-business_name"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="business_pan_number" autocomplete="off" placeholder="{{__("Business PAN Number")}}">
+                            <span class="invalid-feedback error error-business_pan_number"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="business_gst_number" autocomplete="off" placeholder="{{__("Business GST Number")}}">
+                            <span class="invalid-feedback error error-business_gst_number"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="business_address" autocomplete="off" placeholder="{{__("Business Address")}}">
+                            <span class="invalid-feedback error error-business_address"></span>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="phone" autocomplete="off" placeholder="{{__("Phone")}}">
-                        <span class="invalid-feedback error error-phone"></span>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" class="form-control" name="email" autocomplete="off" placeholder="{{__("Email")}}">
-                        <span class="invalid-feedback error error-email"></span>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" name="password" autocomplete="off" placeholder="{{__("Password")}}">
-                        <span class="invalid-feedback error error-password"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="term">
-                            <input id="term" type="checkbox" name="term" class="mr5">
-                            {!! __("I have read and accept the <a href=':link' target='_blank'>Terms and Privacy Policy</a>",['link'=>get_page_url(setting_item('vendor_term_conditions'))]) !!}
-                            <span class="checkmark fcheckbox"></span>
-                        </label>
-                        <div><span class="invalid-feedback error error-term"></span></div>
-                    </div>
-                    @if(setting_item("user_enable_register_recaptcha"))
+                    <div class="col-12 col-lg-6">
+                        <div class="form-group">
+                            <label for="term">
+                                <input id="term" type="checkbox" name="term" class="mr5">
+                                {!! __("I have read and accept the <a href=':link' target='_blank'>Terms and Privacy Policy</a>",['link'=>get_page_url(setting_item('vendor_term_conditions'))]) !!}
+                                <span class="checkmark fcheckbox"></span>
+                            </label>
+                            <div><span class="invalid-feedback error error-term"></span></div>
+                        </div>
+                        @if(setting_item("user_enable_register_recaptcha"))
                         <div class="form-group">
                             {{recaptcha_field($captcha_action ?? 'register_vendor')}}
                             <div><span class="invalid-feedback error error-g-recaptcha-response"></span></div>
                         </div><!--End form-group-->
-                    @endif
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary form-submit">
-                            {{ __('Sign Up') }}
-                            <span class="spinner-grow spinner-grow-sm icon-loading" role="status" aria-hidden="true" style="display: none"></span>
-                        </button>
+                        @endif
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary form-submit">
+                                {{ __('Sign Up') }}
+                                <span class="spinner-grow spinner-grow-sm icon-loading" role="status" aria-hidden="true" style="display: none"></span>
+                            </button>
+                        </div>
                     </div>
-                    <div class="message-error"></div>
-                </form>
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-12 col-lg-6">
+                </div>
+            </form>
+            <!-- <div class="col-md-1"></div> -->
+            <!-- <div class="col-12 col-lg-6">
                 <div class="bravo_gallery">
                     <div class="btn-group">
                         <span class="btn-transparent has-icon bravo-video-popup" @if(!empty($youtube)) data-toggle="modal" @endif data-src="{{ handleVideoUrl($youtube) }}" data-target="#video-register">
@@ -88,10 +106,10 @@
                     @endif
                 </div>
 
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
 @push('js')
-    <script type="text/javascript" src="{{ asset("/module/vendor/js/vendor-register.js?_ver=".config('app.version')) }}"></script>
+<script type="text/javascript" src="{{ asset("/module/vendor/js/vendor-register.js?_ver=".config('app.version')) }}"></script>
 @endpush

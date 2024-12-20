@@ -1,0 +1,25 @@
+[2024-12-20 13:38:00] production.INFO: Broadcasting [App\Events\PusherNotificationAdminEvent] on channels [admin-channel] with payload:
+{
+    "message": "Pratham kvell has requested to become a vendor",
+    "avatar": "<img class=\"image-responsive\" src=\"http:\/\/127.0.0.1:8000\/images\/avatar.png\" alt=\"Pratham kvell\">",
+    "link": "http:\/\/127.0.0.1:8000\/admin\/module\/user\/userUpgradeRequest",
+    "idNotification": "73fa96cf-fd99-4895-a763-453ad454d229",
+    "socket": null
+}  
+[2024-12-20 14:50:08] production.INFO: Broadcasting [App\Events\PusherNotificationPrivateEvent] on channels [user-channel-206] with payload:
+{
+    "message": "Your upgrade request has approved already",
+    "avatar": "<img class=\"image-responsive\" src=\"http:\/\/127.0.0.1:8000\/images\/avatar.png\" alt=\"Pratham kvell\">",
+    "link": "http:\/\/127.0.0.1:8000\/user\/dashboard",
+    "idNotification": "543da906-c23a-4c54-8ff7-cc499bd5a0c1",
+    "userId": 206,
+    "socket": null
+}  
+[2024-12-20 15:30:00] production.INFO: Broadcasting [App\Events\PusherNotificationAdminEvent] on channels [admin-channel] with payload:
+{
+    "message": "mahan kvell has been registered",
+    "avatar": "<img class=\"image-responsive\" src=\"http:\/\/127.0.0.1:8000\/images\/avatar.png\" alt=\"mahan kvell\">",
+    "link": "http:\/\/127.0.0.1:8000\/admin\/module\/user?s=207",
+    "idNotification": "048820ec-7b3d-4bdb-a6c0-7c4114a0cd5e",
+    "socket": null
+}  
