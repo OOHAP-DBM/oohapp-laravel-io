@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\User\Controllers;
 
 use Illuminate\Auth\Events\Registered;

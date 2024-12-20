@@ -693,4 +693,43 @@ class BookingController extends \App\Http\Controllers\Controller
 
         return view('Booking::frontend.detail.modal',['booking'=>$booking,'service'=>$booking->service]);
     }
+
+    public function getLocationDetails($zipcode)
+    {
+        $apiKey = 'AIzaSyBwHMc5ARYhtAdmTMJpYxt3E8-olzKNC7U';
+        $url = "https://maps.googleapis.com/maps/api/geocode/json?address={$zipcode}&key={$apiKey}";
+
+        // Fetch data from the API
+        $response = file_get_contents($url);
+        $data = json_decode($response, true);
+
+        if ($data['status'] === 'OK') {
+            $addressComponents = $data['results'][0]['address_components'];
+            $city = '';
+            $state = '';
+            $country = '';
+
+            // Iterate through address components to extract details
+            foreach ($addressComponents as $component) {
+                if (in_array('locality', $component['types'])) {
+                    $city = $component['long_name'];
+                } elseif (in_array('administrative_area_level_1', $component['types'])) {
+                    $state = $component['long_name'];
+                } elseif (in_array('country', $component['types'])) {
+                    $country = $component['long_name'];
+                }
+            }
+
+            return response()->json([
+                'city' => $city,
+                'state' => $state,
+                'country' => $country,
+            ]);
+        } else {
+            // Handle errors
+            return response()->json([
+                'error' => 'Unable to fetch location details: ' . $data['status']
+            ], 400);
+        }
+    }
 }

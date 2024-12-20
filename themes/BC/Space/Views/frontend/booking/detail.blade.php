@@ -50,7 +50,7 @@
                     </li>
                     @if($booking->getMeta("booking_type") == "by_day")
                         <li>
-                            <div class="label">{{__('Days:')}}</div>
+                            <div class="label">{{__('Duration:')}}</div>
                             <div class="val">
                                 {{$booking->duration_days}}
                             </div>
@@ -102,7 +102,7 @@
                 @endphp
                 @if(!empty($price_item))
                     <li>
-                        <div class="label">{{__('Rental price')}}
+                        <div class="label">{{__('Hoarding price')}}
                         </div>
                         <div class="val">
                             {{format_money( $price_item)}}

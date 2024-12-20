@@ -18,7 +18,7 @@ Route::group(['prefix'=>config('booking.booking_route_prefix')],function(){
     Route::post('/setPaidAmount','BookingController@setPaidAmount')->name('booking.setPaidAmount')->middleware(['auth']);
     Route::get('/modal/{booking}','BookingController@modal')->name('booking.modal');
 });
-// Route::post('/setPaidAmount','BookingController@setPaidAmount')->name('booking.setPaidAmount')->middleware(['auth','dashboard']);
+Route::get('/get-location-details/{zipcode}','BookingController@getLocationDetails')->name('booking.frontend.get.city.state');
 
 
 Route::group(['prefix'=>'gateway'],function(){
