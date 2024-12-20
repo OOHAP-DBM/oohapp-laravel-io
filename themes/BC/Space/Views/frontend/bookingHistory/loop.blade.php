@@ -51,9 +51,9 @@
             <i class="fa fa-print"></i>{{__("Invoice")}}
         </a>
         @if($booking->status == 'unpaid')
-            <a href="{{route('booking.checkout',['code'=>$booking->code])}}" class="btn btn-xs btn-primary btn-info-booking open-new-window mt-1">
+            <!-- <a href="{{route('booking.checkout',['code'=>$booking->code])}}" class="btn btn-xs btn-primary btn-info-booking open-new-window mt-1">
                 {{__("Pay now")}}
-            </a>
+            </a> -->
         @endif
     </td>
 </tr>

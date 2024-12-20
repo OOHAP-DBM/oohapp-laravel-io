@@ -36,8 +36,10 @@
                 <span class="text-price">
                     {{ $row->display_price }}
                     @if($row->getBookingType()=="by_day")
+                    <span class="unit">{{__("/Month")}}</span>
                         <!-- <span class="unit">{{__("Min. Spend")}}</span> -->
                     @else
+                    <span class="unit">{{__("/Month")}}</span>
                         <!-- <span class="unit">{{__("Min. Spend")}}</span> -->
                     @endif
                 </span>

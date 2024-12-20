@@ -122,7 +122,7 @@ class PlanController extends FrontendController
         }
 
         $messages['term_conditions.required'] = __('Term conditions is required field');
-        $messages['payment_gateway.required'] = __('Payment gateway is required field');
+        $messages['payment_gateway.required'] = __('Payment method is required field');
         $validator = Validator::make($request->all(), $rules, $message);
         if ($validator->fails()) {
             if (is_array($validator->errors()->messages())) {

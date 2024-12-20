@@ -24,12 +24,12 @@
     <input type="hidden" name="redirect" value="{{request()->query('redirect')}}">
     @csrf
     <div class="form-group">
-        <input type="email" class="form-control" name="email" style="padding: 0.375rem 1.75rem;" autocomplete="off" placeholder="&nbsp;&nbsp;&nbsp;{{__('Email address')}}">
+        <input type="email" class="form-control" name="email" style="padding: 0.375rem 2.5rem;" autocomplete="off" placeholder="{{__('Email address')}}">
         <i class="input-icon ss icofont-mail"></i>
         <span class="invalid-feedback error error-email"></span>
     </div>
     <div class="form-group">
-            <input type="password" class="form-control" name="password" id="password" style="padding: 0.375rem 1.75rem;" autocomplete="off" placeholder="&nbsp;&nbsp;&nbsp;{{__('Password')}}">
+            <input type="password" class="form-control" name="password" id="password" style="padding: 0.375rem 2.5rem;" autocomplete="off" placeholder="{{__('Password')}}">
             <i class="input-icon ss icofont-ui-password"></i>
             <span class="input-group-text password-toggle" id="password-toggle">
                                         <i class="icofont-eye"></i>
@@ -59,7 +59,7 @@
         </button>
     </div>
     @if(setting_item('facebook_enable') or setting_item('google_enable') or setting_item('twitter_enable'))
-        <div class="advanced">
+        <div class="advanced"style="margin-bottom:20px">
             <p class="text-center f14 c-grey">{{__('or continue with')}}</p>
             <div class="row">
                 @if(setting_item('facebook_enable'))

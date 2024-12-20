@@ -220,7 +220,7 @@ class BookingController extends \App\Http\Controllers\Controller
         if (!empty($rules)) {
 
             $messages['term_conditions.required']    = __('Term conditions is required field');
-            $messages['payment_gateway.required'] = __('Payment gateway is required field');
+            $messages['payment_gateway.required'] = __('Payment method is required field');
 
             $validator = Validator::make($request->all(), $rules , $messages );
             if ($validator->fails()) {

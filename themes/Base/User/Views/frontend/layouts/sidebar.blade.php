@@ -10,7 +10,7 @@ $menus = [
     ],
     'booking-history' => [
         'url'      => route("user.booking_history"),
-        'title'    => __("Booking History"),
+        'title'    => __("Self Booking"),
         'icon'     => 'fa fa-clock-o',
         'position' => 20
     ],
