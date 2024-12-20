@@ -18,6 +18,7 @@ use Modules\Space\Models\SpaceTerm;
 use Modules\Space\Models\SpaceTranslation;
 use Modules\User\Models\Plan;
 use Modules\Space\Models\SpaceCategory;
+use Illuminate\Support\Facades\DB;
 
 class ManageSpaceController extends FrontendController
 {
@@ -200,9 +201,9 @@ class ManageSpaceController extends FrontendController
             ->value('name');
 
         $surrounding = $request->get('surrounding');
-        
+
         $surroundingStrings = [];
-        
+
         foreach ($surrounding as $entries) {
             foreach ($entries as $entry) {
                 if (isset($entry['name'], $entry['content'])) {
@@ -210,15 +211,72 @@ class ManageSpaceController extends FrontendController
                 }
             }
         }
-        
+
         $surroundingString = implode(' and ', $surroundingStrings);
+
+        $targetAudienceIds = array_keys($request->get('terms'));  // This will give [31, 141, 142, 143, 38, 41, 42]
+
+        // Fetch target audience names from `bravo_terms`
+        $targetAudienceNames = DB::table('bravo_terms')
+            ->whereIn('id', $targetAudienceIds)
+            ->pluck('name', 'id');
+        // $dailyFootfallId = 31;
+        // $nightVisibilityId = 38;
+        // $approvedFromNigamId = 42;
+
+        // $dailyFootfall = DB::table('bravo_attrs')
+        //     ->where('id', $dailyFootfallId)
+        //     ->value('name');  // Assuming you need the name
+
+        // $nightVisibility = DB::table('bravo_attrs')
+        //     ->where('id', $nightVisibilityId)
+        //     ->value('name');  // Assuming you need the name
+
+        // $approvedFromNigam = DB::table('bravo_attrs')
+        //     ->where('id', $approvedFromNigamId)
+        //     ->value('name');
+
+        $dailyFootfallId = 31;
+        $nightVisibilityId = 38;
+        $approvedFromNigamId = 42;
+        $terms = $request->get('terms');
+        // Step 1: Find the values for the specified IDs in the terms array
+        $dailyFootfallTermValue = $terms[$dailyFootfallId] ?? null;
+        $nightVisibilityTermValue = $terms[$nightVisibilityId] ?? null;
+        $approvedFromNigamTermValue = $terms[$approvedFromNigamId] ?? null;
+
+        // Step 2: Fetch names from bravo_terms table based on the term values
+        $dailyFootfallName = null;
+        $nightVisibilityName = null;
+        $approvedFromNigamName = null;
+
+        if ($dailyFootfallTermValue) {
+            $dailyFootfallName = DB::table('bravo_terms')
+                ->where('id', $dailyFootfallTermValue)
+                ->value('name');
+        }
+
+        if ($nightVisibilityTermValue) {
+            $nightVisibilityName = DB::table('bravo_terms')
+                ->where('id', $nightVisibilityTermValue)
+                ->value('name');
+        }
+
+        if ($approvedFromNigamTermValue) {
+            $approvedFromNigamName = DB::table('bravo_terms')
+                ->where('id', $approvedFromNigamTermValue)
+                ->value('name');
+        }
+
         $row->fillByAttr($dataKeys, $request->input());
         if ($row->surrounding) {
-            $row->title = $category_name . ' ' . $hoarding_type . ' in ' . $surroundingString;
+            $row->title = $category_name . ' ' . $hoarding_type . ' near ' . $surroundingString .
+                ' ideal for ' . implode(', ', $targetAudienceNames->toArray()) . ', ' .
+                $dailyFootfallName . ' | ' . $nightVisibilityName . ' | ' . $approvedFromNigamName;
         } else {
             $row->title = $category_name . ' ' . $hoarding_type . ' in ' . $request->get('address');
         }
-        
+      
         if (!auth()->user()->checkUserPlan() and $row->status == "publish") {
             return redirect(route('user.plan'));
         }
