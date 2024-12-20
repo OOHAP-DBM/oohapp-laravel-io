@@ -123,66 +123,76 @@
 @push('js')
     <script src="{{asset('libs/daterange/moment.min.js')}}"></script>
     <script src="{{asset('libs/daterange/daterangepicker.min.js?_ver='.config('app.asset_version'))}}"></script>
-    <script src="{{asset('libs/fullcalendar-4.2.0/core/main.js')}}"></script>
+    <!-- <script src="{{asset('libs/fullcalendar-4.2.0/core/main.js')}}"></script>
     <script src="{{asset('libs/fullcalendar-4.2.0/interaction/main.js')}}"></script>
-    <script src="{{asset('libs/fullcalendar-4.2.0/daygrid/main.js')}}"></script>
+    <script src="{{asset('libs/fullcalendar-4.2.0/daygrid/main.js')}}"></script> -->
+
+    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.15/index.global.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.15/index.global.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/multimonth@6.1.15/index.global.min.js'></script>
 
     <script>
 		var calendarEl,calendar,lastId,formModal;
-        $('#items_tab').on('show.bs.tab',function (e) {
-			calendarEl = document.getElementById('dates-calendar');
-			lastId = $(e.target).data('id');
-            if(calendar){
-				calendar.destroy();
-            }
-			calendar = new FullCalendar.Calendar(calendarEl, {
-                buttonText:{
-                    today:  '{{ __('Today') }}',
-                },
-
-				plugins: [ 'dayGrid' ,'interaction'],
-				header: {},
-				selectable: true,
-				selectMirror: false,
-				allDay:false,
-				editable: false,
-				eventLimit: true,
-				defaultView: 'dayGridMonth',
-                firstDay: daterangepickerLocale.first_day_of_week,
-				events:{
-                    	url:"{{route('space.admin.availability.loadDates')}}",
-						extraParams:{
-							id:lastId,
-                        }
-                },
-				loading:function (isLoading) {
-					if(!isLoading){
-						$(calendarEl).removeClass('loading');
-					}else{
-						$(calendarEl).addClass('loading');
-					}
-				},
-				select: function(arg) {
-                    formModal.show({
-                        start_date:moment(arg.start).format('YYYY-MM-DD'),
-                        end_date:moment(arg.end).format('YYYY-MM-DD'),
-                    });
-				},
-                eventClick:function (info) {
-					var form = Object.assign({},info.event.extendedProps);
-                    form.start_date = moment(info.event.start).format('YYYY-MM-DD');
-                    form.end_date = moment(info.event.start).format('YYYY-MM-DD');
-                    console.log(form);
-                    formModal.show(form);
-                },
-                eventRender: function (info) {
-                    $(info.el).find('.fc-title').html(info.event.title);
+        $(document).ready(function(){
+            $('#items_tab').on('show.bs.tab',function (event) {
+                if (!event) return;  // Ensure 'e' is defined before using it
+                calendarEl = document.getElementById('dates-calendar');
+                lastId = $(event.target).data('id');
+                console.log(lastId);
+                
+                if(calendar){
+                    calendar.destroy();
                 }
-			});
-			calendar.render();
-		});
+                console.log(lastId, 'here');
 
-        $('.event-name:first-child a').trigger('click');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'multiMonthYear',                                    
+                    header: {},
+                    selectable: true,
+                    selectMirror: false,
+                    allDay:false,
+                    editable: false,
+                    eventLimit: true,
+                    defaultView: 'dayGridMonth',
+                    initialView: 'multiMonthYear',
+                    firstDay: daterangepickerLocale.first_day_of_week,
+                    events:{
+                            url:"{{route('space.admin.availability.loadDates')}}",
+                            extraParams:{
+                                id:lastId,
+                            }
+                    },
+                    loading:function (isLoading) {
+                        if(!isLoading){
+                            $(calendarEl).removeClass('loading');
+                        }else{
+                            $(calendarEl).addClass('loading');
+                        }
+                    },
+                    select: function(arg) {
+                        formModal.show({
+                            start_date:moment(arg.start).format('YYYY-MM-DD'),
+                            end_date:moment(arg.end).format('YYYY-MM-DD'),
+                        });
+                    },
+                    eventClick:function (info) {
+                        var form = Object.assign({},info.event.extendedProps);
+                        form.start_date = moment(info.event.start).format('YYYY-MM-DD');
+                        form.end_date = moment(info.event.start).format('YYYY-MM-DD');
+                        console.log(form);
+                        formModal.show(form);
+                    },
+                    eventRender: function (info) {
+                        $(info.el).find('.fc-title').html(info.event.title);
+                    }
+                });
+
+                calendar.render();
+            });
+
+            $('.event-name:first-child a').trigger('click');
+        })
+
 
         formModal = new Vue({
             el:'#bravo_modal_calendar',
