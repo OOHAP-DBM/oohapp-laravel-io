@@ -6,6 +6,8 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Modules\Booking\Events\EnquirySendEvent;
+use Modules\Announcement\Events\AnnouncementCreatedEvent;
+use Modules\Announcement\Listeners\AnnouncementCreatedListen;
 use Modules\Booking\Listeners\EnquiryNotifyListen;
 use Modules\Booking\Listeners\EnquirySendListen;
 use Modules\User\Events\NewVendorRegistered;
@@ -54,6 +56,9 @@ class EventServiceProvider extends ServiceProvider
         EnquirySendEvent::class=>[
             EnquirySendListen::class,
             EnquiryNotifyListen::class
+        ],
+        AnnouncementCreatedEvent::class=>[
+            AnnouncementCreatedListen::class
         ]
     ];
 
